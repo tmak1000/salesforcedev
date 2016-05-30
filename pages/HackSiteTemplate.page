@@ -1,0 +1,15 @@
+<apex:page >
+    <head>
+        <title>
+            <apex:insert name="title" />
+        </title>
+        <apex:stylesheet value="{!$Resource.CommonCss}"/>
+        <apex:stylesheet value="{!$Resource.HackSiteCss}"/>
+    </head>
+    <body>
+        <div>            
+            <!-- Content -->
+            <apex:insert name="content"/>
+        </div>
+    </body>
+</apex:page>

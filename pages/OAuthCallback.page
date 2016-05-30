@@ -1,0 +1,15 @@
+<apex:page showHeader="false" sidebar="false" controller="OAuthCallbackController">
+  <apex:pageBlock title="Salesforce To Box Api OAuth And ApiCall">
+    <apex:pageMessages id="msg"/>
+    <apex:outputLabel value="Result:" />
+    <br/>
+    <textarea rows="10" cols="100">{!resBody}</textarea>
+  </apex:pageBlock>
+  <apex:form id="fm">
+    <apex:outputPanel rendered="{!NOT(ISNULL(resBody))}">
+      <apex:pageBlock >
+        <apex:commandButton action="{!apicall}" value="APICALL"/>
+      </apex:pageBlock>    
+      </apex:outputPanel>
+  </apex:form>
+ </apex:page>

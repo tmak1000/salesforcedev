@@ -1,0 +1,5 @@
+<apex:page standardController="Account">
+    <apex:form >
+        <apex:detail subject="{!account.AccountManage__c}" relatedList="false" inlineEdit="true" rendered="{!NOT(ISNULL(account.AccountManage__c))}" />
+    </apex:form>
+</apex:page>

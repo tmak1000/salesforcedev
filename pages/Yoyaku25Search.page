@@ -1,0 +1,92 @@
+<apex:page controller="Yoyaku25Controller"
+            cache="false"
+            showheader="false"
+            sidebar="false"
+            title="予約画面"
+            standardStylesheets="true"
+            id="page">
+
+<style>
+    .abledScriptForm {
+      display: none;
+    }
+    .disabledScriptForm {
+      display: block;
+    }
+    .pbSubheader{
+      margin-top: 0;
+      background-color: #9b9e72;
+      border-color: #9b9e72;
+      border-top: 0;
+      color: white;
+    }
+    .helptext{
+      color: red;
+      size: 2;
+    }
+    .box {
+      box-shadow: 0px 0px 5px 0px rgb(238, 238, 238);
+      background: none repeat scroll 0% 0% rgb(241, 241, 241);
+      border: 1px solid rgb(223, 223, 223);
+      border-radius: 5px 5px 5px 5px;
+      width: 90%;
+      padding: 15px 0px 10px;
+    }
+    .box_sc900004 {
+      margin: 0px auto;
+      width: 500px;
+    }
+    .usrn {
+      background-color: white;
+      border: 1px solid rgb(204, 204, 204);
+      border-radius: 3px 3px 0px 0px;
+      box-shadow: 0px 1px 1px 0px rgba(0, 0, 0, 0.2) inset;
+      margin-top: 15px;
+      padding: 12px;
+      margin-left: 10px;
+      margin-right: 10px;
+    }
+    .usrn2 {
+      background-color: white;
+      border: 1px solid rgb(204, 204, 204);
+      border-radius: 3px 3px 0px 0px;
+      box-shadow: 0px 1px 1px 0px rgba(0, 0, 0, 0.2) inset;
+      padding: 12px;
+      margin-left: 10px;
+      margin-right: 10px;
+    }
+  </style>
+    
+    <apex:define name="header">
+      <div style="padding: 10px 10px 0;">
+        <b style="font-size: 4em; color:#026218;">創業補助金</b>&nbsp;<font style="font-size: 2em;">予約画面</font>
+      </div>
+      <br/><br/>
+    </apex:define>
+     
+    <apex:form id="form">
+        <apex:pagemessages id="msgss"/>
+        <apex:pageblock id="block">
+        
+        
+        <div class="box_sc900004" align="center">
+            <div class="box" ><br/>
+              <div class="usrn2">
+                <font><b><apex:outputtext value="採択番号"/></b></font>&nbsp;&nbsp;
+
+                <apex:inputField value="{!li.Option1__c}" />&nbsp;－&nbsp;
+                <apex:inputField value="{!li.Option2__c}"/>&nbsp;－&nbsp;
+                <apex:inputField value="{!li.InputNumber__c}" style="width:50px" required="false"/>
+                &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+              </div>
+              <br/>
+              <div>
+              <apex:commandButton value="検索" action="{!search}" style="width:100px;height:30px;font-size :15px;"/>
+              </div>
+            </div>
+          </div>        
+        
+        </apex:pageblock>
+    </apex:form>
+ 
+</apex:page>

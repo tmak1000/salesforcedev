@@ -1,0 +1,34 @@
+<apex:page showHeader="false" sidebar="false" applyHtmlTag="false" applyBodyTag="false" standardStylesheets="false" docType="html-5.0" id="page">
+    <head>
+        <!-- Title -->
+        <title>{!$Label.Welcome}</title>
+        <!-- Remote Objects -->
+        <apex:remoteObjects >
+            <apex:remoteObjectModel name="Applicant__c" fields="Id">
+                <apex:remoteObjectField name="Name" />
+            </apex:remoteObjectModel>
+        </apex:remoteObjects>
+        <!-- jQuery -->
+        <apex:includeScript value="{!$Resource.jQuery}" />
+        <!-- KnockoutJs -->
+        <apex:includeScript value="{!$Resource.KnockoutJs320}" />
+        <!-- Bootstrap -->
+        <apex:stylesheet value="{!URLFOR($Resource.BootstrapSF1, 'dist/css/bootstrap.min.css')}"/>
+        <apex:stylesheet value="{!URLFOR($Resource.BootstrapSF1, 'dist/css/docs.min.css')}"/>
+        <apex:includeScript value="{!URLFOR($Resource.BootstrapSF1, 'dist/js/bootstrap.min.js')}"/>
+        <apex:includeScript value="{!URLFOR($Resource.BootstrapSF1, 'js/docs.min.js')}"/>
+        <!-- Other -->
+        <apex:stylesheet value="{!$Resource.CommonCss}"/>
+        <apex:includeScript value="{!$Resource.ApplicantRegisterJs}" loadOnReady="true" />
+    </head>
+    <body>
+        <div id="vf-page">
+            <div id="content" class="padding minHeight">
+                <!-- 基本情報入力 -->
+                <c:ApplicantRegisterMain />
+                <!-- 登録ボタン -->
+                <button type="button" data-bind="click: RegisterBtn" class="btn btn-primary btn-full-size" name="Register">{!$Label.Register}</button>
+            </div>
+        </div>
+    </body>
+</apex:page>

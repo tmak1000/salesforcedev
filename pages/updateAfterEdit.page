@@ -1,0 +1,20 @@
+<apex:page controller="HogeController" showHeader="false">
+    <apex:form >
+          
+        <table>
+        <!--リピートにボタン-->
+        <apex:repeat value="{!stdObj}" var="s">
+             <tr> 
+            <!--ボタンの中にparamを書く！-->
+            <td>{!s.Name}</td>
+            <td>
+            <!--<apex:commandButton value="s"/> -->
+            <apex:commandButton value="LINK"
+                action="{!save}" />                        
+            </td>
+            </tr>
+        </apex:repeat>
+         </table>
+        <!--結果が表示される-->
+    </apex:form>
+</apex:page>

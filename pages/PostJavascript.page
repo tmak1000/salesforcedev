@@ -1,0 +1,5 @@
+<apex:page showHeader="true" sidebar="true">
+	<apex:form >
+		<apex:inputText />
+	</apex:form>
+</apex:page>

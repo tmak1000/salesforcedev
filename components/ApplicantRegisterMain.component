@@ -1,0 +1,191 @@
+<apex:component id="applicantRegisterMain">
+    <!-- 基本情報 -->
+    <div class="card black-board padding">
+        <div class="input-form-title">{!$Label.BasicInformationTitle}</div>
+        <div class="row">
+            <!-- 姓 -->
+            <div class="col-md-6">
+                <div class="form-group">
+                    <label for="lastName">{!$ObjectType.Applicant__c.Fields.LastName__c.Label}</label>
+                    <input type="text" data-bind="value:LastName" class="form-control input-large input-highlight" id="lastName" placeholder="{!$ObjectType.Applicant__c.Fields.LastName__c.Label}{!$Label.PleaseEnter}"></input>
+                </div>
+            </div>
+            <!-- 名 -->
+            <div class="col-md-6">
+                <div class="form-group">
+                    <label for="firstName">{!$ObjectType.Applicant__c.Fields.FirstName__c.Label}</label>
+                    <input type="text" data-bind="value:FirstName" class="form-control input-large input-highlight" id="firstName" placeholder="{!$ObjectType.Applicant__c.Fields.FirstName__c.Label}{!$Label.PleaseEnter}"></input>
+                </div>
+            </div>
+            <!-- 性別 -->
+            <div class="col-md-12">
+                <div class="form-group">
+                    <label for="man">{!$ObjectType.Applicant__c.Fields.Sex__c.Label}</label>
+                    <div>
+                        <div class="radio-inline">
+                            <input type="radio" value="man" data-bind="checked:Sex" name="radioSex" id="man"></input>
+                            <label for="man">{!$Label.Man}</label>
+                        </div>
+                        <div class="radio-inline">
+                            <input type="radio" value="woman" data-bind="checked:Sex" name="radioSex" id="woman"></input>
+                            <label for="woman">{!$Label.Woman}</label>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <!-- 生年月日 -->
+            <div class="col-md-12">
+                <div class="form-group">
+                    <label for="birthday">{!$ObjectType.Applicant__c.Fields.Birthday__c.Label}</label>
+                    <input type="date" data-bind="value:Birthday" class="form-control input-medium input-highlight" id="birthday" value="1985-01-01"></input>
+                </div>
+            </div>
+            <!-- 電話 -->
+            <div class="col-md-12">
+                <div class="form-group">
+                    <label for="phone">{!$ObjectType.Applicant__c.Fields.Phone__c.Label}</label>
+                    <input type="text" data-bind="value:Phone" class="form-control input-large input-highlight" id="phone" placeholder="{!$ObjectType.Applicant__c.Fields.Phone__c.Label}{!$Label.PleaseEnter}"></input>
+                </div>
+            </div>
+            <!-- メール -->
+            <div class="col-md-12">
+                <div class="form-group">
+                    <label for="email">{!$ObjectType.Applicant__c.Fields.Email__c.Label}</label>
+                    <input type="text" data-bind="value:Email" class="form-control input-large input-highlight" id="email" placeholder="{!$ObjectType.Applicant__c.Fields.Email__c.Label}{!$Label.PleaseEnter}"></input>
+                </div>
+            </div>
+        </div>
+    </div>
+    <!-- 住所情報 -->
+    <div class="card black-board padding">
+        <div class="input-form-title">{!$Label.AddressInformationTitle}</div>
+        <div class="row">
+            <!-- 郵便番号 -->
+            <div class="col-md-12">
+                <div class="form-group">
+                    <label for="postalCode">{!$ObjectType.Applicant__c.Fields.PostalCode__c.Label}</label>
+                    <input type="text" data-bind="value:PostalCode" class="form-control input-medium input-highlight" id="postalCode" placeholder="{!$ObjectType.Applicant__c.Fields.PostalCode__c.Label}{!$Label.PleaseEnter}"></input>
+                </div>
+            </div>
+            <!-- 都道府県 -->
+            <div class="col-md-12">
+                <div class="form-group">
+                    <label for="state">{!$ObjectType.Applicant__c.Fields.State__c.Label}</label>
+                    <input type="text" data-bind="value:State" class="form-control input-medium input-highlight" id="state" placeholder="{!$ObjectType.Applicant__c.Fields.State__c.Label}{!$Label.PleaseEnter}"></input>
+                </div>
+            </div>
+            <!-- 市区郡 -->
+            <div class="col-md-12">
+                <div class="form-group">
+                    <label for="city">{!$ObjectType.Applicant__c.Fields.City__c.Label}</label>
+                    <input type="text" data-bind="value:City" class="form-control input-large input-highlight" id="city" placeholder="{!$ObjectType.Applicant__c.Fields.City__c.Label}{!$Label.PleaseEnter}"></input>
+                </div>
+            </div>
+            <!-- 町名・番地 -->
+            <div class="col-md-12">
+                <div class="form-group">
+                    <label for="street">{!$ObjectType.Applicant__c.Fields.Street__c.Label}</label>
+                    <textarea data-bind="value:Street" class="form-control input-large input-highlight" id="street" placeholder="{!$ObjectType.Applicant__c.Fields.Street__c.Label}{!$Label.PleaseEnter}"></textarea>
+                </div>
+            </div>
+        </div>  
+    </div>
+    <!-- 開発者情報 -->
+    <div class="card black-board padding">
+        <div class="input-form-title">{!$Label.DeveloperInformationTitle}</div>
+        <div class="row">
+            <!-- Force.com開発経験 (年) -->
+            <div class="col-md-12">
+                <div class="form-group">
+                    <label for="developmentExperienceYear">{!$ObjectType.Applicant__c.Fields.DevelopmentExperienceYear__c.Label}</label>
+                    <input type="number" data-bind="value:DevelopmentExperienceYear" class="form-control input-small input-highlight" id="developmentExperienceYear" placeholder="{!$ObjectType.Applicant__c.Fields.DevelopmentExperienceYear__c.Label}{!$Label.PleaseEnter}"></input>
+                </div>
+            </div>
+            <!-- Discussion Forum Profile URL -->
+            <div class="col-md-12">
+                <div class="form-group">
+                    <label for="discussionForumProfile">{!$ObjectType.Applicant__c.Fields.DiscussionForumProfileUrl__c.Label}</label>
+                    <input type="text" data-bind="value:DiscussionForumProfile" class="form-control input-large" id="discussionForumProfile" placeholder="{!$ObjectType.Applicant__c.Fields.DiscussionForumProfileUrl__c.Label}{!$Label.PleaseEnter}"></input>
+                </div>
+            </div>
+            <!-- Success Community Profile URL -->
+            <div class="col-md-12">
+                <div class="form-group">
+                    <label for="successCommunityProfile">{!$ObjectType.Applicant__c.Fields.SuccessCommunityProfileUrl__c.Label}</label>
+                    <input type="text" data-bind="value:SuccessCommunityProfile" class="form-control input-large" id="successCommunityProfile" placeholder="{!$ObjectType.Applicant__c.Fields.SuccessCommunityProfileUrl__c.Label}{!$Label.PleaseEnter}"></input>
+                </div>
+            </div>
+            <!-- メッセージ -->
+            <div class="col-md-12">
+                <div class="form-group">
+                    <label for="message">{!$ObjectType.Applicant__c.Fields.Message__c.Label}</label>
+                    <textarea data-bind="value:Message" class="form-control input-large" id="message" placeholder="{!$ObjectType.Applicant__c.Fields.Message__c.Label}{!$Label.PleaseEnter}"></textarea>
+                </div>
+            </div>
+        </div>
+    </div>
+    <!-- ソーシャル -->
+    <div class="card black-board padding">
+        <div class="input-form-title">{!$Label.SocialTitle}</div>
+        <div class="row">
+            <!-- ブログ -->
+            <div class="col-md-12">
+                <div class="form-group">
+                    <label for="blog">{!$ObjectType.Applicant__c.Fields.BlogUrl__c.Label}</label>
+                    <input type="text" data-bind="value:Blog" class="form-control input-large" id="blog" placeholder="{!$ObjectType.Applicant__c.Fields.BlogUrl__c.Label}{!$Label.PleaseEnter}"></input>
+                </div>
+            </div>
+            <!-- GitHub -->
+            <div class="col-md-12">
+                <div class="form-group">
+                    <label for="gitHub">{!$ObjectType.Applicant__c.Fields.GitHubUrl__c.Label}</label>
+                    <input type="text" data-bind="value:GitHub" class="form-control input-large" id="gitHub" placeholder="{!$ObjectType.Applicant__c.Fields.GitHubUrl__c.Label}{!$Label.PleaseEnter}"></input>
+                </div>
+            </div>
+            <!-- SlideShare -->
+            <div class="col-md-12">
+                <div class="form-group">
+                    <label for="slideShare">{!$ObjectType.Applicant__c.Fields.SlideShareUrl__c.Label}</label>
+                    <input type="text" data-bind="value:SlideShare" class="form-control input-large" id="slideShare" placeholder="{!$ObjectType.Applicant__c.Fields.SlideShareUrl__c.Label}{!$Label.PleaseEnter}"></input>
+                </div>
+            </div>
+            <!-- Youtube -->
+            <div class="col-md-12">
+                <div class="form-group">
+                    <label for="youtube">{!$ObjectType.Applicant__c.Fields.YoutubeUrl__c.Label}</label>
+                    <input type="text" data-bind="value:Youtube" class="form-control input-large" id="youtube" placeholder="{!$ObjectType.Applicant__c.Fields.YoutubeUrl__c.Label}{!$Label.PleaseEnter}"></input>
+                </div>
+            </div>
+        </div>
+    </div>
+    <!-- アンケート -->
+    <div class="card black-board padding">
+        <div class="input-form-title">{!$Label.Questionnaire}</div>
+        <div class="row">
+            <!-- ソース -->
+            <div class="col-md-12">
+                <div class="form-group">
+                    <label for="source">{!$ObjectType.Applicant__c.Fields.Source__c.Label}</label>
+                    <div>
+                        <div class="radio-inline">
+                            <input type="radio" value="0" data-bind="checked:Source" name="radioSource" id="0"></input>
+                            <label for="0">{!$Label.ApplicantSourceType0}</label>
+                        </div>
+                        <div class="radio-inline">
+                            <input type="radio" value="1" data-bind="checked:Source" name="radioSource" id="1"></input>
+                            <label for="1">{!$Label.ApplicantSourceType1}</label>
+                        </div>
+                        <div class="radio-inline">
+                            <input type="radio" value="2" data-bind="checked:Source" name="radioSource" id="2"></input>
+                            <label for="2">{!$Label.ApplicantSourceType2}</label>
+                        </div>
+                        <div class="radio-inline">
+                            <input type="radio" value="3" data-bind="checked:Source" name="radioSource" id="3"></input>
+                            <label for="3">{!$Label.ApplicantSourceType3}</label>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</apex:component>

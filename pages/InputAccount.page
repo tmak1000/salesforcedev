@@ -1,0 +1,11 @@
+<apex:page standardController="Account">
+    <apex:form >
+    	<apex:pageBlock title="Hello {!$User.FirstName}!">
+            これは取引先 {!account.name}。<p/>
+            名前を変更してください。:<p/>
+            <apex:inputField value="{!account.name}" />
+            <apex:commandButton action="{!save}" value="新規取引先を保存"/>
+        </apex:pageBlock>
+    </apex:form>
+            
+</apex:page>

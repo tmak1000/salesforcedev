@@ -1,0 +1,7 @@
+<apex:page standardController="Opportunity">
+<apex:iframe frameborder="false" width="100%" height="200" scrolling="true"
+             src="/idp/login?app=0sp10000000fxUX" />
+<script>
+window.recordId = '{!id}';
+</script>
+</apex:page>

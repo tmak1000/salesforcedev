@@ -1,0 +1,27 @@
+<apex:page controller="ExportToExcelMultipleSheets">
+<apex:form >
+<apex:pageBlock title="Accounts and Contacts">
+ 
+<apex:pageBlockButtons >
+<apex:commandbutton value="Export All Accounts and Contacts" action="{!exportAll}"/>
+</apex:pageBlockButtons>
+<apex:pageBlockSection columns="2">
+<apex:pageBlockSectionItem >
+<apex:pageBlockTable title="All Accounts" value="{!accountList}" var="account">
+<apex:facet name="caption" ><b>All Accounts</b></apex:facet>
+<apex:column value="{!account.name}"/>
+</apex:pageBlockTable>
+</apex:pageBlockSectionItem>
+<apex:pageBlockSectionItem >
+<apex:pageBlockTable title="All Contacts" value="{!contactList}" var="contact">
+<apex:facet name="caption" ><b>All Contacts</b></apex:facet>
+<apex:column value="{!contact.name}"/>
+<apex:column value="{!contact.email}"/>
+<apex:column value="{!contact.account.name}"/>
+ 
+</apex:pageBlockTable>
+</apex:pageBlockSectionItem>
+</apex:pageBlockSection>
+</apex:pageBlock>
+</apex:form>
+</apex:page>

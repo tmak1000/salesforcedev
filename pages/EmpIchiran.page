@@ -1,0 +1,181 @@
+<apex:page controller="EmpIchiranController"
+               cache="false"
+               showHeader="true"
+               sidebar="false"
+               title="遉ｾ蜩｡諠�蝣ｱ逋ｻ骭ｲ繧ｷ繧ｹ繝�繝�"
+               standardStylesheets="true"
+               tabStyle="EmpManagement__tab"
+               id="page">
+               
+        <style>
+            span.dateFormat {display: none;}
+        </style>
+ <!--           
+<apex:form >
+                <apex:pageBlock title="this coded mac">
+                <apex:pageMessages />
+                <apex:pageBlockSection title="讀懃ｴ｢" columns="2" >
+
+                <apex:inputField value="{!empinfo.FirstName__c}"/>
+                
+                <apex:inputField value="{!empinfo.Abbreviation__c}"/>
+                <apex:inputField value="{!empinfo.Post__c}"/>         
+                <apex:inputField value="{!empinfo.Sex__c}"/> 
+                 <apex:inputField value="{!empinfo.RegistedYear__c}"/>
+           </apex:pageBlockSection>
+           <apex:pageBlockButtons location="bottom">
+                <apex:commandButton action="{!search}" value="讀懃ｴ｢"/>
+            </apex:pageBlockButtons>
+        </apex:pageBlock>
+ </apex:form>
+-->
+ <apex:form >
+                <apex:pageBlock title="讀懃ｴ｢逕ｻ髱｢">
+                <apex:pageMessages />
+             <apex:pageBlockSection columns="4">
+                 <!--<apex:outpuText value~="{!xmlContents}"/>-->
+                <apex:inputField value="{!empinfo.LastName__c}" required="false"/>
+                <apex:outputField value="{!empinfo.LastName__c}" rendered="{!empinfo.LastName__c != null}"/>
+                <apex:inputText value="{!lname}" label="遉ｾ蜩｡蟋�"/>
+                <apex:outputText value="遉ｾ蜩｡蟋薙��{!lname}" rendered="{!lname != null}" title="蜷�"/>
+              <apex:inputField value="{!empinfo.FirstName__c}" required="false"/>
+                
+                <apex:inputField value="{!empinfo.Abbreviation__c}"/>
+                <apex:inputField value="{!empinfo.Post__c}"/>
+                
+                
+                         
+             <apex:inputField value="{!empinfo.Sex__c}"/>  
+               
+                
+                
+             <apex:inputField value="{!empinfo.RegistedYear__c}" required="false"/>
+             <apex:inputField value="{!empinfo.InputDay__c}" showDatePicker="true"/>
+
+          </apex:pageBlockSection>
+            <apex:pageBlockButtons location="bottom">
+                <apex:commandButton action="{!save}" value="讀懃ｴ｢"/>
+            </apex:pageBlockButtons>
+        </apex:pageBlock>
+    </apex:form>
+    
+<apex:form >
+<!--
+    <apex:pageBlock >
+        <apex:pageBlockSection columns="1">
+            <apex:pageBlockTable value="{!emps}" var="em">
+            
+               
+                <apex:column headerValue="蜷�">
+                    <apex:outputText value="{!em.LastName__c}"/>
+                </apex:column>
+                
+                 <apex:column headerValue="蟋�">
+                    <apex:outputText value="{!em.FirstName__c}"/>
+                </apex:column>
+                              
+                
+                <apex:column headerValue="逡･遘ｰ">
+                    <apex:outputText value="{!em.Abbreviation__c}"/>
+                </apex:column>
+                
+                <apex:column headerValue="蠖ｹ閨ｷ">
+                    <apex:outputText value="{!em.Post__c}"/>
+                </apex:column>
+                
+                <apex:column headerValue="諤ｧ蛻･">
+                    <apex:outputText value="{!em.Sex__c}"/>
+                </apex:column>
+                
+                <apex:column headerValue="蜈･遉ｾ蟷ｴ">
+                    <apex:outputText value="{!em.RegistedYear__c}"/>
+              
+              </apex:column>
+            
+                        
+             <apex:column headerValue="譯井ｻｶ蜷�">            
+                    <apex:repeat value="{!ankens}" var="anken" >
+                        <apex:outputText value="{!anken}"/><br/>
+                    </apex:repeat>            
+               </apex:column>  
+               
+               
+                
+              <apex:column headerValue="譯井ｻｶ蜷阪＃縺ｨ縺ｮ蜍､蜍呎凾髢�">            
+                    <apex:repeat value="{!strings}" var="string" >
+                        <apex:outputText value="{!string}"/><br/> 
+                    </apex:repeat>            
+               </apex:column>
+               
+               
+                 
+                <apex:column headerValue="蛯呵��">
+               
+                </apex:column>
+               
+            </apex:pageBlockTable>
+        </apex:pageBlockSection>
+         <apex:pageBlockButtons location="bottom">
+                 <apex:commandButton value="遉ｾ蜩｡荳�隕ｧ" action="{!ichiran}"/>
+                <apex:commandButton value="譁ｰ隕冗匳骭ｲ" action="{!newRegist}"/>
+            </apex:pageBlockButtons>
+  
+  </apex:pageblock>     
+  -->
+  
+<apex:pageBlock >
+
+      <table border="1">
+           <th>蜷�</th>
+           <th>蟋�</th>
+           <th>逡･遘ｰ</th>
+           <th>蠖ｹ閨ｷ</th>
+           <th>諤ｧ蛻･</th>
+           <th>蜈･遉ｾ蟷ｴ</th>
+           <th>譯井ｻｶ蜷�</th>
+           <th>譯井ｻｶ蜷阪＃縺ｨ縺ｮ蜍､蜍呎凾髢�</th>
+           <th>蛯呵��</th>
+           
+           <apex:repeat var="em" value="{!emps}">
+           <tr>
+           
+               <td><apex:outputText value="{!em.LastName__c}"/></td>
+               <td><apex:outputText value="{!em.FirstName__c}"/></td>
+               <td><apex:outputText value="{!em.Abbreviation__c}"/></td>
+               <td><apex:outputText value="{!em.Post__c}"/></td>
+               <td><apex:outputText value="{!em.Sex__c}"/></td>
+               <td><apex:outputText value="{!em.RegistedYear__c}"/></td>
+               
+               <td>
+               <table border="1">
+                                         
+                    <apex:repeat value="{!ankens}" var="anken" >
+                       <tr><td><apex:outputText value="{!anken}"/></td></tr>
+                    </apex:repeat>            
+            
+              
+              </table>
+              
+              </td> 
+              
+              
+              <td>                       
+                    <table border="1">                                        
+                    <apex:repeat value="{!strings}" var="string" >
+                       <tr><td width="120"><apex:outputText value="{!string}"/></td></tr>
+                    </apex:repeat>            
+                       
+                  </table>
+             </td>
+             <td></td>
+            </tr>
+           </apex:repeat>
+      </table>
+             <apex:pageBlockButtons location="bottom">
+                 <apex:commandButton value="遉ｾ蜩｡荳�隕ｧ" action="{!ichiran}"/>
+                <apex:commandButton value="譁ｰ隕冗匳骭ｲ" action="{!newRegist}"/>
+            </apex:pageBlockButtons>
+    </apex:pageBlock> 
+    </apex:form>
+
+</apex:page>

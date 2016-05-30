@@ -1,0 +1,44 @@
+<apex:page controller="AzureDemoController"
+               cache="false"
+               showHeader="true"
+               sidebar="false"
+               title="AzureDemo"
+               standardStylesheets="true"
+               id="page">
+   <title>AzureDemo</title>            
+   <h1>AzureDemo</h1>  
+   <apex:messages />
+<apex:form >
+    <apex:pageBlock >
+        <apex:pageBlockSection >
+            <apex:inputfield value="{!ui.UserName__c}" required="true" />
+            <apex:inputfield value="{!ui.UserID__c}" required="true"/>
+            <apex:inputfield value="{!ui.Assignment__c}" required="true"/>
+            <apex:inputfield value="{!ui.Authority__c}" required="true"/>
+            <apex:inputfield value="{!ui.LoginPassWord__c}" required="true"/>
+        </apex:pageBlockSection>
+        <apex:pageBlockButtons location="bottom">
+            <apex:commandButton action="{!submitAzure}" value="Azureへ送信する"/>
+        </apex:pageBlockButtons>
+    </apex:pageBlock>
+</apex:form>
+
+   <apex:form >
+   <apex:pageBlock >
+     <apex:pageBlockTable value="{!lui}" var="l">
+         <apex:column value="{!l.UserName__c}"/>
+         <apex:column value="{!l.UserID__c}"/>
+         <apex:column value="{!l.Assignment__c}"/>
+         <apex:column value="{!l.AssignmentName__c}"/>
+         <apex:column value="{!l.Authority__c}"/>
+         <apex:column value="{!l.AuthorityName__c}"/>
+         <apex:column value="{!l.LoginPassWord__c}"/>
+      </apex:pageBlockTable>
+
+          
+          <apex:pageBlockButtons location="bottom">
+              <apex:commandButton action="{!gets}" value="Ａｚｕｒｅから取得"/>
+          </apex:pageBlockButtons>
+      </apex:pageBlock>   
+      </apex:form>   
+</apex:page>

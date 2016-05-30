@@ -1,0 +1,17 @@
+<apex:page standardController="Account" recordSetVar="account" showHeader="false" standardStylesheets="true" sidebar="false">
+  <apex:stylesheet value="//maxcdn.bootstrapcdn.com/bootstrap/3.3.5/css/bootstrap.min.css"/>
+  <apex:includeScript value="//maxcdn.bootstrapcdn.com/bootstrap/3.3.5/js/bootstrap.min.js"/>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no;" />
+  <apex:pageBlock >
+  <apex:repeat value="{!account}" var="acc">
+  <apex:pageBlockSection >
+      <apex:facet name="header">
+        <h3>aaaaaa</h3><input type="button" value="ぼたん" class="btn" />
+    </apex:facet>
+    <apex:pageBlockTable value="{!acc.Opportunities}" var="contact">
+        <apex:column value="{!contact.Name}"/>
+</apex:pageBlockTable>
+</apex:pageBlockSection>
+</apex:repeat>
+</apex:pageBlock>
+</apex:page>

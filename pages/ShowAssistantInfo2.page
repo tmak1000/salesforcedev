@@ -1,0 +1,9 @@
+<apex:page standardController="Contact" docType="html-5.0" recordSetVar="contacts" title="MobileContacts">
+  <apex:stylesheet value="//maxcdn.bootstrapcdn.com/bootstrap/3.3.5/css/bootstrap.min.css"/>
+  <apex:includeScript value="//maxcdn.bootstrapcdn.com/bootstrap/3.3.5/js/bootstrap.min.js"/>
+  <ul class="list-group">
+  <apex:repeat value="{!contacts}" var="c">
+  <li class="list-group-item"><apex:outputLabel value="{!c.name}"/></li>
+  </apex:repeat>
+  </ul>
+</apex:page>

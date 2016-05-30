@@ -1,0 +1,86 @@
+<apex:page title="郵便番号検索について" standardStylesheets="true" >
+<style>
+#splash { margin: 0; padding: 0; width: 100%; } 
+#splash td { margin: 0; padding: 0; } 
+#splash #splashLeft { vertical-align: top; background-color: #F3F3EC; border-bottom: 2px solid #638658; } 
+#splash #splashCenter { display:block; width: 15px; background-color: #FFF; } 
+#splash #splashRight { vertical-align: top; background-color: #E8E8E8; border-bottom: 2px solid #999; } 
+#splash #splashLeft .about, #splash #splashLeft .exchange { width: 100%; } 
+#splash #splashRight .exchange p { font-size: 100%; color: #333; margin: 0 10px 12px 10px; line-height: 1.4em; } 
+#splash #splashLeft .about p { font-size: 100%; color: #333; margin: 20px 10px 20px 15px; line-height: 1.4em; } 
+#splash #splashLeft .about fieldset { color: #333; margin: 0 15px 10px 15px; padding: 2px; } 
+#splash #splashLeft .about fieldset ul { padding: 0; margin: .3em 0 .3em 2em; } 
+#splash #splashLeft .about fieldset li { padding: 0; margin: 0; } 
+#splash #splashLeft .about legend { font-size: 90%; color: #333; font-weight: bold; } 
+</style> 
+<apex:sectionHeader title="郵便番号検索について" />
+<div id="splash" style="cellspacing:0;"> 
+<div id="splashLeft" style=width:"100%">
+<div class="about">
+<!--アプリケーション概要-->
+<P style="padding-top:20px"><font color="#6699CC">●</font> アプリケーション概要</P>
+<P style="padding-bottom:20px">
+郵便番号を３桁以上入力すると該当する住所の一覧が表示されます。
+対象となる項目は標準の「郵便番号」項目です。数字３桁に続けて
+- の後に更に数字を入力するとリストを絞り込むことができます。
+オプションとして、都道府県を選択リストから選ぶようにもできます。                        
+</P>
+
+<!--設定方法-->
+<P><font color="#BFAF00">●</font> 設定方法</P>
+<ol style="padding-bottom:20px">
+<!--設定方法1-->
+<li>ホームページのお知らせに以下の行を追加します <br/>
+<font color="#638658">【手順】</font><br/>
+［設定］ → ［カスタマイズ］ → ［ホーム］ → ［ホームページのコンポーネント］<br/>
+<font color="#638658">　　　▼</font><br/>
+お知らせを編集<br>
+<font color="#638658">　　　▼</font><br/>
+お知らせの最後に以下の行を追加して［保存］ボタンを押す<br/><br/>
+<span>都道府県をプルダウン表示にするとき：</span><br/>
+<div style=" background-color:#fff; margin:10px 50px 20px 0 ; padding:10px;">
+〒検索 &copy; SunBridge<br/>
+<apex:outputText escape="false" value="&lt;script language=javascript src=" />
+"https://sfzip.sunbridge.com/free/zip.js"
+<apex:outputText escape="false" value="&gt;&lt;/script&gt;" />
+<br/><br/>
+</div>
+<span>都道府県をプルダウン表示にしないとき：</span><br/>
+<div style=" background-color:#fff; margin:10px 50px 20px 0 ; padding:10px;">
+〒検索 &copy; SunBridge<br/>
+<apex:outputText escape="false" value="&lt;script language=javascript src=" />
+"https://sfzip.sunbridge.com/free/zip.js?addState"
+<apex:outputText escape="false" value="&gt;&lt;/script&gt;" />
+</div>
+</li>
+<!--設定方法2-->
+<li>サイドバーを常時表示するよう設定します<br/>
+<font color="#638658">【手順】</font><br/>
+［設定］ → ［カスタマイズ］ → ［ユーザインタフェース］<br/>
+<font color="#638658">　　　▼</font><br/>
+サイドバーセクション内の ［すべてのページにカスタムサイドバーコンポーネントを表示］ にチェック<br>
+<font color="#638658">　　　▼</font><br/>
+［保存］ボタンを押す</li>
+</ol>
+
+<!--注意-->
+<P><font color="#3D8D8D">●</font>注意</P>
+<ul style="padding-bottom:20px; line-height: 1.4em;">
+<li>郵便番号データの更新は年１回程度行う予定です</li>
+<li>システムのメンテナンス等によりご利用になれない場合があります<br/>
+その場合は各住所項目に手動で入力してください</li>
+<li>下記URLから登録していただきますと、データ更新、システムメンテナンス等の情報をお送りいたします<br/>
+是非ご登録ください<br/>
+<a href="https://www.sunbridge.com/cs/sfdc/zip.html">https://www.sunbridge.com/cs/sfdc/zip.html</a></li>
+<li>Internet Expoloer で Google Toolbar 2.0 以降をインストールすると動作しない場合があります
+</ul>
+
+<!--お問い合わせ先-->
+<fieldset> 
+<legend>お問い合わせ先</legend> 
+<p>株式会社サンブリッジ　　<a href="mailto:sfdczip@sunbridge.com">sfdczip@sunbridge.com</a></p> 
+</fieldset> 
+</div> 
+</div>
+</div>
+</apex:page>

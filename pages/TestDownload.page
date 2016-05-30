@@ -1,0 +1,15 @@
+<apex:page showHeader="false"
+
+           controller="TestDownloadController"
+
+           action="{!init}"
+
+           sidebar="false"
+
+           standardStylesheets="false"
+
+           cache="true"
+
+           contentType="application/octet-stream;charset=UTF-8#https://c.ap0.content.force.com/servlet/servlet.FileDownload?file=01510000004ZH3H">
+
+</apex:page>

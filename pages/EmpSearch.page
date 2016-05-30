@@ -1,0 +1,124 @@
+<apex:page controller="EmpIchiranController"
+               cache="false"
+               showHeader="true"
+               sidebar="false"
+               title="search page"
+               standardStylesheets="true"
+               tabStyle="EmpManagement__tab"
+               id="page">
+               
+        <style>
+            span.dateFormat {display: none;}
+        </style>
+             <!-- スクリプト処理 -->
+         <!-- jQuery -->
+    <apex:includeScript value="//ajax.googleapis.com/ajax/libs/jquery/1.10.2/jquery.min.js"/>
+    <!-- tinybox2 -->
+    <!-- Ajax Toolkit -->
+
+   
+    <script type="text/javascript"> 
+            // 初期表示
+
+    
+                // ユーザビリティ設定
+        function setUsability() {
+        
+                    // 明細-備考
+            $('input.detail-remarks').each(function(i) {
+                $(this).css('ime-mode', 'active');
+                $(this).change(function() {
+                    $(this).css("background-color", "yellow");
+                });
+            });
+
+            return;
+        }
+    
+    </script>  
+ <apex:form >
+                <apex:pageBlock title="search">
+                <apex:pageMessages />
+             <apex:pageBlockSection columns="4">
+                 <!--<apex:outpuText value~="{!xmlContents}"/>-->
+                <apex:inputText value="{!Word}" styleClass="detail-remarks"/>
+          </apex:pageBlockSection>
+            <apex:pageBlockButtons location="bottom">
+                <apex:commandButton action="{!search}" value="moveEdit"/>
+            </apex:pageBlockButtons>
+        </apex:pageBlock>
+    </apex:form>
+
+<apex:form >
+  
+<apex:pageBlock >
+        
+
+      <table border="1">
+           <th>first_name</th>
+           <th>last_name</th>
+           <th>code</th>
+           <th>post</th>
+           <th>sex</th>
+           <th>resisted_year</th>
+           <th>workplace</th>
+           <th>workingtime</th>
+           <th>check</th>
+           
+           <apex:repeat var="em" value="{!emps}">
+           <tr>
+           
+               <td><apex:outputText value="{!em.LastName__c}"/></td>
+               <td><apex:outputText value="{!em.FirstName__c}"/></td>
+               <td><apex:outputText value="{!em.Abbreviation__c}"/></td>
+               <td><apex:outputText value="{!em.Post__c}"/></td>
+               <td><apex:outputText value="{!em.Sex__c}"/></td>
+               <td><apex:outputText value="{!em.RegistedYear__c}"/></td>
+               
+               <td>
+               <table border="1">
+                                         
+                    <apex:repeat value="{!ankens}" var="anken" >
+                       <tr><td><apex:outputText value="{!anken}"/></td></tr>
+                    </apex:repeat>            
+            
+              
+              </table>
+              
+              </td> 
+              
+              
+              <td>                       
+                    <table border="1">                                        
+                    <apex:repeat value="{!strings}" var="string" >
+                       <tr><td width="120"><apex:outputText value="{!string}"/></td></tr>
+                    </apex:repeat>            
+                       
+                  </table>
+             </td>
+             <td></td>
+            </tr>
+           </apex:repeat>
+      </table>
+                          <!-- reRender後のイベント再設定 -->
+                    <script type="text/javascript">
+                        // ユーザビリティ設定
+                        setUsability();
+                    </script>
+             <apex:pageBlockButtons location="bottom">
+                 <apex:commandButton value="遉ｾ蜩｡荳�隕ｧ" action="{!ichiran}"/>
+                <apex:commandButton value="譁ｰ隕冗匳骭ｲ" action="{!newRegist}"/>
+            </apex:pageBlockButtons>
+    <apex:pageBlockSection title="一覧" rendered="{!emps.size > 0}">
+        <apex:pageBlockSectionItem >
+            <apex:outputLabel value="Account Name" for="account__name"/>
+            <apex:outputText value="{!emps[0].LastName__c}" id="account__name" />
+        </apex:pageBlockSectionItem>
+    </apex:pageBlockSection>
+    </apex:pageBlock> 
+    </apex:form>
+    <apex:pageBlock >
+        <apex:include pageName="EmpIchiran"/>
+    </apex:pageBlock>
+    
+</apex:page>

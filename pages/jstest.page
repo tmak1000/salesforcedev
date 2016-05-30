@@ -1,0 +1,12 @@
+<apex:page showHeader="true" sidebar="false">
+    <div id="vf-page">
+        <h1>Congratulations</h1>
+        This is your new Page
+    </div>
+    <script type="text/javascript">
+        var prmId = '{!$CurrentPage.parameters.id}';
+        var prmKey = '{!$CurrentPage.parameters.key}';
+        console.log('id = ' + prmId);
+        console.log('key = ' + prmKey);
+    </script>
+</apex:page>

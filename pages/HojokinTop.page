@@ -1,0 +1,34 @@
+<apex:page controller="HojokinController"
+               cache="false"
+               showHeader="true"
+               sidebar="false"
+               title="補助金ＴＯＰ"
+               standardStylesheets="true"
+               id="page">
+  <!-- Begin Default Content REMOVE THIS -->
+  <h1>補助金要請TOP</h1>
+  <apex:outputField value="{!li.LoginName__c}"/>
+  <apex:outputText value="{!classification}" />
+  <apex:messages />
+  <apex:form >
+      <apex:pageBlock >
+       <!--   <apex:pageBlockSection title="採択番号">
+              <apex:selectList value="{}" multiselect="false" size="1">
+                     <apex:selectOptions value="{}" /> 
+              </apex:selectList>
+          </apex:pageBlockSection>
+          <apex:pageBlockSection title="募集回">
+              <apex:selectList value="{!}" multiselect="false" size="1">
+                     <apex:selectOptions value="{2}" /> 
+              </apex:selectList>
+          </apex:pageBlockSection>
+          <apex:pageBlockSection title="番号">
+              <apex:inputText value="{!}" />
+          </apex:pageBlockSection>
+          -->
+           <apex:pageBlockButtons location="bottom">
+               <apex:commandButton value="検索" action="{!search}"/> 
+            </apex:pageBlockButtons>
+      </apex:pageBlock>
+  </apex:form>
+</apex:page>

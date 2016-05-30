@@ -1,0 +1,63 @@
+<apex:page standardStylesheets="false" docType="html-5.0" showChat="false" showHeader="false" sidebar="false">
+    <apex:outputText escape="false" value="{!"<!DOCTYPE html>"}"/> 
+    <html> 
+        <head>
+            <meta charset="UTF-8"/>
+            <meta name="viewport" content="width=device-width,initial-scale=1"/>
+            <meta http-equiv="x-ua-compatible" content="IE=edge"/>
+            <title>template</title>
+            
+            <style>
+            div.map_canvas {
+                width: 65%;
+                height: 95%;
+                background-color: #E5E3DF;
+                border: 1px solid black;
+                position: absolute;
+                top: 25px;
+                left: 444px;
+                overflow: hidden;
+            }</style>
+            <script src="https://maps.google.com/maps/api/js?v=3&client=" type="text/javascript"></script>
+                    <script>
+           var map = null;
+           
+                    // 初期化
+            function initialize() {
+
+                // マップ定義
+                var latlng = new google.maps.LatLng(0, 180);
+                var opts = {
+                    zoom: 3,
+                    center: latlng,
+                    mapTypeId: google.maps.MapTypeId.ROADMAP
+                };
+                map = new google.maps.Map(document.getElementById("map_canvas"), opts);
+
+                // マイリストマーカ配置
+                //createMylistMarker();
+
+                // マーカ配置
+                //createMarker(true);
+            }
+        </script>
+        </head>
+        <body onload="initialize()">
+        {!$Site.BaseCustomUrl}
+        <div id="map_canvas" class="map_canvas"></div>
+            <header>
+                <div class="header-contents">
+                    a<h1>{!$Site.Name}</h1>
+                    b<h2>{!$CurrentPage.Name}</h2>
+                </div><!-- /.header-contents -->
+      
+            </header>
+            <div class="main-wrapper">
+            <section>
+                <p id="choice"></p>        
+            </section>                 
+            </div><!-- /.main-wrapper -->
+            <footer>{!$Site.Name}</footer>
+        </body>  
+    </html> 
+</apex:page>

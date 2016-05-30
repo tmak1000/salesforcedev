@@ -1,0 +1,10 @@
+<apex:component >
+    <apex:attribute name="message" type="String" description="Message" />
+    <div class="black-backColor padding minHeight" >
+        <div class="sitesContent">
+            <p>
+                <apex:outputText value="{!message}" />
+            </p>
+        </div>
+    </div>
+</apex:component>

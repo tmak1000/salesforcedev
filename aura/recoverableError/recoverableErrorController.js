@@ -1,0 +1,5 @@
+({
+	throwErrorForKicks: function(cmp) {
+		
+	}
+})

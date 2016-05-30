@@ -1,0 +1,33 @@
+<apex:page >
+    <apex:form >
+                <apex:commandButton value="BUTTON"/>
+                    <!-- その他セクション -->
+                    <table id="targetArea">
+                        <tr>
+                            <th style="min-width:100px;max-width:100px;background-color: #AECCEB;" rowspan="3">
+                                <apex:outputText value="その他"/>
+                            </th>
+                            <!-- その他_特約事項 -->
+                            <td style="min-width:150px;max-width:150px;">
+                                <apex:outputText value="特約事項"/>
+                            </td>
+                            <!-- その他_特約事項 -->
+                            <td style="min-width:150px;max-width:150px;">
+                                aaaaaaaa
+                            </td>
+                        <tr>
+                        </tr>
+                            <!-- その他_特記事項 -->
+                            <td style="min-width:150px;max-width:150px;">
+                                <apex:outputText value="特記事項"/>
+                            </td>
+                            <!-- その他_特記事項 -->
+                            <td >
+                                bbbbbbbb
+                            </td>
+                            
+                        </tr>
+                    </table>
+                    </apex:form>
+
+</apex:page>

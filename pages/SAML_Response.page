@@ -1,0 +1,97 @@
+<apex:page showHeader="false"
+    standardStylesheets="false"
+    sidebar="false"
+    contentType="text/html"
+    applyBodyTag="false"
+    applyHtmlTag="false"
+    cache="true"
+    docType="html-5.0">
+<html>
+    <head>
+        <script src="https://sdk.amazonaws.com/js/aws-sdk-2.3.9.min.js"></script>
+        <script type = "text/javascript" src = "https://ajax.googleapis.com/ajax/libs/jquery/1.8.1/jquery.min.js" />
+        <!--<script>
+var bucketName = 's3-tutorial-aws-took';
+var bucket;
+ 
+$(function() {
+  var assertion = $('#samlResponse').val();
+  console.log("assertion:"+assertion);
+  if (!assertion) {
+    throw Error("No assertion is given to this page. Please access from app menu.");
+  }
+  AWS.config.credentials = new AWS.SAMLCredentials({
+    RoleArn: 'arn:aws:iam::641025513239:role/SalesforceUserRole',
+    PrincipalArn: 'arn:aws:iam::641025513239:saml-provider/SalesforceIdP',
+    SAMLAssertion: assertion
+  });
+  bucket = new AWS.S3({ params: { Bucket: bucketName } });
+  bucket.listObjects({}, function(err, resp) {
+    if (err) { throw err; }
+    $('#fileList').empty();
+    $.each(resp.Contents, function(i, content) {
+      $('<li>').text(content.Key).appendTo($('#fileList'));
+    });
+  });
+});
+
+        </script>-->
+        <script>
+ var bucketName = 's3-tutorial-aws-took';
+var bucket;      
+ $(function() {
+  initAWSCredentials();
+  initEventHandlers();
+  updateFileList();
+});      
+function initAWSCredentials() {
+  var assertion = $('#samlResponse').val();
+  if (!assertion) {
+    throw Error("No assertion is given to this page. Please access from app menu.");
+  }
+  AWS.config.credentials = new AWS.SAMLCredentials({
+    RoleArn: 'arn:aws:iam::641025513239:role/SalesforceUserRole',
+    PrincipalArn: 'arn:aws:iam::641025513239:saml-provider/SalesforceIdP',
+    SAMLAssertion: assertion
+  });
+  bucket = new AWS.S3({ params: { Bucket: bucketName } });
+}
+ 
+function initEventHandlers() {
+  $('#fileSelect').on('change', function() {
+    uploadFile(this.files);
+  });
+}
+ 
+function updateFileList() {
+  bucket.listObjects({}, function(err, resp) {
+    if (err) { throw err; }
+    $('#fileList').empty();
+    $.each(resp.Contents, function(i, content) {
+      $('<li>').text(content.Key).appendTo($('#fileList'));
+    });
+  });
+}
+ 
+function uploadFile(files) {
+  if (files && files.length > 0) {
+    var file = files[0];
+    var params = { Key: file.name, ContentType: file.type, Body: file };
+    bucket.putObject(params, function(err, resp) {
+       updateFileList();
+    });
+  }
+}
+        </script>
+    </head>
+    <body>
+        <h1>S3</h1>
+        <input type="hidden" id="samlResponse" value="{!$CurrentPage.parameters.SAMLResponse}" />
+        <div>
+        Select File to Upload: <input type="file" id="fileSelect" />
+        </div>
+        <!--input type="button" value="upload!" onclick="uploadFile();"/>-->
+        <ul id="fileList"></ul>
+    </body>
+</html>
+</apex:page>

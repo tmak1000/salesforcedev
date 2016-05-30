@@ -1,0 +1,4 @@
+<apex:page controller="ImgController">
+   <apex:image value="{!img}" width="200" height="200"/><!-- encoded -->
+     <apex:image value="{!$Resource.imagesample}" width="200" height="200"/><!-- not encoded -->
+ </apex:page>

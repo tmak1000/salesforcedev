@@ -1,0 +1,37 @@
+<apex:page showHeader="false" sidebar="false" applyHtmlTag="false" applyBodyTag="false" standardStylesheets="false" docType="html-5.0" id="page">
+    <head>
+        <!-- Title -->
+        <title>{!$Label.ApplicantSearch}</title>
+        <!-- Remote Objects -->
+        <apex:remoteObjects >
+            <apex:remoteObjectModel name="Applicant__c" fields="Id">
+                <apex:remoteObjectField name="Name" />
+                <apex:remoteObjectField name="FullName__c" />
+                <apex:remoteObjectField name="Age__c" />
+                <apex:remoteObjectField name="DevelopmentExperienceYear__c" />
+                <apex:remoteObjectField name="CreatedDate" />
+            </apex:remoteObjectModel>
+        </apex:remoteObjects>
+        <!-- jQuery -->
+        <apex:includeScript value="{!$Resource.jQuery}" />
+        <!-- KnockoutJs -->
+        <apex:includeScript value="{!$Resource.KnockoutJs320}" />
+        <!-- Bootstrap -->
+        <apex:stylesheet value="{!URLFOR($Resource.BootstrapSF1, 'dist/css/bootstrap.min.css')}"/>
+        <apex:stylesheet value="{!URLFOR($Resource.BootstrapSF1, 'dist/css/docs.min.css')}"/>
+        <apex:includeScript value="{!URLFOR($Resource.BootstrapSF1, 'dist/js/bootstrap.min.js')}"/>
+        <apex:includeScript value="{!URLFOR($Resource.BootstrapSF1, 'js/docs.min.js')}"/>
+        <!-- Other -->
+        <apex:stylesheet value="{!$Resource.CommonCss}"/>
+        <apex:stylesheet value="{!$Resource.ApplicantSearchCss}"/>
+        <apex:includeScript value="{!$Resource.ApplicantSearchJs}" loadOnReady="true" />
+    </head>
+    <body>
+        <div id="vf-page">
+            <div id="content">
+                <!-- 応募者検索 -->
+                <c:ApplicantSearchMain />
+            </div>
+        </div>
+    </body>
+</apex:page>

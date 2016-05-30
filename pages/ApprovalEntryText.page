@@ -1,0 +1,188 @@
+<apex:page standardController="Candidate__c" showHeader="false" sidebar="false" action="{!init}"  title="デジキャン：お知らせ詳細画面" id="page" extensions="CandidateController">
+
+
+    <!-- style -->
+    <style>
+        /* tinybox */
+        .tbox {
+            position: absolute;
+            display: none;
+            padding: 0px;
+            z-index: 900;
+        }
+        .tinner {
+            padding: 15px;
+            -moz-border-radius: 2px;
+            border-radius: 2px;
+            background: #fff url({!URLFOR($Resource.Tinybox2, 'images/preload.gif')}) no-repeat 50% 50%;
+            border-right:1px solid #333;
+            border-bottom:1px solid #333;
+            background-color: bisque;
+        }
+        .tmask {
+            position: absolute;
+            display: none;
+            top: 0px;
+            left: 0px;
+            height: 100%;
+            width: 100%;
+            background: #000;
+            z-index:800;
+        }
+        .tcontent {
+            border: 1px black solid;
+            background-color: white;
+        }
+        .tclose {
+            position: absolute;
+            top: -10px;
+            right: -10px;
+            width: 30px;
+            height: 30px;
+            cursor: pointer;
+            background: url({!URLFOR($Resource.Tinybox2, 'images/close.png')}) no-repeat
+        }
+        .tclose:hover {
+            background-position: 0 -30px
+        }
+        #frameless {
+            padding: 10px;
+            background: AliceBlue;
+        }
+        #bluemask {
+            background: #4195aa;
+        }
+        #searching {
+            background: #ff6969;
+            color: #fff;
+            padding: 0;
+        }
+        #searching .tcontent {
+            border: 1px solid #ffb8b8;
+            text-align: center;
+            font-size: 20px;
+            height: 100%;
+        }
+        span.dateFormat {display: none;}
+        #waypointsTable tr:hover {
+    background-color:yellow;
+}
+    </style>
+    
+    <apex:stylesheet value="{!URLFOR($Resource.CampusResources2, commonCss)}"/>
+    <apex:stylesheet value="{!URLFOR($Resource.CampusResources2, baseCss)}"/>
+    <apex:stylesheet value="{!URLFOR($Resource.CampusResources2, pageCss)}"/>
+    <apex:includescript value="{!URLFOR($Resource.CampusResources2, 'js/jquery-1.11.0.js')}" />
+    <apex:includescript value="{!URLFOR($Resource.CampusResources2, functionJs)}" />
+
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no" />
+    <meta name="format-detection" content="telephone=no" />
+    <meta name="apple-mobile-web-app-capable" content="yes" />
+    <meta name="apple-mobile-web-app-status-bar-style" content="default" />
+
+    <!-- tinybox2 -->
+    <apex:includeScript value="{!URLFOR($Resource.Tinybox2, 'tinybox.js')}"/>
+
+    <!-- jQuery -->
+    <apex:includeScript value="{!URLFOR($Resource.jQuery)}"/>
+
+    <!-- JSZip 
+    <apex:includeScript value="{!URLFOR($Resource.JSZip)}"/>-->
+        <script>
+        function func(){
+            var x = document.getElementById('google').attributes;
+            for (var i in x) {
+             if (x[i].name == "onclick") {alert(x[i].firstChild.data);}
+         }
+      </script>   
+　　<script src="https://ajax.googleapis.com/ajax/libs/jquery/1.8.2/jquery.min.js" />
+　　<script type="text/javascript">
+$('#waypointsTable tr').hover(function() {
+    $(this).addClass('hover');
+}, function() {
+    $(this).removeClass('hover');
+});
+　　</script> 
+      
+    <apex:form id="formId">
+        <div id="main">
+            <div class="wrapper" id="wrapper">
+                <!-- サイドバー -->
+                <!-- お知らせの詳細部分はここから -->
+                <!-- 配信の内容ここから -->
+                <article id="mainContents">
+                    <!-- 期間情報以外の場合ここから -->
+                    <apex:outputPanel >
+                        <h2 class="cateTtl"><span>■</span>申請の登録・更新</h2>
+                        <!-- 授業アンケート以外ここから -->
+                        
+            」
+                        <apex:outputPanel >
+                            <table class="tabelType01 infoBody">
+                                <colgroup>
+                                    <col style="width:110px"/>
+                                    <col/>
+                                </colgroup>
+                               <tr>
+                                    <th>
+                                
+                                <apex:selectList value="{!recordTypeId}" multiselect="false" size="1">
+                                <apex:selectOptions value="{!recordTypeItems}"/>
+                                <apex:actionSupport event="onchange" immediate="false" />
+ 
+                                </apex:selectList>
+      
+
+                                                
+                                 </th>
+                                </tr>
+                                <!--  
+                                <tr>
+                                    <th>
+                                <apex:selectList value="{!source_info}" required="true" multiselect="false" size="1">
+                                <apex:selectOptions value="{!Source_Items}"/>
+                                <apex:actionSupport event="onchange"/> 
+                                </apex:selectList>
+                                
+                                                
+                                 </th>
+                                </tr>-->
+                                
+                                <apex:outputPanel rendered="{!recordTypes[0].Id = recordTypeId}" id="panel1">  
+                                   <apex:repeat value="{!$ObjectType.Candidate__c.FieldSets.test1}" var="f">
+                                       <tr id="waypointsTable">
+                                       <th>
+                                        {!$ObjectType.Candidate__c.Fields[f].label}
+                                        </th>
+                                        <!--({!$ObjectType.Candidate__c.Fields[f].type}):-->
+                                        <td>
+                                        <apex:inputText value="{!record[f]}" required="{!f.Required}"></apex:inputText>
+                                        </td>
+                                        </tr>
+                                  </apex:repeat>
+                                </apex:outputPanel>
+                                <apex:outputPanel rendered="{!recordTypes[1].Id = recordTypeId}">  
+                                   <apex:repeat value="{!$ObjectType.Candidate__c.FieldSets.test2}" var="f">
+                                       <tr>
+                                       <th>
+                                        {!$ObjectType.Candidate__c.Fields[f].label}
+                                        </th>
+                                        <!--({!$ObjectType.Candidate__c.Fields[f].type}):-->
+                                        <td id="google" onclick="alert('hello')">                                        
+                                        <apex:inputfield value="{!record[f]}"  required="{!f.Required}"></apex:inputfield>
+                                        </td>
+                                        </tr>
+                                  </apex:repeat>
+                                </apex:outputPanel>
+                                          
+                              </table>
+                            <apex:commandButton value="申請" action="{!entry}" style="float:right;"/>
+                        </apex:outputPanel>
+                    </apex:outputPanel>
+                </article>
+            </div>
+            <input onclick="disp()"/>
+        </div>
+
+    </apex:form>
+</apex:page>

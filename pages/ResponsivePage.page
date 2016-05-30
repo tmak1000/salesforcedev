@@ -1,0 +1,30 @@
+<apex:page showHeader="true" sidebar="true">
+<style>
+/* Default CSS: 2 columns */
+.content-block {
+    width: 50%;
+    float: left;
+}
+
+<!-- add more styles here -->
+/* CSS phone */
+@media screen and (max-width: 767px) {
+    .content-block {
+        width: 100%;
+        float: none;
+    }
+}
+</style>
+<!-- HTML for two blocks of content
+     On a phone they position one on top of the other 
+     On larger screens they position next to each other -->
+
+<div class="content-block">
+    This block is on top on the phone, and on the left on larger screens.
+</div>
+
+<div class="content-block">
+    This block is on the bottom on the phone, but on the right on larger screens.
+</div>
+    
+</apex:page>

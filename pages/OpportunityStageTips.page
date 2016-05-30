@@ -1,0 +1,17 @@
+<apex:page docType="html-5.0" standardController="Opportunity" title="Detals">
+
+   <apex:outputPanel rendered="{!Opportunity.stagename=='Prospecting'}">
+        This is prospecing tips
+   </apex:outputPanel>
+   <apex:outputPanel rendered="{!Opportunity.stagename=='Needs Analysis'}">
+        This is without prospecing tips
+   </apex:outputPanel>
+   
+   <apex:outputPanel rendered="{!Opportunity.stagename=='Proposal/Price Quote'}">
+        This is without prospecing tips
+   </apex:outputPanel>
+   
+   <apex:outputPanel rendered="{!Opportunity.stagename=='Negotiation/Review'}">
+        This is without prospecing tips
+   </apex:outputPanel>
+</apex:page>

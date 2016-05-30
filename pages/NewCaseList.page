@@ -1,0 +1,16 @@
+<apex:page standardController="Opportunity" extensions="NewCaseListController" sidebar="false" showHeader="false" standardStylesheets="true">
+    <apex:pageBlock >
+        <table>
+            <tr>
+                <th>1</th>
+                <th>2</th>
+            </tr>
+        <apex:repeat value="{!NewCases}" var="case" id="case"> 
+            <tr>
+            <td><apex:outputText value="{!case.CaseNumber}"/></td>
+            <td><apex:outputText value="{!case.Id}"/></td>
+            </tr>
+        </apex:repeat>
+        </table>
+    </apex:pageBlock>
+</apex:page>

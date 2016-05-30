@@ -1,0 +1,11 @@
+<apex:page standardController="Account" >
+    <apex:sectionHeader title="sectionHeader - title" subtitle="sectionHeader - subtitle" />
+    <apex:pageBlock title="page block - mode : detail" mode="detail">
+        <apex:pageBlockSection title="page block section">
+            <apex:outputField value="{!account.name}"/>
+            <apex:outputField value="{!account.site}"/>
+            <apex:outputField value="{!account.Website}"/>
+            <apex:outputField value="{!account.Industry}"/>
+        </apex:pageBlockSection>
+    </apex:pageBlock>
+</apex:page>

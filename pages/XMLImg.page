@@ -1,0 +1,82 @@
+<apex:page controller="ImgController" contenttype="application/vnd.ms-excel#test.xls">
+{!excelname}
+<Workbook xmlns="urn:schemas-microsoft-com:office:spreadsheet" xmlns:ss="urn:schemas-microsoft-com:office:spreadsheet">
+    <Styles>
+        <Style ss:ID="Default" ss:Name="Normal">
+            <Font ss:FontName="Times New Roman" ss:Size="8" />
+            <Alignment ss:WrapText="1" ss:Horizontal="Left" ss:Vertical="Top" />
+        </Style>
+        <Style ss:ID="bold">
+            <Font ss:FontName="Times New Roman" ss:Bold="1" />
+        </Style>
+        <Style ss:ID="date">
+            <NumberFormat ss:Format="General Date" />
+        </Style>
+        <Style ss:ID="Header" >
+            <Font ss:FontName="Times New Roman" ss:Bold="1" ss:Color="#ffffff"  ss:Size="15" />
+            <Interior ss:Color="#696969" ss:Pattern="Solid" />
+        </Style>
+    </Styles>
+    <Worksheet ss:Name="Work Order">
+        <Table>
+            <Column ss:Width="180"  />
+            <Column ss:Width="180"  />
+            <Column ss:Width="100"  />
+            <Column ss:Width="200"  />
+            <Column ss:Width="400"  />
+            <Row >
+                <Cell  ss:StyleID="Header">
+                    <Data ss:Type="String"  >Field Name</Data>
+                </Cell>
+                <Cell  ss:StyleID="Header">
+                    <Data ss:Type="String"  >API Name</Data>
+                </Cell>
+                <Cell ss:StyleID="Header">
+                    <Data ss:Type="String"  >Type</Data>
+                </Cell>
+                <Cell  ss:StyleID="Header">
+                    <Data ss:Type="String"  >Data</Data>
+                </Cell>
+                <Cell ss:StyleID="Header">
+                    <Data ss:Type="String"  >Description</Data>
+                </Cell>
+            </Row>
+            <Row ss:Index="2">
+                <Cell ss:Index="1">
+                    <Data ss:Type="Boolean">1</Data>
+                </Cell>
+            </Row>
+            <Row ss:Index="3">
+                <Cell ss:Index="1">
+                    <Data ss:Type="DateTime">2005-01-01T13:54:15.000</Data>
+                </Cell>
+                <Cell ss:Index="2" ss:StyleID="mydate">
+                    <Data ss:Type="DateTime">2005-01-02T13:54:15.000</Data>
+                </Cell>
+                <Cell ss:Index="3" ss:StyleID="date">
+                    <Data ss:Type="DateTime">2005-01-03T13:54:15.000</Data>
+                </Cell>
+            </Row>
+            <Row ss:Index="4">
+                <Cell ss:Index="1">
+                    <Data ss:Type="String">abc</Data>
+                </Cell>
+            </Row>
+            <Row ss:Index="10">
+                <Cell ss:Index="5">
+                    <Data ss:Type="Error">#N/A</Data>
+                </Cell>
+            </Row>
+        </Table>
+    </Worksheet>
+    <Worksheet ss:Name="Work Order Detail">
+        <Table>
+            <Row ss:Index="1">
+                <Cell ss:Index="1" ss:Formula="=Sheet1!R1C1 &amp; &quot; plus text&quot;" ss:StyleID="bold">
+                    <Data ss:Type="String"></Data>
+                </Cell>
+            </Row>
+        </Table>
+    </Worksheet>
+</Workbook>
+</apex:page>

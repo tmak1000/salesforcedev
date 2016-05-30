@@ -1,0 +1,14 @@
+<apex:page controller="HojokinController">
+  <!-- Begin Default Content REMOVE THIS -->
+  <h1>補助金要請完了</h1>
+ <apex:form >
+      <apex:pageBlock >
+      <apex:pageBlockSection title="必ずお読みください">
+          <p color="red">説明会当日には本完了画面を印刷しお持ちください。<br/>なお、お持ちで無い場合説明会を受けることができません。</p>
+      </apex:pageBlockSection>
+          <apex:pageBlockButtons >
+              <apex:commandButton action="{!back}" value="戻る"/>
+          </apex:pageBlockButtons>
+      </apex:pageBlock>
+  </apex:form>
+</apex:page>

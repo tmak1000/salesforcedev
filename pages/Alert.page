@@ -1,0 +1,10 @@
+<apex:page standardController="Account">
+  <!-- 詳細画面のページレイアウトに高さ0幅0で配置する。 -->
+  <script>if(confirm('すすみますか？')){
+        // なにもしないで編集を行なう。
+    }else{
+        //　取引先リストビュー画面へ戻る。
+        window.parent.location.href="https://testhogehoge-dev-ed.my.salesforce.com/001/o";
+    }
+  </script>
+</apex:page>

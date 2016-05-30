@@ -1,0 +1,25 @@
+<apex:page controller="ProjectInformationController">
+  <!-- Begin Default Content REMOVE THIS -->
+  <h1>Congratulations</h1>
+  This is your new Page
+  <!-- End Default Content REMOVE THIS -->
+  <apex:repeat value="{!pList}" var="p">
+      <table>
+          <tr style="border:1px;">
+              <td><apex:outputText value="{!p.Name}"/>@</td>
+              <td><apex:outputText value="{!p.DateTimeFiled__c}"/>@</td>
+              <td><apex:outputField value="{!p.NumDateTIme__c}"/>@</td>
+              <td><apex:outputText value="{0,date,yyyy/MM/dd}">
+                      <apex:param value="{!p.DateTimeFiled__c+0.375}"/>
+                   </apex:outputText>    @
+              </td>
+              <td><apex:outputText value="{0,date,YYYY/MM/dd}">
+                      <apex:param value="{!p.DateTimeFiled__c+0.375}"/>
+                   </apex:outputText>    @
+              </td> 
+              <td><apex:outputField value="{!p.FormulaFromDateTime__c}"/>@</td>
+          </tr>
+      </table>
+  </apex:repeat>
+  
+</apex:page>

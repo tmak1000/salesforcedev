@@ -1,0 +1,20 @@
+<apex:page controller="EmpIchiranController"
+               cache="false"
+               showHeader="true"
+               sidebar="false"
+               title="社員情報登録システム"
+               standardStylesheets="true"
+               tabStyle="EmpManagement__tab"
+               id="page">
+  <!-- Begin Default Content REMOVE THIS -->
+  <h1>Congratulations</h1>
+  <apex:form >
+  
+  <apex:inputField value="{!empinfo.LastName__c}"/>
+         <apex:pageBlock > <apex:pageBlockButtons location="bottom">
+                 <apex:commandButton value="社員一覧" action="{!search}"/>
+            </apex:pageBlockButtons>
+            </apex:pageBlock>
+  </apex:form>
+  <!-- End Default Content REMOVE THIS -->
+</apex:page>

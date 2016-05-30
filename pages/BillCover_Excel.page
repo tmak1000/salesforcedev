@@ -1,0 +1,422 @@
+<apex:page contenttype="text/html;charset=UTF-8#BillCover_Excel.xml" controller="Excel2Controller" cache="">
+<apex:outputText escape="true" value="{!xmlVer}" />
+<apex:outputText escape="true" value="{!xmlApp}" />
+    <Workbook xmlns="urn:schemas-microsoft-com:office:spreadsheet"
+        xmlns:o="urn:schemas-microsoft-com:office:office"
+        xmlns:x="urn:schemas-microsoft-com:office:excel"
+        xmlns:ss="urn:schemas-microsoft-com:office:spreadsheet"
+        xmlns:html="http://www.w3.org/TR/REC-html40">
+
+     <Styles>
+            <Style ss:ID="Default" ss:Name="Normal">
+                    <Alignment ss:Vertical="Center"/>
+                    <Borders/>
+                    <Font ss:FontName="Arial" x:CharSet="128" x:Family="Modern" ss:Size="11"  ss:Color="#000000"/>
+                    <Interior/>
+                    <NumberFormat/>
+                    <Protection/>
+            </Style>        
+
+            <Style ss:ID="right">
+                    <Alignment ss:Horizontal="Right" ss:Vertical="Center"/>
+            </Style>
+           
+             <Style ss:ID="right_longdate">
+                 <Alignment ss:Horizontal="Right" ss:Vertical="Center"/>
+                 <Font  x:CharSet="128" x:Family="Modern" ss:Size="11"/>
+                 <NumberFormat ss:Format="Long Date"/>
+             </Style>
+           
+             <Style ss:ID="center_font16">
+                 <Alignment ss:Vertical="Center"/>
+                 <Font  x:CharSet="128" x:Family="Modern" ss:Size="16"/>
+             </Style>
+             
+              <Style ss:ID="center_center_font16">
+                 <Alignment ss:Horizontal="Center" ss:Vertical="Center"/>
+                 <Font  x:CharSet="128" x:Family="Modern" ss:Size="16"/>
+             </Style>
+             
+              <Style ss:ID="left_center_font11">
+                 <Alignment ss:Horizontal="Left" ss:Vertical="Center"/>
+                  <Font x:CharSet="128" x:Family="Modern" ss:Size="11"/>
+             </Style>
+             
+              <Style ss:ID="claim_left">
+                  <Alignment ss:Horizontal="Right" ss:Vertical="Center"/>
+                  <Borders>
+                      <Border ss:Position="Bottom" ss:LineStyle="Continuous" ss:Weight="1"/>
+                      <Border ss:Position="Left" ss:LineStyle="Continuous" ss:Weight="1"/>
+                      <Border ss:Position="Top" ss:LineStyle="Continuous" ss:Weight="1"/>
+                  </Borders>
+                  <Font  x:CharSet="128" x:Family="Modern" ss:Size="14"/>
+             </Style>
+             
+              <Style ss:ID="claim_right">
+                  <Alignment ss:Horizontal="Center" ss:Vertical="Center"/>
+                  <Borders>
+                      <Border ss:Position="Bottom" ss:LineStyle="Continuous" ss:Weight="1"/>
+                      <Border ss:Position="Right" ss:LineStyle="Continuous" ss:Weight="1"/>
+                      <Border ss:Position="Top" ss:LineStyle="Continuous" ss:Weight="1"/>
+                  </Borders>
+                  <Font x:CharSet="128" x:Family="Modern" ss:Size="14"/>
+                  <NumberFormat ss:Format="金 #,##0円;[Red]金 \-#,##0円"/>
+             </Style>   
+                         
+              <Style ss:ID="Normal_Font12">
+                  <Font  x:CharSet="128" x:Family="Modern" ss:Size="12"/>
+             </Style>              
+             
+             <Style ss:ID="center_Font12">
+                 <Alignment ss:Horizontal="Center" ss:Vertical="Center"/>
+                 <Font x:CharSet="128" x:Family="Modern" ss:Size="12"/>
+             </Style>
+             
+             <Style ss:ID="longdate_center_Font12">
+                 <Alignment ss:Horizontal="Center" ss:Vertical="Center"/>
+                 <Font x:CharSet="128" x:Family="Modern" ss:Size="12"/>
+                 <NumberFormat ss:Format="Long Date"/>
+             </Style>
+             
+             
+             <Style ss:ID="center_center_Font14">
+                 <Alignment ss:Horizontal="Center" ss:Vertical="Center"/>
+                 <Font x:CharSet="128" x:Family="Modern" ss:Size="14"/>
+             </Style>
+               
+               
+              <Style ss:ID="right_center_Font14">
+                 <Alignment ss:Horizontal="Right" ss:Vertical="Center"/>
+                 <Font x:CharSet="128" x:Family="Modern" ss:Size="14"/>
+             </Style>
+               
+               
+              <Style ss:ID="amount_disp">
+                  <Alignment ss:Horizontal="Right" ss:Vertical="Center"/>
+                  <Font x:CharSet="128" x:Family="Modern" ss:Size="14"/>
+                  <NumberFormat ss:Format="#,##0;[Red]\-#,##0"/>
+              </Style>
+
+             <Style ss:ID="amount_source_disp">
+                 <Alignment ss:Horizontal="Right" ss:Vertical="Center"/>
+                 <Font  x:CharSet="128" x:Family="Modern" ss:Size="14"/>
+                 <NumberFormat ss:Format="▲#,##0;[Red]▲\-#,##0"/>
+             </Style>
+            
+             <Style ss:ID="amount_tail">
+                  <Alignment ss:Vertical="Center"/>
+                  <Font  x:CharSet="128" x:Family="Modern" ss:Size="14"/>
+             </Style>           
+            
+              <Style ss:ID="left_center_shrink_font12">
+                  <Alignment ss:Horizontal="Left" ss:Vertical="Center" ss:ShrinkToFit="1"/>
+                  <Font  x:CharSet="128" x:Family="Modern" ss:Size="12"/>
+             </Style>
+             
+              <Style ss:ID="left_center_shrink">
+                  <Alignment ss:Horizontal="Left" ss:Vertical="Center" ss:ShrinkToFit="1"/>
+             </Style>
+               
+        </Styles>
+
+         <Worksheet ss:Name="表紙">
+          <Names>
+           <NamedRange ss:Name="Print_Area" ss:RefersTo="=表紙!R1C1:R61C11"/>
+          </Names>
+    <Table ss:ExpandedColumnCount="11" ss:ExpandedRowCount="61" x:FullColumns="1"
+           x:FullRows="1"  ss:DefaultColumnWidth="54"
+           ss:DefaultRowHeight="13.5">
+           <Column ss:AutoFitWidth="0" ss:Width="28"/>
+           <Column ss:AutoFitWidth="0" ss:Width="54"/>
+           <Column ss:AutoFitWidth="0" ss:Width="54"/>
+           <Column ss:AutoFitWidth="0" ss:Width="61"/>
+           <Column ss:AutoFitWidth="0" ss:Width="57.75"/>
+           <Column ss:AutoFitWidth="0" ss:Width="54"/>
+           <Column ss:AutoFitWidth="0" ss:Width="54"/>
+           <Column ss:AutoFitWidth="0" ss:Width="54"/>
+           <Column ss:AutoFitWidth="0" ss:Width="54"/>
+           <Column ss:AutoFitWidth="0" ss:Width="57.75"/>
+           <Column ss:AutoFitWidth="0" ss:Width="30"/>
+  <Row ss:AutoFitHeight="0"/>
+  <Row ss:AutoFitHeight="0">
+           <Cell ss:Index="9" ss:MergeAcross="1" ss:StyleID="right">
+                 <Data ss:Type="String">1/5ページ</Data>
+                 <NamedCell ss:Name="Print_Area"/>
+           </Cell>
+           <Cell ss:Index="11"/>
+  </Row>
+  <Row ss:AutoFitHeight="0"/>
+  <Row ss:AutoFitHeight="0">
+           <Cell ss:Index="9" ss:MergeAcross="1" ss:StyleID="right_longdate">
+           <Data ss:Type="String"><apex:outputText value="{0,date,YYYY}年{0,date,MM}月{0,date,dd}日" escape="false" >
+            <apex:param value="{!NOW() + 0.375}" /></apex:outputText></Data>
+                 <NamedCell ss:Name="Print_Area"/>
+           </Cell>
+  </Row>
+  <Row ss:Index="5" ss:Height="18.75">
+           <Cell ss:Index="2" ss:StyleID="center_font16">
+                  <Data ss:Type="String"><apex:outputText value="株式会社リクルートフォレントインシュア" escape="false" />　御中</Data>
+                  <NamedCell ss:Name="Print_Area"/>
+           </Cell>
+  </Row>
+  <Row ss:AutoFitHeight="0" ss:Height="18.75" ss:Span="1"/>                  
+  <Row ss:Index="8" ss:AutoFitHeight="0" ss:Height="18.75">
+           <Cell ss:Index="2" ss:MergeAcross="8" ss:StyleID="center_center_font16">
+                   <Data  ss:Type="String">請　求　書</Data><NamedCell ss:Name="Print_Area"/>
+          </Cell>
+  </Row>
+   <Row ss:AutoFitHeight="0" ss:Height="30"/>
+   <Row ss:AutoFitHeight="0">
+       <Cell ss:Index="7" ss:MergeAcross="3"  ss:StyleID="left_center_font11">
+            <Data ss:Type="String"><apex:outputText value="弁護士法人 法律事務所オーセンス" escape="false" /></Data>
+            <NamedCell ss:Name="Print_Area"/>
+       </Cell>
+   </Row>
+   <Row ss:AutoFitHeight="0">
+       <Cell ss:Index="7" ss:MergeAcross="3" ss:StyleID="left_center_font11">
+           <Data ss:Type="String"><apex:outputText value="弁護士 元榮太一郎" escape="false" /></Data><NamedCell ss:Name="Print_Area"/>
+       </Cell>
+   </Row>
+   <Row ss:AutoFitHeight="0">
+    <Cell ss:Index="7" ss:MergeAcross="3" ss:StyleID="left_center_font11">
+        <Data ss:Type="String"><apex:outputText value="〒 106-0032" escape="false" /></Data>
+        <NamedCell ss:Name="Print_Area"/></Cell>
+   </Row>
+   <Row ss:AutoFitHeight="0">
+       <Cell ss:Index="7" ss:MergeAcross="3"  ss:StyleID="left_center_font11">
+           <Data ss:Type="String"><apex:outputText value="東京都港区六本木4-1-4　黒崎ビル7階" escape="false" /></Data>
+           <NamedCell ss:Name="Print_Area"/>
+       </Cell>
+   </Row>
+   <Row ss:AutoFitHeight="0">
+       <Cell ss:Index="7">
+           <Data ss:Type="String"><apex:outputText value="TEL：03-3585-2666 FAX：03-3585-2667" escape="false" /></Data>
+           <NamedCell ss:Name="Print_Area"/>
+       </Cell>
+   </Row>  
+   <Row ss:AutoFitHeight="0"/>
+   <Row ss:AutoFitHeight="0" ss:Height="17.25">
+       <Cell ss:Index="4" ss:MergeAcross="1" ss:StyleID="claim_left">
+           <Data ss:Type="String">請求金額　　</Data>
+           <NamedCell ss:Name="Print_Area"/>
+       </Cell>
+       <Cell ss:MergeAcross="2" ss:StyleID="claim_right">
+           <Data ss:Type="Number">151050</Data>
+           <NamedCell ss:Name="Print_Area"/>
+       </Cell>
+   </Row> 
+   <Row ss:AutoFitHeight="0"/> 
+   <Row ss:Index="19"  ss:Height="14.25">
+       <Cell ss:Index="3"  ss:StyleID="Normal_Font12">
+           <Data ss:Type="String">上記の金額をお支払い戴きたく、請求致します。</Data>
+           <NamedCell ss:Name="Print_Area"/>
+       </Cell>
+   </Row>  
+   <Row ss:Height="14.25">
+        <Cell ss:StyleID="Normal_Font12"/>
+   </Row>
+   <Row ss:Height="14.25">
+       <Cell ss:Index="3" ss:StyleID="Normal_Font12" >
+           <Data ss:Type="String">但し、別紙請求明細</Data>
+           <NamedCell ss:Name="Print_Area"/>
+      </Cell>
+      <Cell/>
+      <Cell  ss:StyleID="center_Font12">
+          <Data ss:Type="Number">4</Data>
+          <NamedCell ss:Name="Print_Area"/>
+      </Cell>
+     <Cell ss:StyleID="Normal_Font12">
+         <Data ss:Type="String">件の弁護士報酬、及び立替費用として。</Data>
+         <NamedCell ss:Name="Print_Area"/>
+     </Cell>
+   </Row>
+   <Row ss:Height="14.25">
+        <Cell ss:StyleID="Normal_Font12"/>
+   </Row>
+   <Row ss:Height="14.25">
+       <Cell ss:Index="3" ss:StyleID="Normal_Font12">
+           <Data ss:Type="String">なお、お手数ではございますが、</Data>
+           <NamedCell ss:Name="Print_Area"/>
+       </Cell>
+        <Cell/>
+        <Cell/>
+        <Cell ss:MergeAcross="1" ss:StyleID="longdate_center_Font12">
+            <Data ss:Type="String">2015年08月末日</Data>
+            <NamedCell ss:Name="Print_Area"/>
+        </Cell>
+        <Cell ss:StyleID="Normal_Font12">
+            <Data ss:Type="String">までに</Data>
+            <NamedCell  ss:Name="Print_Area"/>
+        </Cell>
+   </Row>
+      <Row ss:Height="14.25">
+       <Cell ss:Index="3" ss:StyleID="Normal_Font12">
+           <Data ss:Type="String">お振り込みにてお願い致します。</Data>
+           <NamedCell ss:Name="Print_Area"/>
+       </Cell>
+   </Row>
+   <Row ss:AutoFitHeight="0"/>
+   <Row ss:AutoFitHeight="0"/>
+   <Row ss:AutoFitHeight="0"/>
+   <Row ss:Height="17.25">
+       <Cell ss:Index="4">
+           <NamedCell ss:Name="Print_Area"/>
+       </Cell>
+       <Cell ss:MergeAcross="2" ss:StyleID="center_center_Font14">
+            <Data  ss:Type="String">（　　明　　　細　　）</Data>
+            <NamedCell ss:Name="Print_Area"/>
+        </Cell>
+        <Cell/>
+   </Row>
+   <Row ss:Height="17.25">
+       <Cell ss:Index="4" ss:MergeAcross="1"  ss:StyleID="right_center_Font14">
+           <Data ss:Type="String">報酬合計額</Data>
+           <NamedCell ss:Name="Print_Area"/>
+       </Cell>
+      <Cell ss:MergeAcross="2" ss:StyleID="amount_disp">
+          <Data ss:Type="Number">142000</Data>
+          <NamedCell ss:Name="Print_Area"/></Cell>
+     <Cell  ss:StyleID="amount_tail">
+         <Data ss:Type="String">円</Data><NamedCell ss:Name="Print_Area"/>
+     </Cell>
+   </Row>
+      <Row ss:Height="17.25">
+       <Cell ss:Index="4" ss:MergeAcross="1" ss:StyleID="right_center_Font14">
+           <Data ss:Type="String">消費税額</Data>
+           <NamedCell ss:Name="Print_Area"/>
+       </Cell>
+      <Cell ss:MergeAcross="2" ss:StyleID="amount_disp">
+          <Data ss:Type="Number">11360</Data>
+          <NamedCell ss:Name="Print_Area"/></Cell>
+     <Cell ss:StyleID="amount_tail">
+         <Data ss:Type="String">円</Data><NamedCell ss:Name="Print_Area"/>
+     </Cell>
+   </Row>
+      <Row ss:Height="17.25">
+       <Cell ss:Index="4" ss:MergeAcross="1" ss:StyleID="right_center_Font14">
+           <Data ss:Type="String">その他費用</Data>
+           <NamedCell ss:Name="Print_Area"/>
+       </Cell>
+      <Cell ss:MergeAcross="2" ss:StyleID="amount_disp">
+          <Data ss:Type="Number">12188</Data>
+          <NamedCell ss:Name="Print_Area"/></Cell>
+     <Cell ss:StyleID="amount_tail">
+         <Data ss:Type="String">円</Data><NamedCell ss:Name="Print_Area"/>
+     </Cell>
+   </Row>
+      <Row ss:Height="17.25">
+       <Cell ss:Index="3" ss:MergeAcross="2" ss:StyleID="right_center_Font14">
+           <Data ss:Type="String">請求合計額（源泉含）</Data>
+           <NamedCell ss:Name="Print_Area"/>
+       </Cell>
+      <Cell ss:MergeAcross="2" ss:StyleID="amount_disp">
+          <Data ss:Type="Number">165548</Data>
+          <NamedCell ss:Name="Print_Area"/></Cell>
+     <Cell ss:StyleID="amount_tail">
+         <Data ss:Type="String">円</Data><NamedCell ss:Name="Print_Area"/>
+     </Cell>
+   </Row>
+      <Row ss:Height="17.25">
+       <Cell ss:Index="4" ss:MergeAcross="1" ss:StyleID="right_center_Font14">
+           <Data ss:Type="String">源泉所得税額</Data>
+           <NamedCell ss:Name="Print_Area"/>
+       </Cell>
+      <Cell ss:MergeAcross="2" ss:StyleID="amount_source_disp">
+          <Data ss:Type="Number">14498</Data>
+          <NamedCell ss:Name="Print_Area"/></Cell>
+     <Cell ss:StyleID="amount_tail">
+         <Data ss:Type="String">円</Data><NamedCell ss:Name="Print_Area"/>
+     </Cell>
+   </Row>
+   <Row ss:Height="17.25">
+       <Cell ss:Index="4" ss:MergeAcross="1" ss:StyleID="right_center_Font14">
+           <Data ss:Type="String">請求合計額</Data>
+           <NamedCell ss:Name="Print_Area"/>
+       </Cell>
+      <Cell ss:MergeAcross="2" ss:StyleID="amount_disp">
+          <Data ss:Type="Number">151050</Data>
+          <NamedCell ss:Name="Print_Area"/></Cell>
+     <Cell ss:StyleID="amount_tail">
+         <Data ss:Type="String">円</Data><NamedCell ss:Name="Print_Area"/>
+     </Cell>
+   </Row>
+   <Row ss:AutoFitHeight="0"/>   
+   <Row ss:AutoFitHeight="0"/>
+   <Row ss:AutoFitHeight="0"/>
+   <Row ss:Height="14.25">
+       <Cell ss:Index="3" ss:StyleID="Normal_Font12">
+           <Data ss:Type="String">（ 支払い期日 ）</Data>
+           <NamedCell ss:Name="Print_Area"/>
+       </Cell>
+    <Cell ss:StyleID="Normal_Font12">
+        <NamedCell ss:Name="Print_Area"/>
+    </Cell>
+    <Cell ss:StyleID="Normal_Font12">
+        <Data ss:Type="String">2015年08月末日</Data>
+        <NamedCell  ss:Name="Print_Area"/>
+    </Cell>
+   </Row>
+   <Row ss:Height="14.25">
+       <Cell ss:Index="3" ss:StyleID="Normal_Font12">
+           <Data ss:Type="String">（ お振込先    ）</Data>
+           <NamedCell ss:Name="Print_Area"/>
+       </Cell>
+        <Cell><NamedCell ss:Name="Print_Area"/></Cell>
+        <Cell ss:MergeAcross="5" ss:StyleID="left_center_shrink_font12">
+            <Data ss:Type="String">三菱東京UFJ銀行　六本木支店　（普通）　0069246</Data>
+            <NamedCell ss:Name="Print_Area"/></Cell>
+   </Row>
+   <Row ss:Height="14.25">
+       <Cell ss:Index="3" ss:StyleID="Normal_Font12">
+           <NamedCell ss:Name="Print_Area"/>
+       </Cell>
+       <Cell ss:StyleID="Normal_Font12">
+           <NamedCell ss:Name="Print_Area"/>
+       </Cell>
+       <Cell ss:StyleID="Normal_Font12">
+           <Data ss:Type="String">口座名義：</Data>
+           <NamedCell ss:Name="Print_Area"/>
+       </Cell>
+       <Cell ss:MergeAcross="4" ss:StyleID="left_center_shrink">
+           <Data ss:Type="String">法律事務所オーセンス代表者弁護士元榮太一郎明渡訴訟口</Data>
+           <NamedCell ss:Name="Print_Area"/>
+       </Cell>
+   </Row>
+   <Row ss:Height="14.25">
+        <Cell ss:Index="3" >
+        <NamedCell ss:Name="Print_Area"/></Cell>
+        <Cell><NamedCell ss:Name="Print_Area"/></Cell>
+        <Cell><NamedCell ss:Name="Print_Area"/></Cell>
+        <Cell ss:MergeAcross="4" ss:StyleID="left_center_shrink">
+            <Data ss:Type="String">ﾎｳﾘﾂｼﾞﾑｼｮｵｰｾﾝｽﾀﾞｲﾋｮｳｼｬﾍﾞﾝｺﾞｼﾓﾄｴﾀｲﾁﾛｳｱｹﾜﾀｼｿｼｮｳｸﾞﾁ</Data>
+            <NamedCell ss:Name="Print_Area"/>
+        </Cell>
+   </Row>           
+ </Table>
+
+          <WorksheetOptions xmlns="urn:schemas-microsoft-com:office:excel">
+           <PageSetup>
+            <Layout x:CenterHorizontal="1"/>
+            <Header x:Margin="0.31496062992125984"/>
+            <Footer x:Margin="0.31496062992125984"/>
+            <PageMargins x:Bottom="0.74803149606299213" x:Left="0.70866141732283472"
+             x:Right="0.70866141732283472" x:Top="0.74803149606299213"/>
+           </PageSetup>
+           <Unsynced/>
+           <Print>
+            <ValidPrinterInfo/>
+            <PaperSizeIndex>9</PaperSizeIndex>
+            <Scale>86</Scale>
+            <HorizontalResolution>600</HorizontalResolution>
+            <VerticalResolution>600</VerticalResolution>
+           </Print>
+           <ShowPageBreakZoom/>
+           <Zoom>85</Zoom>
+           <PageBreakZoom>100</PageBreakZoom>
+           <Selected/>
+           <ProtectObjects>False</ProtectObjects>
+           <ProtectScenarios>False</ProtectScenarios>
+          </WorksheetOptions>
+        </Worksheet>
+    </Workbook>
+</apex:page>

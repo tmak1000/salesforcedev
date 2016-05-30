@@ -1,0 +1,5 @@
+<apex:page standardController="Opportunity">
+  <apex:pageBlock title="{!$User.FirstName} の商談作成" >
+  </apex:pageBlock>
+  
+</apex:page>

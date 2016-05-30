@@ -1,0 +1,33 @@
+<apex:page contenttype="application/vnd.ms-excel;charset=Windows-31J#excel_test.xls" controller="EmpExcelController">
+
+   <apex:pageBlock title="取引先責任者一覧">
+
+      <table border="1">
+           <th>first_name</th>
+           <th>last_name</th>
+           <th>code</th>
+           <th>post</th>
+           <th>sex</th>
+           <th>resisted_year</th>
+           <th>workplace</th>
+           
+           <apex:repeat var="em" value="{!emps}">
+               <tr>
+                   <td><apex:outputText value="{!em.LastName__c}"/></td>
+                   <td><apex:outputText value="{!em.FirstName__c}"/></td>
+                   <td><apex:outputText value="{!em.Abbreviation__c}"/></td>
+                   <td><apex:outputText value="{!em.Post__c}"/></td>
+                   <td><apex:outputText value="{!em.Sex__c}"/></td>
+                   <td><apex:outputText value="{!em.RegistedYear__c}"/></td>              
+                   <td>
+                       <table border="1">                                        
+                            <apex:repeat value="{!ankens}" var="anken" >
+                               <tr><td><apex:outputText value="{!anken}"/></td></tr>
+                            </apex:repeat>                          
+                      </table>             
+              	　</td> 
+            </tr>
+           </apex:repeat>
+      </table>
+  </apex:pageBlock>
+</apex:page>

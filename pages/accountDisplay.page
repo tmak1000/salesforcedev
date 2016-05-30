@@ -1,0 +1,23 @@
+<apex:page standardController="Account">
+
+     <p>Hello {! $User.FirstName} !</p>
+     <p>Your are viewing the {!account.name} account!</p>
+     <p>Here's the Ticker Symbol field: {! account.TickerSymbol}</p>
+     <p>Here's the owner of this account: {! account.Owner.Name}</p>
+     <apex:detail relatedList="false" />
+     <apex:relatedList list="Cases"/>
+     
+     <apex:pageBlock title="Custom Output">
+         <apex:pageBlockSection >
+             <apex:outputField value="{! account.Name}"/>
+             <apex:outputField value="{! account.Owner.Name}"/>
+         </apex:pageBlockSection>
+     </apex:pageBlock>
+     <apex:pageBlock title="My Account Contacts">
+         <apex:pageBlockTable value="{! account.contacts}" var="item">
+             <apex:column value="{!item.name}"/>
+             <apex:column value="{!item.phone}"/>
+         </apex:pageBlockTable>
+     </apex:pageBlock>
+ 
+</apex:page>

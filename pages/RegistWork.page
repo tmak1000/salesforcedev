@@ -1,0 +1,166 @@
+<apex:page controller="RegistWorkController" docType="html-5.0" standardStylesheets="t
+rue" action="{!init}" title="作業登録" sidebar="false" showHeader="false">
+    <style>
+        .content {
+            width: 1000px !important;
+        }
+        .width80 {
+            width: 80px;
+        }
+        .width90 {
+            width: 90px;
+        }
+        .width100 {
+            width: 100px;
+        }
+        .width350 {
+            width: 350px;
+        }
+        .height45 {
+            height; 45px;
+        }
+        .colorRed span {
+            color: red;
+        }
+        span.dateFormat {
+            display: none;
+        }
+        h2 {
+            border-bottom:solid 5px darkorange;
+        }
+        body .bPageBlock, body .secondaryPalette.bPageBlock {
+            border-top: none;
+            margin: 0px;
+            border: none;
+            background-color: white;
+        }
+        body .bPageBlock .pbBody {
+            background-color: white;
+            border: none;
+        }
+        table.workTable th {
+            border: 1px solid #ededed;
+        }
+        table.workTable {
+            background-color: white;
+            -webkit-border-radius: 10px;
+            border-radius: 10px;
+            border: 1px solid #ededed;
+            border-collapse: collapse;
+        }
+        th {
+            height: 40px;
+            text-align: center;
+            vertical-align: middle !important;
+        }
+        td {
+            vertical-align: middle !important;
+        }
+        .dateInput input {
+            width: 170px;
+        }
+        th.workHeader {
+            width: 130px;
+            background: -moz-linear-gradient(top,  #ffaf4b 0%, #ff920a 100%)!important;
+            background: -webkit-gradient(linear, left top, left bottom,
+            	color-stop(0%,#ffaf4b), color-stop(100%,#ff920a)) !important;
+            background: -webkit-linear-gradient(top,  #ffaf4b 0%,#ff920a 100%)!important;
+            background: -o-linear-gradient(top,  #ffaf4b 0%,#ff920a 100%) !important;
+        }
+        th.headerRow {
+            background: -moz-linear-gradient(top,  #ffaf4b 0%, #ff920a 100%)!important;
+            background: -webkit-gradient(linear, left top, left bottom,color-stop(0%,#ffaf4b), color-stop(100%,#ff920a)) !important;
+            background: -webkit-linear-gradient(top,  #ffaf4b 0%,#ff920a 100%)!important;
+            background: -o-linear-gradient(top,  #ffaf4b 0%,#ff920a 100%) !important;
+        }
+        td.pbTitle {
+            display: none;
+        }
+        td.pbButton ,td.pbButtonb {
+            text-align: center;
+        }
+        .alignRight {
+            text-align: right;
+        }
+        .alignCenter {
+            text-align: center;
+        }
+        span.dateInput input {
+            width: 200px;
+        }
+        div.actionButtonArea input {
+            margin: 0px 20px;
+        }
+        @media screen and (max-width: 1024px) {
+            body {
+                font-size: medium;
+            }
+            input {
+                height: 65px;
+                font-size: medium;
+            }
+            input.btn {
+                height: 70px;
+                width: 100px;
+            }
+            select {
+                height: 70px;
+                font-size: medium;
+            }
+            detailTable textarea {
+                min-height: 64px;
+            }
+            table.workTable input {
+                height: 50px;
+            }
+            table.workTable {
+                width: 110%;
+            }
+            table.workTable textarea {
+                width: 98%;
+            }
+            input.checkBox {
+                width: 35px;
+                height: 35px;
+            }
+            .comboboxIcon,
+            .comboboxIconOn,
+            .lookupIcon,
+            .lookupIconOn{
+                zoom: 2;
+            }
+        }
+    </style>
+
+    <!-- jQuery -->
+    <apex:includeScript value="{!URLFOR($Resource.jQuery)}"/>
+
+    <script>
+        // Enterキーを無効化
+        function NoSubmit(e){
+            if(!e) var e = window.event;
+            if(e.keyCode==13){
+                if(e.srcElement.type!='submit' && e.srcElement.type!='textarea'){
+                    if(e.srcElement.type!='image'){
+                        return false;
+                    }
+                }
+            }
+        }
+    </script>
+
+    <!-- タイトル、メッセージ -->
+    <apex:sectionHeader title="作業登録" subtitle="{!opp.Name} 様"/>
+    <apex:pageMessages id="messageArea" showDetail="false" />
+
+    <!-- コンテンツエリア -->
+    <apex:form onkeydown="return NoSubmit(event);">
+        <!-- 入力エリア -->
+        <apex:pageBlock >
+            <div class="actionButtonArea alignCenter">
+                <apex:commandButton value="保存" action="{!save}"/>
+                <apex:commandButton value="戻る" action="{!back}"/>
+            </div>
+        </apex:pageBlock>
+    </apex:form>
+</apex:page>

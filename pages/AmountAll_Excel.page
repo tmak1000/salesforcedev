@@ -1,0 +1,1692 @@
+<!--<apex:page controller="Excel2Controller" contenttype="text/xml;charset=UTF-8#nihongo.xml" cache="true">-->
+<apex:page contenttype="text/xml#{!excelName}.xml;charset=UTF-8;" controller="Excel2Controller" >
+    <apex:outputText escape="true" value="{!xmlVer}" />
+    <apex:outputText escape="true" value="{!xmlApp}" />
+    
+    <Workbook xmlns="urn:schemas-microsoft-com:office:spreadsheet"
+        xmlns:o="urn:schemas-microsoft-com:office:office"
+        xmlns:x="urn:schemas-microsoft-com:office:excel"
+        xmlns:ss="urn:schemas-microsoft-com:office:spreadsheet"
+        xmlns:html="http://www.w3.org/TR/REC-html40">
+        <Styles>
+            <Style ss:ID="Default" ss:Name="Normal">
+                <Alignment ss:Vertical="Center"/>
+                <Borders/>
+                <Font ss:FontName="Arial" x:CharSet="128" x:Family="Modern" ss:Size="10"/>
+                <Interior/>
+                <NumberFormat/>
+                <Protection/>
+            </Style>
+        
+            <Style ss:ID="currency" ss:Name="桁区切り">
+                <NumberFormat ss:Format="#,##0;[Red]\-#,##0"/>
+            </Style>   
+  
+            <Style ss:ID="Left_Bold_currency">
+                <Alignment ss:Horizontal="Left" ss:Vertical="Center"/>
+                <Borders/>
+                <Font ss:FontName="Arial" x:CharSet="128" x:Family="Modern" ss:Size="14" ss:Bold="1"/>
+            </Style>
+            <Style ss:ID="Center_WrapText_Font11">
+                <Alignment ss:Vertical="Center" ss:WrapText="1"/>
+                <Borders/>
+                <Font ss:FontName="Arial" x:CharSet="128" x:Family="Modern" ss:Size="11"/>
+            </Style>
+            <Style ss:ID="Left_WrapText_Font11">
+                <Alignment ss:Horizontal="Left" ss:Vertical="Center" ss:WrapText="1"/>
+                <Borders/>
+                <Font ss:FontName="Arial" x:CharSet="128" x:Family="Modern" ss:Size="11"/>
+            </Style>
+            <Style ss:ID="Normal_Bold">
+                <Font ss:FontName="Arial" x:CharSet="128" x:Family="Modern" ss:Bold="1"/>
+            </Style>  
+            
+            <Style ss:ID="AmountHeader" ss:Parent="currency">
+                <Alignment ss:Horizontal="Center" ss:Vertical="Center"/>
+                <Borders>
+                    <Border ss:Position="Bottom" ss:LineStyle="Continuous" ss:Weight="1"/>
+                    <Border ss:Position="Left" ss:LineStyle="Continuous" ss:Weight="1"/>
+                    <Border ss:Position="Right" ss:LineStyle="Continuous" ss:Weight="1"/>
+                    <Border ss:Position="Top" ss:LineStyle="Continuous" ss:Weight="1"/>
+                </Borders>
+                <Font ss:FontName="Arial" x:CharSet="128" x:Family="Modern"/>
+            </Style>
+            <Style ss:ID="AmountHeaderActCost">
+                <Alignment ss:Horizontal="Center" ss:Vertical="Center"/>
+                <Borders>
+                    <Border ss:Position="Bottom" ss:LineStyle="Continuous" ss:Weight="1"/>
+                    <Border ss:Position="Left" ss:LineStyle="Continuous"   ss:Weight="1"/>
+                    <Border ss:Position="Right" ss:LineStyle="Continuous"  ss:Weight="1"/>
+                    <Border ss:Position="Top" ss:LineStyle="Continuous"    ss:Weight="1"/>
+                </Borders>
+                <Font ss:FontName="Arial" x:CharSet="128" x:Family="Modern"/>
+            </Style> 
+            <Style ss:ID="AmountLittleHeader">
+                <Borders>
+                    <Border ss:Position="Bottom" ss:LineStyle="Continuous"  ss:Weight="1"/>
+                    <Border ss:Position="Left" ss:LineStyle="Continuous"    ss:Weight="1"/>
+                    <Border ss:Position="Right" ss:LineStyle="Continuous"   ss:Weight="1"/>
+                    <Border ss:Position="Top" ss:LineStyle="Continuous"     ss:Weight="1"/>
+                </Borders>
+                <Font ss:FontName="Arial" x:CharSet="128" x:Family="Modern"/>
+            </Style>
+        <Style ss:ID="Left_Note_BorderAllContinuous">
+                <Alignment ss:Horizontal="Left" ss:Vertical="Center"
+                    ss:ShrinkToFit="1"/>
+                <Borders>
+                    <Border ss:Position="Bottom" ss:LineStyle="Continuous"
+                        ss:Weight="1"/>
+                    <Border ss:Position="Left" ss:LineStyle="Continuous"
+                        ss:Weight="1"/>
+                    <Border ss:Position="Right" ss:LineStyle="Continuous"
+                        ss:Weight="1"/>
+                    <Border ss:Position="Top" ss:LineStyle="Continuous"
+                        ss:Weight="1"/>
+                </Borders>
+                <Font ss:FontName="Arial" x:CharSet="128" x:Family="Modern"/>
+            </Style>            
+            <Style ss:ID="AmountLawyerCost" ss:Parent="currency">
+                <Alignment ss:Horizontal="Right" ss:Vertical="Center"
+                    ss:ShrinkToFit="1"/>
+                <Borders>
+                    <Border ss:Position="Bottom" ss:LineStyle="Continuous"
+                        ss:Weight="1"/>
+                    <Border ss:Position="Left" ss:LineStyle="Continuous"
+                        ss:Weight="1"/>
+                    <Border ss:Position="Right" ss:LineStyle="Continuous"
+                        ss:Weight="1"/>
+                    <Border ss:Position="Top" ss:LineStyle="Continuous"
+                        ss:Weight="1"/>
+                </Borders>
+                <Font ss:FontName="Arial" x:CharSet="128" x:Family="Modern"/>
+            </Style>
+            <Style ss:ID="Right_Currency_BorderAllContinuous" ss:Parent="currency">
+                <Alignment ss:Horizontal="Right" ss:Vertical="Center"
+                    ss:ShrinkToFit="1"/>
+                <Borders>
+                    <Border ss:Position="Bottom" ss:LineStyle="Continuous"
+                        ss:Weight="1"/>
+                    <Border ss:Position="Left" ss:LineStyle="Continuous"
+                        ss:Weight="1"/>
+                    <Border ss:Position="Right" ss:LineStyle="Continuous"
+                        ss:Weight="1"/>
+                    <Border ss:Position="Top" ss:LineStyle="Continuous"
+                        ss:Weight="1"/>
+                </Borders>
+                <Font ss:FontName="Arial" x:CharSet="128" x:Family="Modern"/>
+            </Style>
+            <Style ss:ID="Sum_InteriorColor">
+                <Borders>
+                    <Border ss:Position="Bottom" ss:LineStyle="Continuous"
+                        ss:Weight="1"/>
+                    <Border ss:Position="Left" ss:LineStyle="Continuous"
+                        ss:Weight="1"/>
+                    <Border ss:Position="Right" ss:LineStyle="Continuous"
+                        ss:Weight="1"/>
+                    <Border ss:Position="Top" ss:LineStyle="Continuous"
+                        ss:Weight="1"/>
+                </Borders>
+                <Font ss:FontName="Arial" x:CharSet="128" x:Family="Modern"/>
+                <Interior ss:Color="#CCFFCC" ss:Pattern="Solid"/>
+            </Style>
+            <Style ss:ID="RedRight_Currency_BorderAllContinuous">
+                <Alignment ss:Horizontal="Right" ss:Vertical="Center"
+                    ss:ShrinkToFit="1"/>
+                <Borders>
+                    <Border ss:Position="Bottom" ss:LineStyle="Continuous"
+                        ss:Weight="1"/>
+                    <Border ss:Position="Left" ss:LineStyle="Continuous"
+                        ss:Weight="1"/>
+                    <Border ss:Position="Right" ss:LineStyle="Continuous"
+                        ss:Weight="1"/>
+                    <Border ss:Position="Top" ss:LineStyle="Continuous"
+                        ss:Weight="1"/>
+                </Borders>
+                <Font ss:FontName="Arial" x:CharSet="128" x:Family="Modern"/>
+                <NumberFormat ss:Format="#,##0;[Red]\-#,##0"/>
+            </Style> 
+
+            <Style ss:ID="Sum_InteriorColorCost" ss:Parent="currency">
+                <Alignment ss:Horizontal="Right" ss:Vertical="Center"
+                    ss:ShrinkToFit="1"/>
+                <Borders>
+                    <Border ss:Position="Bottom" ss:LineStyle="Continuous"
+                        ss:Weight="1"/>
+                    <Border ss:Position="Left" ss:LineStyle="Continuous"
+                        ss:Weight="1"/>
+                    <Border ss:Position="Right" ss:LineStyle="Continuous"
+                        ss:Weight="1"/>
+                    <Border ss:Position="Top" ss:LineStyle="Continuous"
+                        ss:Weight="1"/>
+                </Borders>
+                <Font ss:FontName="Arial" x:CharSet="128" x:Family="Modern"/>
+                <Interior ss:Color="#CCFFCC" ss:Pattern="Solid"/>
+            </Style>
+            <Style ss:ID="Sum_InteriorColorHeader">
+                <Borders>
+                    <Border ss:Position="Bottom" ss:LineStyle="Continuous"
+                        ss:Weight="1"/>
+                    <Border ss:Position="Left" ss:LineStyle="Continuous"
+                        ss:Weight="1"/>
+                    <Border ss:Position="Right" ss:LineStyle="Continuous"
+                        ss:Weight="1"/>
+                    <Border ss:Position="Top" ss:LineStyle="Continuous"
+                        ss:Weight="1"/>
+                </Borders>
+                <Font ss:FontName="Arial" x:CharSet="128" x:Family="Modern"/>
+                <Interior ss:Color="#CCFFCC" ss:Pattern="Solid"/>
+            </Style>
+             <Style ss:ID="Sum_InteriorColorCost_Note" ss:Parent="currency">
+                <Alignment ss:Horizontal="Left" ss:Vertical="Center"
+                    ss:ShrinkToFit="1"/>
+                <Borders>
+                    <Border ss:Position="Bottom" ss:LineStyle="Continuous"
+                        ss:Weight="1"/>
+                    <Border ss:Position="Left" ss:LineStyle="Continuous"
+                        ss:Weight="1"/>
+                    <Border ss:Position="Right" ss:LineStyle="Continuous"
+                        ss:Weight="1"/>
+                    <Border ss:Position="Top" ss:LineStyle="Continuous"
+                        ss:Weight="1"/>
+                </Borders>
+                <Font ss:FontName="Arial" x:CharSet="128" x:Family="Modern"/>
+                <Interior ss:Color="#CCFFCC" ss:Pattern="Solid"/>
+            </Style>
+        <Style ss:ID="Left_Note_BorderAllContinuous_Color">
+                <Alignment ss:Horizontal="Left" ss:Vertical="Center"
+                    ss:ShrinkToFit="1"/>
+                <Borders>
+                    <Border ss:Position="Bottom" ss:LineStyle="Continuous"
+                        ss:Weight="1"/>
+                    <Border ss:Position="Left" ss:LineStyle="Continuous"
+                        ss:Weight="1"/>
+                    <Border ss:Position="Right" ss:LineStyle="Continuous"
+                        ss:Weight="1"/>
+                    <Border ss:Position="Top" ss:LineStyle="Continuous"
+                        ss:Weight="1"/>
+                </Borders>
+                <Font ss:FontName="Arial" x:CharSet="128" x:Family="Modern"/>
+                <Interior ss:Color="#CCFFCC" ss:Pattern="Solid"/>
+            </Style>
+            <Style ss:ID="ShortDate_Font12_Left">
+               　　<Alignment ss:Horizontal="Left" ss:Vertical="Center"/>
+               　　<Borders/>
+               　　<Font x:CharSet="128" x:Family="Modern" ss:Size="12"/>
+               　　<NumberFormat ss:Format="Short Date"/>
+            </Style>
+            <Style ss:ID="Normal_Font12">
+               　　<Borders/>
+               　　<Font x:CharSet="128" x:Family="Modern" ss:Size="12"/>
+            </Style>
+            <Style ss:ID="beforeAmount_1" ss:Parent="currency">
+                   <Alignment ss:Horizontal="Right" ss:Vertical="Center"/>
+                   <Borders>
+                   <Border ss:Position="Bottom" ss:LineStyle="Continuous" ss:Weight="1"/>
+                   </Borders>
+                   <Font x:CharSet="128" x:Family="Modern" ss:Size="11"/>
+            </Style>
+            <Style ss:ID="beforeAmount_2" ss:Parent="currency">
+                   <Alignment ss:Horizontal="Left" ss:Vertical="Center"/>
+                   <Borders>
+                    <Border ss:Position="Bottom" ss:LineStyle="Continuous" ss:Weight="1"/>
+                   </Borders>
+                   <Font x:CharSet="128" x:Family="Modern"/>
+            </Style>
+            <Style ss:ID="beforeAmount_3" ss:Parent="currency">
+                   <Alignment ss:Horizontal="Center" ss:Vertical="Center"/>
+                   <Borders>
+                    <Border ss:Position="Bottom" ss:LineStyle="Continuous" ss:Weight="1"/>
+                   </Borders>
+                   <Font x:CharSet="128" x:Family="Modern"/>
+                   <Interior/>
+                   <!--<NumberFormat ss:Format="#,##0;[Red]\-#,##0"/>-->
+                  <NumberFormat ss:Format="¥\ #,##0\ \-;¥\ \-#,##0\ \-"/>
+            </Style>   
+            <Style ss:ID="PostalChargesSum">
+                   <Borders>
+                   <Border ss:Position="Bottom" ss:LineStyle="Continuous" ss:Weight="1"/>
+                   <Border ss:Position="Left" ss:LineStyle="Continuous" ss:Weight="1"/>
+                   <Border ss:Position="Right" ss:LineStyle="Continuous" ss:Weight="1"/>
+                   <Border ss:Position="Top" ss:LineStyle="Continuous" ss:Weight="1"/>
+                   </Borders>
+                   <Font  x:CharSet="128" x:Family="Modern"/>
+                   <Interior ss:Color="#FFFF99" ss:Pattern="Solid"/>
+                   <NumberFormat ss:Format="#,##0;[Red]\-#,##0"/>
+            </Style>
+            <Style ss:ID="PostalChargesSum_Num">
+                   <Alignment ss:Horizontal="Right" ss:Vertical="Center"/>
+                   <Borders>
+                   <Border ss:Position="Bottom" ss:LineStyle="Continuous" ss:Weight="1"/>
+                   <Border ss:Position="Left" ss:LineStyle="Continuous" ss:Weight="1"/>
+                   <Border ss:Position="Right" ss:LineStyle="Continuous" ss:Weight="1"/>
+                   <Border ss:Position="Top" ss:LineStyle="Continuous" ss:Weight="1"/>
+                   </Borders>
+                   <Font  x:CharSet="128" x:Family="Modern"/>
+                   <Interior ss:Color="#FFFF99" ss:Pattern="Solid"/>
+                   <NumberFormat ss:Format="#,##0;[Red]\-#,##0"/>
+            </Style>            
+           <Style ss:ID="PostalChargesSum_Note">
+                   <Alignment ss:Horizontal="Left" ss:Vertical="Center"/>
+                   <Borders>
+                   <Border ss:Position="Bottom" ss:LineStyle="Continuous" ss:Weight="1"/>
+                   <Border ss:Position="Left" ss:LineStyle="Continuous" ss:Weight="1"/>
+                   <Border ss:Position="Right" ss:LineStyle="Continuous" ss:Weight="1"/>
+                   <Border ss:Position="Top" ss:LineStyle="Continuous" ss:Weight="1"/>
+                   </Borders>
+                   <Font  x:CharSet="128" x:Family="Modern"/>
+                   <Interior ss:Color="#FFFF99" ss:Pattern="Solid"/>
+                   <NumberFormat ss:Format="#,##0;[Red]\-#,##0"/>
+            </Style>                                                                                                                                    
+        </Styles>
+        <Worksheet ss:Name="{!excelName}.xml">
+            <Names>
+                <NamedRange ss:Name="Print_Area" ss:RefersTo="='{!excelName}'!R1C1:R48C16"/>
+            </Names>
+            <Table ss:ExpandedColumnCount="16" ss:ExpandedRowCount="48" x:FullColumns="1" x:FullRows="1" ss:DefaultColumnWidth="173.25" ss:DefaultRowHeight="12">
+                <Column ss:AutoFitWidth="0" ss:Width="101.25"/>
+                <Column ss:AutoFitWidth="0" ss:Width="59.25"/>
+                <Column ss:AutoFitWidth="0" ss:Width="62.25"/>
+                <Column ss:AutoFitWidth="0" ss:Width="61.5"/>
+                <Column ss:AutoFitWidth="0" ss:Width="9.75"/>
+                <Column ss:AutoFitWidth="0" ss:Width="165"/>
+                <Column ss:AutoFitWidth="0" ss:Width="51.75"/>
+                <Column ss:AutoFitWidth="0" ss:Width="99.75"/>
+                <Column ss:AutoFitWidth="0" ss:Width="9.75"/>
+                <Column ss:AutoFitWidth="0" ss:Width="165"/>
+                <Column ss:AutoFitWidth="0" ss:Width="51.75"/>
+                <Column ss:AutoFitWidth="0" ss:Width="99.75"/>
+                <Column ss:AutoFitWidth="0" ss:Width="9.75"/>
+                <Column ss:AutoFitWidth="0" ss:Width="165"/>
+                <Column ss:AutoFitWidth="0" ss:Width="51.75"/>
+                <Column ss:AutoFitWidth="0" ss:Width="99.75"/>
+                <Row ss:AutoFitHeight="0" ss:Height="24" >
+                    <Cell ss:Index="1" ss:MergeAcross="5" ss:StyleID="Left_Bold_currency">
+                       <Data ss:Type="String">株式会社リクルートフォレントインシュア 御中</Data><NamedCell ss:Name="Print_Area"/>
+                    </Cell>
+                </Row>
+                <Row ss:AutoFitHeight="0" ss:Height="18" ss:StyleID="Center_WrapText_Font11">
+                    <Cell ss:Index="2" ss:StyleID="Center_WrapText_Font11">
+                        <Data ss:Type="String">対象物件</Data>
+                    </Cell>
+                    <Cell ss:Index="3" ss:MergeAcross="3" ss:StyleID="Left_WrapText_Font11">
+                        <Data ss:Type="String">プレール・ドゥーク東新宿Ⅱ105</Data>
+                    </Cell>
+                </Row>
+                <Row ss:AutoFitHeight="0" ss:Height="18">
+                    <Cell ss:Index="2" ss:StyleID="Center_WrapText_Font11">
+                        <Data ss:Type="String">承認番号</Data>
+                    </Cell>
+                    <Cell ss:Index="3" ss:MergeAcross="3" ss:StyleID="Left_WrapText_Font11">
+                        <Data ss:Type="String">5050546713</Data>
+                    </Cell>
+                    <Cell ss:Index="15" ss:StyleID="Normal_Font12">
+                        <Data ss:Type="String">発行日</Data>
+                        <NamedCell ss:Name="Print_Area"/>
+                    </Cell>
+                    <Cell ss:StyleID="ShortDate_Font12_Left">
+                        <Data ss:Type="String">2015年07月27日</Data>
+                        <NamedCell ss:Name="Print_Area"/>
+                    </Cell>                    
+                </Row>
+                <Row ss:AutoFitHeight="0" ss:Height="18">
+                    <Cell ss:Index="2" ss:StyleID="Center_WrapText_Font11">
+                        <Data ss:Type="String">対象期間</Data>
+                    </Cell>
+                    <Cell ss:Index="3" ss:MergeAcross="3" ss:StyleID="Left_WrapText_Font11">
+                        <Data ss:Type="String">2015年06月21日～2015年07月20日</Data>
+                    </Cell>
+                    <Cell ss:Index="15" ss:StyleID="Normal_Font12">
+                        <Data ss:Type="String">請求No.</Data>
+                        <NamedCell ss:Name="Print_Area"/>
+                   </Cell>
+                    <Cell ss:StyleID="Normal_Font12">
+                        <Data ss:Type="String">2177_201507</Data>
+                        <NamedCell ss:Name="Print_Area"/></Cell>
+                </Row>                  
+                <Row ss:AutoFitHeight="0" ss:Height="18">
+                    <Cell ss:Index="2" ss:MergeAcross="2" ss:StyleID="beforeAmount_1">
+                        <Data ss:Type="String">源泉差引前合計金額</Data>
+                        <NamedCell ss:Name="Print_Area"/>
+                    </Cell>
+                    <Cell ss:Index="5" ss:StyleID="beforeAmount_2">
+                        <NamedCell ss:Name="Print_Area"/>
+                    </Cell>
+                    <Cell ss:Index="6" ss:StyleID="beforeAmount_3" ss:Formula="=R[14]C[-2]">
+                        <Data ss:Type="Number">164</Data>
+                        <NamedCell ss:Name="Print_Area"/>
+                    </Cell>
+                </Row>
+                <Row ss:AutoFitHeight="0" ss:Height="18"/>
+                
+                <Row ss:AutoFitHeight="0" ss:Height="20.0625">
+                    <Cell ss:Index="1" ss:StyleID="Normal_Bold">
+                        <Data ss:Type="String">◇弁護士費用</Data>
+                        <NamedCell ss:Name="Print_Area"/>
+                    </Cell>
+                    <Cell ss:StyleID="AmountHeader">
+                        <Data ss:Type="String">金額</Data>
+                        <NamedCell ss:Name="Print_Area"/>
+                    </Cell>
+                    <Cell ss:StyleID="AmountHeader">
+                        <Data ss:Type="String">消費税</Data>
+                        <NamedCell ss:Name="Print_Area"/>
+                    </Cell>
+                    <Cell ss:StyleID="AmountHeader">
+                        <Data ss:Type="String">合計</Data>
+                        <NamedCell ss:Name="Print_Area"/>
+                    </Cell>
+                    <Cell ss:Index="6" ss:StyleID="Normal_Bold">
+                        <Data ss:Type="String">◇本訴費用 （実費）</Data>
+                        <NamedCell ss:Name="Print_Area"/>
+                    </Cell>
+                    <Cell ss:StyleID="AmountHeaderActCost">
+                        <Data ss:Type="String">金額</Data>
+                        <NamedCell ss:Name="Print_Area"/>
+                    </Cell>
+                    <Cell ss:StyleID="AmountHeaderActCost">
+                        <Data ss:Type="String">備考</Data>
+                        <NamedCell ss:Name="Print_Area"/>
+                    </Cell>
+                    <Cell ss:Index="10" ss:StyleID="Normal_Bold">
+                        <Data ss:Type="String">◇強制執行費用 （実費）</Data>
+                        <NamedCell ss:Name="Print_Area"/>
+                    </Cell>
+                    <Cell ss:StyleID="AmountHeaderActCost">
+                        <Data ss:Type="String">金額</Data>
+                        <NamedCell ss:Name="Print_Area"/>
+                    </Cell>
+                    <Cell ss:StyleID="AmountHeaderActCost">
+                        <Data ss:Type="String">備考</Data>
+                        <NamedCell ss:Name="Print_Area"/>
+                    </Cell>
+                    <Cell ss:Index="14" ss:StyleID="Normal_Bold">
+                        <Data ss:Type="String">◇仮処分費用 （実費）</Data>
+                        <NamedCell ss:Name="Print_Area"/>
+                    </Cell>
+                    <Cell ss:StyleID="AmountHeaderActCost">
+                        <Data ss:Type="String">金額</Data>
+                        <NamedCell ss:Name="Print_Area"/>
+                    </Cell>
+                    <Cell ss:StyleID="AmountHeaderActCost">
+                        <Data ss:Type="String">備考</Data>
+                        <NamedCell ss:Name="Print_Area"/>
+                    </Cell>
+                </Row>
+            <Row ss:AutoFitHeight="0" ss:Height="20.0625">
+                    <Cell ss:StyleID="AmountLittleHeader">
+                        <Data ss:Type="String">委任着手金</Data>
+                        <NamedCell ss:Name="Print_Area"/>
+                    </Cell>
+                    <Cell ss:StyleID="Right_Currency_BorderAllContinuous">
+                        <NamedCell ss:Name="Print_Area"/>
+                    </Cell>
+                    <Cell ss:StyleID="Right_Currency_BorderAllContinuous">
+                        <NamedCell ss:Name="Print_Area"/>
+                    </Cell>
+                    <Cell ss:StyleID="Right_Currency_BorderAllContinuous">
+                        <NamedCell ss:Name="Print_Area"/>
+                    </Cell>
+                    <Cell ss:StyleID="Right_Currency_BorderAllContinuous">
+                        <NamedCell ss:Name="Print_Area"/>
+                    </Cell>
+                    <Cell ss:StyleID="AmountLittleHeader">
+                        <Data ss:Type="String">貼付印紙</Data>
+                        <NamedCell ss:Name="Print_Area"/>
+                    </Cell>
+                    <Cell ss:StyleID="RedRight_Currency_BorderAllContinuous">
+                        <NamedCell ss:Name="Print_Area"/>
+                    </Cell>
+                    <Cell ss:StyleID="Left_Note_BorderAllContinuous">
+                        <NamedCell ss:Name="Print_Area"/>
+                    </Cell>
+                    <Cell ss:Index="10" ss:StyleID="AmountLittleHeader">
+                        <Data ss:Type="String">貼付印紙</Data>
+                        <NamedCell ss:Name="Print_Area"/>
+                    </Cell>
+                    <Cell ss:StyleID="Right_Currency_BorderAllContinuous">
+                        <NamedCell ss:Name="Print_Area"/>
+                    </Cell>
+                    <Cell ss:StyleID="Left_Note_BorderAllContinuous">
+                        <NamedCell ss:Name="Print_Area"/>
+                    </Cell>
+                    <Cell ss:Index="14" ss:StyleID="AmountLittleHeader">
+                        <Data ss:Type="String">貼付印紙</Data>
+                        <NamedCell ss:Name="Print_Area"/>
+                    </Cell>
+                    <Cell ss:StyleID="RedRight_Currency_BorderAllContinuous">
+                        <NamedCell ss:Name="Print_Area"/>
+                    </Cell>
+                    <Cell ss:StyleID="Left_Note_BorderAllContinuous">
+                        <NamedCell ss:Name="Print_Area"/>
+                    </Cell>
+                </Row> 
+            <Row ss:AutoFitHeight="0" ss:Height="20.0625">
+                    <Cell ss:StyleID="AmountLittleHeader">
+                        <Data ss:Type="String">訴訟着手金</Data>
+                        <NamedCell ss:Name="Print_Area"/>
+                    </Cell>
+                    <Cell ss:StyleID="Right_Currency_BorderAllContinuous">
+                        <NamedCell ss:Name="Print_Area"/>
+                    </Cell>
+                    <Cell ss:StyleID="Right_Currency_BorderAllContinuous">
+                        <NamedCell ss:Name="Print_Area"/>
+                    </Cell>
+                    <Cell ss:StyleID="Right_Currency_BorderAllContinuous">
+                        <NamedCell ss:Name="Print_Area"/>
+                    </Cell>
+                    
+                    <Cell ss:Index="6" ss:StyleID="AmountLittleHeader">
+                        <Data ss:Type="String">納付郵券</Data>
+                        <NamedCell ss:Name="Print_Area"/>
+                    </Cell>
+                    <Cell ss:StyleID="RedRight_Currency_BorderAllContinuous">
+                        <NamedCell ss:Name="Print_Area"/>
+                    </Cell>
+                    <Cell ss:StyleID="Left_Note_BorderAllContinuous">
+                        <NamedCell ss:Name="Print_Area"/>
+                    </Cell>
+                    <Cell ss:Index="10" ss:StyleID="AmountLittleHeader">
+                        <Data ss:Type="String">納付郵券</Data>
+                        <NamedCell ss:Name="Print_Area"/>
+                    </Cell>
+                    <Cell ss:StyleID="RedRight_Currency_BorderAllContinuous">
+                        <NamedCell ss:Name="Print_Area"/>
+                    </Cell>
+                    <Cell ss:StyleID="Left_Note_BorderAllContinuous">
+                        <NamedCell ss:Name="Print_Area"/>
+                    </Cell>
+                    <Cell ss:Index="14" ss:StyleID="AmountLittleHeader">
+                        <Data ss:Type="String">納付郵券</Data>
+                        <NamedCell ss:Name="Print_Area"/>
+                    </Cell>
+                    <Cell ss:StyleID="RedRight_Currency_BorderAllContinuous">
+                        <NamedCell ss:Name="Print_Area"/>
+                    </Cell>
+                    <Cell ss:StyleID="Left_Note_BorderAllContinuous">
+                        <NamedCell ss:Name="Print_Area"/>
+                    </Cell>                                           
+                </Row>
+            <Row ss:AutoFitHeight="0" ss:Height="20.0625">
+                    <Cell ss:StyleID="AmountLittleHeader">
+                        <Data ss:Type="String">強制執行着手金</Data>
+                        <NamedCell ss:Name="Print_Area"/>
+                    </Cell>
+                    <Cell ss:StyleID="Right_Currency_BorderAllContinuous">
+                        <NamedCell ss:Name="Print_Area"/>
+                    </Cell>
+                    <Cell ss:StyleID="Right_Currency_BorderAllContinuous">
+                        <NamedCell ss:Name="Print_Area"/>
+                    </Cell>
+                    <Cell ss:StyleID="Right_Currency_BorderAllContinuous">
+                        <NamedCell ss:Name="Print_Area"/>
+                    </Cell>
+                    <Cell  ss:Index="6" ss:StyleID="Sum_InteriorColorHeader">
+                        <Data ss:Type="String">合計</Data>
+                        <NamedCell ss:Name="Print_Area"/>
+                    </Cell>
+                    <Cell ss:StyleID="Sum_InteriorColorCost" ss:Formula="=SUM(R[-2]C:R[-1]C)">
+                        <Data ss:Type="Number"></Data>
+                    </Cell>
+                    <Cell ss:StyleID="Left_Note_BorderAllContinuous_Color">
+                        <Data ss:Type="String"></Data>
+                        <NamedCell ss:Name="Print_Area"/>
+                    </Cell> 
+                    <Cell  ss:Index="10" ss:StyleID="Sum_InteriorColorHeader">
+                        <Data ss:Type="String">合計</Data>
+                        <NamedCell ss:Name="Print_Area"/>
+                    </Cell>
+                    <Cell ss:StyleID="Sum_InteriorColorCost" ss:Formula="=SUM(R[-2]C:R[-1]C)" >
+                        <Data ss:Type="Number"></Data>
+                    </Cell>
+                    <Cell ss:StyleID="Left_Note_BorderAllContinuous_Color">
+                        <Data ss:Type="String"></Data>
+                        <NamedCell ss:Name="Print_Area"/>
+                    </Cell>                          
+                    <Cell  ss:Index="14" ss:StyleID="Sum_InteriorColorHeader">
+                        <Data ss:Type="String">合計</Data>
+                        <NamedCell ss:Name="Print_Area"/>
+                    </Cell>
+                    <Cell ss:StyleID="Sum_InteriorColorCost" ss:Formula="=SUM(R[-2]C:R[-1]C)">
+                        <Data ss:Type="Number"></Data>
+                    </Cell>
+                    <Cell ss:StyleID="Left_Note_BorderAllContinuous_Color">
+                        <Data ss:Type="String"></Data>
+                        <NamedCell ss:Name="Print_Area"/>
+                    </Cell>                    
+                </Row>                                
+            <Row ss:AutoFitHeight="0" ss:Height="20.0625">
+                    <Cell ss:StyleID="AmountLittleHeader">
+                        <Data ss:Type="String">報酬金（訴訟）</Data>
+                        <NamedCell ss:Name="Print_Area"/>
+                    </Cell>
+                    <Cell ss:StyleID="Right_Currency_BorderAllContinuous">
+                        <NamedCell ss:Name="Print_Area"/>
+                    </Cell>
+                    <Cell ss:StyleID="Right_Currency_BorderAllContinuous">
+                        <NamedCell ss:Name="Print_Area"/>
+                    </Cell>
+                    <Cell ss:StyleID="Right_Currency_BorderAllContinuous">
+                        <NamedCell ss:Name="Print_Area"/>
+                    </Cell>
+                </Row>
+                 <Row ss:AutoFitHeight="0" ss:Height="20.0625">
+                    <Cell ss:StyleID="AmountLittleHeader">
+                        <Data ss:Type="String">報酬金（強制執行）</Data>
+                        <NamedCell ss:Name="Print_Area"/>
+                    </Cell>
+                    <Cell ss:StyleID="Right_Currency_BorderAllContinuous">
+                        <NamedCell ss:Name="Print_Area"/>
+                    </Cell>
+                    <Cell ss:StyleID="Right_Currency_BorderAllContinuous">
+                        <NamedCell ss:Name="Print_Area"/>
+                    </Cell>
+                    <Cell ss:StyleID="Right_Currency_BorderAllContinuous">
+                        <NamedCell ss:Name="Print_Area"/>
+                    </Cell>         
+                    <Cell ss:Index="7"  ss:StyleID="AmountHeaderActCost">
+                        <Data ss:Type="String">金額</Data>
+                        <NamedCell ss:Name="Print_Area"/>
+                    </Cell>
+                    <Cell ss:Index="8"  ss:StyleID="AmountHeaderActCost">
+                        <Data ss:Type="String">備考</Data>
+                        <NamedCell ss:Name="Print_Area"/>
+                    </Cell>
+                    <Cell ss:Index="11"  ss:StyleID="AmountHeaderActCost">
+                        <Data ss:Type="String">金額</Data>
+                        <NamedCell ss:Name="Print_Area"/>
+                    </Cell>
+                    <Cell ss:Index="12"  ss:StyleID="AmountHeaderActCost">
+                        <Data ss:Type="String">備考</Data>
+                        <NamedCell ss:Name="Print_Area"/>
+                    </Cell> 
+                    <Cell ss:Index="15"  ss:StyleID="AmountHeaderActCost">
+                        <Data ss:Type="String">金額</Data>
+                        <NamedCell ss:Name="Print_Area"/>
+                    </Cell>
+                    <Cell ss:Index="16"  ss:StyleID="AmountHeaderActCost">
+                        <Data ss:Type="String">備考</Data>
+                        <NamedCell ss:Name="Print_Area"/>
+                    </Cell>                                                          
+                </Row>                   
+                 <Row ss:AutoFitHeight="0" ss:Height="20.0625">
+                    <Cell ss:StyleID="AmountLittleHeader">
+                        <Data ss:Type="String">仮処分着手金</Data>
+                        <NamedCell ss:Name="Print_Area"/>
+                    </Cell>
+                    <Cell ss:StyleID="Right_Currency_BorderAllContinuous">
+                        <NamedCell ss:Name="Print_Area"/>
+                    </Cell>
+                    <Cell ss:StyleID="Right_Currency_BorderAllContinuous">
+                        <NamedCell ss:Name="Print_Area"/>
+                    </Cell>
+                    <Cell ss:StyleID="Right_Currency_BorderAllContinuous">
+                        <NamedCell ss:Name="Print_Area"/>
+                    </Cell>
+                    <Cell ss:Index="6" ss:StyleID="AmountLittleHeader">
+                        <Data ss:Type="String">不動産登記簿謄本</Data>
+                        <NamedCell ss:Name="Print_Area"/>
+                    </Cell>
+                    <Cell ss:StyleID="RedRight_Currency_BorderAllContinuous">
+                        <NamedCell ss:Name="Print_Area"/>
+                    </Cell>
+                    <Cell ss:StyleID="Left_Note_BorderAllContinuous">
+                        <NamedCell ss:Name="Print_Area"/>
+                    </Cell>
+                    <Cell ss:Index="10" ss:StyleID="AmountLittleHeader">
+                        <Data ss:Type="String">不動産登記簿謄本</Data>
+                        <NamedCell ss:Name="Print_Area"/>
+                    </Cell>
+                    <Cell ss:StyleID="RedRight_Currency_BorderAllContinuous">
+                        <NamedCell ss:Name="Print_Area"/>
+                    </Cell>
+                    <Cell ss:StyleID="Left_Note_BorderAllContinuous">
+                        <NamedCell ss:Name="Print_Area"/>
+                    </Cell>
+                    
+                    <Cell ss:Index="14" ss:StyleID="AmountLittleHeader">
+                        <Data ss:Type="String">不動産登記簿謄本</Data>
+                        <NamedCell ss:Name="Print_Area"/>
+                    </Cell>
+                    <Cell ss:StyleID="RedRight_Currency_BorderAllContinuous">
+                        <NamedCell ss:Name="Print_Area"/>
+                    </Cell>
+                    <Cell ss:StyleID="Left_Note_BorderAllContinuous">
+                        <NamedCell ss:Name="Print_Area"/>
+                    </Cell>   
+                </Row>
+            <Row ss:AutoFitHeight="0" ss:Height="20.0625">
+                    <Cell ss:StyleID="AmountLittleHeader">
+                        <Data ss:Type="String">内容証明発送報酬</Data>
+                        <NamedCell ss:Name="Print_Area"/>
+                    </Cell>
+                    <Cell ss:StyleID="Right_Currency_BorderAllContinuous">
+                        <NamedCell ss:Name="Print_Area"/>
+                    </Cell>
+                    <Cell ss:StyleID="Right_Currency_BorderAllContinuous">
+                        <NamedCell ss:Name="Print_Area"/>
+                    </Cell>
+                    <Cell ss:StyleID="Right_Currency_BorderAllContinuous">
+                        <NamedCell ss:Name="Print_Area"/>
+                    </Cell>
+                    
+                    <Cell ss:Index="6" ss:StyleID="AmountLittleHeader">
+                        <Data ss:Type="String">商業登記簿謄本</Data>
+                        <NamedCell ss:Name="Print_Area"/>
+                    </Cell>
+                    <Cell ss:StyleID="RedRight_Currency_BorderAllContinuous">
+                        <NamedCell ss:Name="Print_Area"/>
+                    </Cell>
+                    <Cell ss:StyleID="Left_Note_BorderAllContinuous">
+                        <NamedCell ss:Name="Print_Area"/>
+                    </Cell>
+                    <Cell ss:Index="10" ss:StyleID="AmountLittleHeader">
+                        <Data ss:Type="String">商業登記簿謄本</Data>
+                        <NamedCell ss:Name="Print_Area"/>
+                    </Cell>
+                    <Cell ss:StyleID="RedRight_Currency_BorderAllContinuous">
+                        <NamedCell ss:Name="Print_Area"/>
+                    </Cell>
+                    <Cell ss:StyleID="Left_Note_BorderAllContinuous">
+                        <NamedCell ss:Name="Print_Area"/>
+                    </Cell>
+                    
+                    <Cell ss:Index="14" ss:StyleID="AmountLittleHeader">
+                        <Data ss:Type="String">商業登記簿謄本</Data>
+                        <NamedCell ss:Name="Print_Area"/>
+                    </Cell>
+                    <Cell ss:StyleID="RedRight_Currency_BorderAllContinuous">
+                        <NamedCell ss:Name="Print_Area"/>
+                    </Cell>
+                    <Cell ss:StyleID="Left_Note_BorderAllContinuous">
+                        <NamedCell ss:Name="Print_Area"/>
+                    </Cell>                                          
+                    
+                </Row>                                
+            <Row ss:AutoFitHeight="0" ss:Height="20.0625">
+                    <Cell ss:StyleID="AmountLittleHeader">
+                        <Data ss:Type="String">手数料</Data>
+                        <NamedCell ss:Name="Print_Area"/>
+                    </Cell>
+                    <Cell ss:StyleID="Right_Currency_BorderAllContinuous">
+                        <NamedCell ss:Name="Print_Area"/>
+                    </Cell>
+                    <Cell ss:StyleID="Right_Currency_BorderAllContinuous">
+                        <NamedCell ss:Name="Print_Area"/>
+                    </Cell>
+                    <Cell ss:StyleID="Right_Currency_BorderAllContinuous">
+                        <NamedCell ss:Name="Print_Area"/>
+                    </Cell>
+                    <Cell ss:Index="6" ss:StyleID="AmountLittleHeader">
+                        <Data ss:Type="String">図面取得費</Data>
+                        <NamedCell ss:Name="Print_Area"/>
+                    </Cell>
+                    <Cell ss:StyleID="RedRight_Currency_BorderAllContinuous">
+                        <NamedCell ss:Name="Print_Area"/>
+                    </Cell>
+                    <Cell ss:StyleID="Left_Note_BorderAllContinuous">
+                        <NamedCell ss:Name="Print_Area"/>
+                    </Cell>
+                    <Cell ss:Index="10" ss:StyleID="AmountLittleHeader">
+                        <Data ss:Type="String">図面取得費</Data>
+                        <NamedCell ss:Name="Print_Area"/>
+                    </Cell>
+                    <Cell ss:StyleID="RedRight_Currency_BorderAllContinuous">
+                        <NamedCell ss:Name="Print_Area"/>
+                    </Cell>
+                    <Cell ss:StyleID="Left_Note_BorderAllContinuous">
+                        <NamedCell ss:Name="Print_Area"/>
+                    </Cell>
+                    
+                    <Cell ss:Index="14" ss:StyleID="AmountLittleHeader">
+                        <Data ss:Type="String">図面取得費</Data>
+                        <NamedCell ss:Name="Print_Area"/>
+                    </Cell>
+                    <Cell ss:StyleID="RedRight_Currency_BorderAllContinuous">
+                        <NamedCell ss:Name="Print_Area"/>
+                    </Cell>
+                    <Cell ss:StyleID="Left_Note_BorderAllContinuous">
+                        <NamedCell ss:Name="Print_Area"/>
+                    </Cell>                    
+                </Row>
+            <Row ss:AutoFitHeight="0" ss:Height="20.0625">
+                    <Cell ss:StyleID="AmountLittleHeader">
+                        <Data ss:Type="String">日当</Data>
+                        <NamedCell ss:Name="Print_Area"/>
+                    </Cell>
+                    <Cell ss:StyleID="Right_Currency_BorderAllContinuous">
+                        <NamedCell ss:Name="Print_Area"/>
+                    </Cell>
+                    <Cell ss:StyleID="Right_Currency_BorderAllContinuous">
+                        <NamedCell ss:Name="Print_Area"/>
+                    </Cell>
+                    <Cell ss:StyleID="Right_Currency_BorderAllContinuous">
+                        <NamedCell ss:Name="Print_Area"/>
+                    </Cell>
+                    <Cell ss:Index="6" ss:StyleID="AmountLittleHeader">
+                        <Data ss:Type="String">地図取得費</Data>
+                        <NamedCell ss:Name="Print_Area"/>
+                    </Cell>
+                    <Cell ss:StyleID="RedRight_Currency_BorderAllContinuous">
+                        <NamedCell ss:Name="Print_Area"/>
+                    </Cell>
+                    <Cell ss:StyleID="Left_Note_BorderAllContinuous">
+                        <NamedCell ss:Name="Print_Area"/>
+                    </Cell>
+                    <Cell ss:Index="10" ss:StyleID="AmountLittleHeader">
+                        <Data ss:Type="String">地図取得費</Data>
+                        <NamedCell ss:Name="Print_Area"/>
+                    </Cell>
+                    <Cell ss:StyleID="RedRight_Currency_BorderAllContinuous">
+                        <NamedCell ss:Name="Print_Area"/>
+                    </Cell>
+                    <Cell ss:StyleID="Left_Note_BorderAllContinuous">
+                        <NamedCell ss:Name="Print_Area"/>
+                    </Cell>
+                    
+                    <Cell ss:Index="14" ss:StyleID="AmountLittleHeader">
+                        <Data ss:Type="String">地図取得費</Data>
+                        <NamedCell ss:Name="Print_Area"/>
+                    </Cell>
+                    <Cell ss:StyleID="RedRight_Currency_BorderAllContinuous">
+                        <NamedCell ss:Name="Print_Area"/>
+                    </Cell>
+                    <Cell ss:StyleID="Left_Note_BorderAllContinuous">
+                        <NamedCell ss:Name="Print_Area"/>
+                    </Cell>                    
+                </Row>   
+                <Row ss:AutoFitHeight="0" ss:Height="20.0625">
+                    <Cell ss:StyleID="Sum_InteriorColorHeader">
+                        <Data ss:Type="String">合計</Data>
+                        <NamedCell ss:Name="Print_Area"/>
+                    </Cell>
+                    <Cell ss:StyleID="Sum_InteriorColorCost" ss:Formula="=SUM(R[-9]C:R[-1]C)">
+                        <Data ss:Type="Number">0</Data>
+                    </Cell>
+                    <Cell ss:StyleID="Sum_InteriorColorCost" ss:Formula="=SUM(R[-9]C:R[-1]C)">
+                        <Data ss:Type="Number">0</Data>
+                        <NamedCell ss:Name="Print_Area"/>
+                    </Cell>
+                    <Cell ss:StyleID="Sum_InteriorColorCost" ss:Formula="=SUM(R[-9]C:R[-1]C)">
+                        <Data ss:Type="Number">0</Data>
+                        <NamedCell ss:Name="Print_Area"/>
+                    </Cell>
+                    <Cell ss:Index="6" ss:StyleID="AmountLittleHeader">
+                        <Data ss:Type="String">登記情報（ＮＥＴ）</Data>
+                        <NamedCell ss:Name="Print_Area"/>
+                    </Cell>
+                    <Cell ss:StyleID="RedRight_Currency_BorderAllContinuous">
+                        <NamedCell ss:Name="Print_Area"/>
+                    </Cell>
+                    <Cell ss:StyleID="Left_Note_BorderAllContinuous">
+                        <NamedCell ss:Name="Print_Area"/>
+                    </Cell>
+                    <Cell ss:Index="10" ss:StyleID="AmountLittleHeader">
+                        <Data ss:Type="String">登記情報（ＮＥＴ）</Data>
+                        <NamedCell ss:Name="Print_Area"/>
+                    </Cell>
+                    <Cell ss:StyleID="RedRight_Currency_BorderAllContinuous">
+                        <NamedCell ss:Name="Print_Area"/>
+                    </Cell>
+                    <Cell ss:StyleID="Left_Note_BorderAllContinuous">
+                        <NamedCell ss:Name="Print_Area"/>
+                    </Cell>
+                    
+                    <Cell ss:Index="14" ss:StyleID="AmountLittleHeader">
+                        <Data ss:Type="String">登記情報（ＮＥＴ）</Data>
+                        <NamedCell ss:Name="Print_Area"/>
+                    </Cell>
+                    <Cell ss:StyleID="RedRight_Currency_BorderAllContinuous">
+                        <NamedCell ss:Name="Print_Area"/>
+                    </Cell>
+                    <Cell ss:StyleID="Left_Note_BorderAllContinuous">
+                        <NamedCell ss:Name="Print_Area"/>
+                    </Cell>                    
+                </Row>
+                <Row ss:AutoFitHeight="0" ss:Height="20.0625">
+                    <Cell ss:Index="6" ss:StyleID="AmountLittleHeader">
+                        <Data ss:Type="String">その他謄本取得費</Data>
+                        <NamedCell ss:Name="Print_Area"/>
+                    </Cell>
+                    <Cell ss:StyleID="RedRight_Currency_BorderAllContinuous">
+                        <NamedCell ss:Name="Print_Area"/>
+                    </Cell>
+                    <Cell ss:StyleID="Left_Note_BorderAllContinuous">
+                        <NamedCell ss:Name="Print_Area"/>
+                    </Cell>
+                    <Cell ss:Index="10" ss:StyleID="AmountLittleHeader">
+                        <Data ss:Type="String">その他謄本取得費</Data>
+                        <NamedCell ss:Name="Print_Area"/>
+                    </Cell>
+                    <Cell ss:StyleID="RedRight_Currency_BorderAllContinuous">
+                        <NamedCell ss:Name="Print_Area"/>
+                    </Cell>
+                    <Cell ss:StyleID="Left_Note_BorderAllContinuous">
+                        <NamedCell ss:Name="Print_Area"/>
+                    </Cell>
+                    
+                    <Cell ss:Index="14" ss:StyleID="AmountLittleHeader">
+                        <Data ss:Type="String">その他謄本取得費</Data>
+                        <NamedCell ss:Name="Print_Area"/>
+                    </Cell>
+                    <Cell ss:StyleID="RedRight_Currency_BorderAllContinuous">
+                        <NamedCell ss:Name="Print_Area"/>
+                    </Cell>
+                    <Cell ss:StyleID="Left_Note_BorderAllContinuous">
+                        <NamedCell ss:Name="Print_Area"/>
+                    </Cell>                
+                </Row>
+                <Row ss:AutoFitHeight="0" ss:Height="20.0625">
+                    <Cell ss:StyleID="Sum_InteriorColorHeader" >
+                        <Data ss:Type="String">◇請求額 合計</Data>
+                        <NamedCell ss:Name="Print_Area"/>
+                    </Cell>
+                    <Cell ss:StyleID="Sum_InteriorColorCost" ss:Formula="=R[-2]C+R[-9]C[5]+R[14]C[5]+R[-9]C[9]+R[14]C[9]+R[17]C[9]+R[24]C[9]+R[29]C[9]+R[-9]C[13]+R[14]C[13]+R[17]C[13]+R[20]C[13]+R[26]C[13]">
+                        <Data ss:Type="Number">164</Data>
+                        <NamedCell ss:Name="Print_Area"/>
+                    </Cell>
+                    <Cell ss:StyleID="Sum_InteriorColorCost" ss:Formula="=R[-2]C">
+                        <Data ss:Type="Number">0</Data>
+                        <NamedCell ss:Name="Print_Area"/>
+                    </Cell>
+                    <Cell ss:StyleID="Sum_InteriorColorCost" ss:Formula="=SUM(RC[-2]:RC[-1])">
+                        <Data ss:Type="Number">164</Data>
+                        <NamedCell ss:Name="Print_Area"/>
+                    </Cell>
+                    <Cell ss:Index="6" ss:StyleID="AmountLittleHeader">
+                        <Data ss:Type="String">評価証明</Data>
+                        <NamedCell ss:Name="Print_Area"/>
+                    </Cell>
+                    <Cell ss:StyleID="RedRight_Currency_BorderAllContinuous">
+                        <NamedCell ss:Name="Print_Area"/>
+                    </Cell>
+                    <Cell ss:StyleID="Left_Note_BorderAllContinuous">
+                        <NamedCell ss:Name="Print_Area"/>
+                    </Cell>
+                    <Cell ss:Index="10" ss:StyleID="AmountLittleHeader">
+                        <Data ss:Type="String">評価証明</Data>
+                        <NamedCell ss:Name="Print_Area"/>
+                    </Cell>
+                    <Cell ss:StyleID="RedRight_Currency_BorderAllContinuous">
+                        <NamedCell ss:Name="Print_Area"/>
+                    </Cell>
+                    <Cell ss:StyleID="Left_Note_BorderAllContinuous">
+                        <NamedCell ss:Name="Print_Area"/>
+                    </Cell>
+                    
+                    <Cell ss:Index="14" ss:StyleID="AmountLittleHeader">
+                        <Data ss:Type="String">評価証明</Data>
+                        <NamedCell ss:Name="Print_Area"/>
+                    </Cell>
+                    <Cell ss:StyleID="RedRight_Currency_BorderAllContinuous">
+                        <NamedCell ss:Name="Print_Area"/>
+                    </Cell>
+                    <Cell ss:StyleID="Left_Note_BorderAllContinuous">
+                        <NamedCell ss:Name="Print_Area"/>
+                    </Cell>                    
+                </Row>   
+                <Row ss:AutoFitHeight="0" ss:Height="20.0625">
+                    <Cell ss:Index="6" ss:StyleID="AmountLittleHeader">
+                        <Data ss:Type="String">評価証明　小為替手数料</Data>
+                        <NamedCell ss:Name="Print_Area"/>
+                    </Cell>
+                    <Cell ss:StyleID="RedRight_Currency_BorderAllContinuous">
+                        <NamedCell ss:Name="Print_Area"/>
+                    </Cell>
+                    <Cell ss:StyleID="Left_Note_BorderAllContinuous">
+                        <NamedCell ss:Name="Print_Area"/>
+                    </Cell>
+                    <Cell ss:Index="10" ss:StyleID="AmountLittleHeader">
+                        <Data ss:Type="String">評価証明　小為替手数料</Data>
+                        <NamedCell ss:Name="Print_Area"/>
+                    </Cell>
+                    <Cell ss:StyleID="RedRight_Currency_BorderAllContinuous">
+                        <NamedCell ss:Name="Print_Area"/>
+                    </Cell>
+                    <Cell ss:StyleID="Left_Note_BorderAllContinuous">
+                        <NamedCell ss:Name="Print_Area"/>
+                    </Cell>
+                    
+                    <Cell ss:Index="14" ss:StyleID="AmountLittleHeader">
+                        <Data ss:Type="String">評価証明　小為替手数料</Data>
+                        <NamedCell ss:Name="Print_Area"/>
+                    </Cell>
+                    <Cell ss:StyleID="RedRight_Currency_BorderAllContinuous">
+                        <NamedCell ss:Name="Print_Area"/>
+                    </Cell>
+                    <Cell ss:StyleID="Left_Note_BorderAllContinuous">
+                        <NamedCell ss:Name="Print_Area"/>
+                    </Cell>                    
+                </Row>
+                <Row ss:AutoFitHeight="0" ss:Height="20.0625">
+                    <Cell ss:Index="6" ss:StyleID="AmountLittleHeader">
+                        <Data ss:Type="String">住民票</Data>
+                        <NamedCell ss:Name="Print_Area"/>
+                    </Cell>
+                    <Cell ss:StyleID="RedRight_Currency_BorderAllContinuous">
+                        <NamedCell ss:Name="Print_Area"/>
+                    </Cell>
+                    <Cell ss:StyleID="Left_Note_BorderAllContinuous">
+                        <NamedCell ss:Name="Print_Area"/>
+                    </Cell>
+                    <Cell ss:Index="10" ss:StyleID="AmountLittleHeader">
+                        <Data ss:Type="String">住民票</Data>
+                        <NamedCell ss:Name="Print_Area"/>
+                    </Cell>
+                    <Cell ss:StyleID="RedRight_Currency_BorderAllContinuous">
+                        <NamedCell ss:Name="Print_Area"/>
+                    </Cell>
+                    <Cell ss:StyleID="Left_Note_BorderAllContinuous">
+                        <NamedCell ss:Name="Print_Area"/>
+                    </Cell>
+                    
+                    <Cell ss:Index="14" ss:StyleID="AmountLittleHeader">
+                        <Data ss:Type="String">住民票</Data>
+                        <NamedCell ss:Name="Print_Area"/>
+                    </Cell>
+                    <Cell ss:StyleID="RedRight_Currency_BorderAllContinuous">
+                        <NamedCell ss:Name="Print_Area"/>
+                    </Cell>
+                    <Cell ss:StyleID="Left_Note_BorderAllContinuous">
+                        <NamedCell ss:Name="Print_Area"/>
+                    </Cell>                    
+                </Row>
+                <Row ss:AutoFitHeight="0" ss:Height="20.0625">
+                    <Cell ss:Index="6" ss:StyleID="AmountLittleHeader">
+                        <Data ss:Type="String">住民票　小為替手数料</Data>
+                        <NamedCell ss:Name="Print_Area"/>
+                    </Cell>
+                    <Cell ss:StyleID="RedRight_Currency_BorderAllContinuous">
+                        <NamedCell ss:Name="Print_Area"/>
+                    </Cell>
+                    <Cell ss:StyleID="Left_Note_BorderAllContinuous">
+                        <NamedCell ss:Name="Print_Area"/>
+                    </Cell>
+                    <Cell ss:Index="10" ss:StyleID="AmountLittleHeader">
+                        <Data ss:Type="String">住民票　小為替手数料</Data>
+                        <NamedCell ss:Name="Print_Area"/>
+                    </Cell>
+                    <Cell ss:StyleID="RedRight_Currency_BorderAllContinuous">
+                        <NamedCell ss:Name="Print_Area"/>
+                    </Cell>
+                    <Cell ss:StyleID="Left_Note_BorderAllContinuous">
+                        <NamedCell ss:Name="Print_Area"/>
+                    </Cell>
+                    
+                    <Cell ss:Index="14" ss:StyleID="AmountLittleHeader">
+                        <Data ss:Type="String">住民票　小為替手数料</Data>
+                        <NamedCell ss:Name="Print_Area"/>
+                    </Cell>
+                    <Cell ss:StyleID="RedRight_Currency_BorderAllContinuous">
+                        <NamedCell ss:Name="Print_Area"/>
+                    </Cell>
+                    <Cell ss:StyleID="Left_Note_BorderAllContinuous">
+                        <NamedCell ss:Name="Print_Area"/>
+                    </Cell>                    
+                </Row> 
+                <Row ss:AutoFitHeight="0" ss:Height="20.0625">
+                    <Cell ss:Index="6" ss:StyleID="AmountLittleHeader">
+                        <Data ss:Type="String">戸籍</Data>
+                        <NamedCell ss:Name="Print_Area"/>
+                    </Cell>
+                    <Cell ss:StyleID="RedRight_Currency_BorderAllContinuous">
+                        <NamedCell ss:Name="Print_Area"/>
+                    </Cell>
+                    <Cell ss:StyleID="Left_Note_BorderAllContinuous">
+                        <NamedCell ss:Name="Print_Area"/>
+                    </Cell>
+                    <Cell ss:Index="10" ss:StyleID="AmountLittleHeader">
+                        <Data ss:Type="String">戸籍</Data>
+                        <NamedCell ss:Name="Print_Area"/>
+                    </Cell>
+                    <Cell ss:StyleID="RedRight_Currency_BorderAllContinuous">
+                        <NamedCell ss:Name="Print_Area"/>
+                    </Cell>
+                    <Cell ss:StyleID="Left_Note_BorderAllContinuous">
+                        <NamedCell ss:Name="Print_Area"/>
+                    </Cell>
+                    
+                    <Cell ss:Index="14" ss:StyleID="AmountLittleHeader">
+                        <Data ss:Type="String">戸籍</Data>
+                        <NamedCell ss:Name="Print_Area"/>
+                    </Cell>
+                    <Cell ss:StyleID="RedRight_Currency_BorderAllContinuous">
+                        <NamedCell ss:Name="Print_Area"/>
+                    </Cell>
+                    <Cell ss:StyleID="Left_Note_BorderAllContinuous">
+                        <NamedCell ss:Name="Print_Area"/>
+                    </Cell>                    
+                </Row>          
+                <Row ss:AutoFitHeight="0" ss:Height="20.0625">
+                    <Cell ss:Index="6" ss:StyleID="AmountLittleHeader">
+                        <Data ss:Type="String">戸籍　小為替手数料</Data>
+                        <NamedCell ss:Name="Print_Area"/>
+                    </Cell>
+                    <Cell ss:StyleID="RedRight_Currency_BorderAllContinuous">
+                        <NamedCell ss:Name="Print_Area"/>
+                    </Cell>
+                    <Cell ss:StyleID="Left_Note_BorderAllContinuous">
+                        <NamedCell ss:Name="Print_Area"/>
+                    </Cell>
+                    <Cell ss:Index="10" ss:StyleID="AmountLittleHeader">
+                        <Data ss:Type="String">戸籍　小為替手数料</Data>
+                        <NamedCell ss:Name="Print_Area"/>
+                    </Cell>
+                    <Cell ss:StyleID="RedRight_Currency_BorderAllContinuous">
+                        <NamedCell ss:Name="Print_Area"/>
+                    </Cell>
+                    <Cell ss:StyleID="Left_Note_BorderAllContinuous">
+                        <NamedCell ss:Name="Print_Area"/>
+                    </Cell>
+                    
+                    <Cell ss:Index="14" ss:StyleID="AmountLittleHeader">
+                        <Data ss:Type="String">戸籍　小為替手数料</Data>
+                        <NamedCell ss:Name="Print_Area"/>
+                    </Cell>
+                    <Cell ss:StyleID="RedRight_Currency_BorderAllContinuous">
+                        <NamedCell ss:Name="Print_Area"/>
+                    </Cell>
+                    <Cell ss:StyleID="Left_Note_BorderAllContinuous">
+                        <NamedCell ss:Name="Print_Area"/>
+                    </Cell>                    
+                </Row>  
+                <Row ss:AutoFitHeight="0" ss:Height="20.0625">
+                    <Cell ss:Index="6" ss:StyleID="AmountLittleHeader">
+                        <Data ss:Type="String">外国人登録証</Data>
+                        <NamedCell ss:Name="Print_Area"/>
+                    </Cell>
+                    <Cell ss:StyleID="RedRight_Currency_BorderAllContinuous">
+                        <NamedCell ss:Name="Print_Area"/>
+                    </Cell>
+                    <Cell ss:StyleID="Left_Note_BorderAllContinuous">
+                        <NamedCell ss:Name="Print_Area"/>
+                    </Cell>
+                    <Cell ss:Index="10" ss:StyleID="AmountLittleHeader">
+                        <Data ss:Type="String">外国人登録証</Data>
+                        <NamedCell ss:Name="Print_Area"/>
+                    </Cell>
+                    <Cell ss:StyleID="RedRight_Currency_BorderAllContinuous">
+                        <NamedCell ss:Name="Print_Area"/>
+                    </Cell>
+                    <Cell ss:StyleID="Left_Note_BorderAllContinuous">
+                        <NamedCell ss:Name="Print_Area"/>
+                    </Cell>
+                    
+                    <Cell ss:Index="14" ss:StyleID="AmountLittleHeader">
+                        <Data ss:Type="String">外国人登録証</Data>
+                        <NamedCell ss:Name="Print_Area"/>
+                    </Cell>
+                    <Cell ss:StyleID="RedRight_Currency_BorderAllContinuous">
+                        <NamedCell ss:Name="Print_Area"/>
+                    </Cell>
+                    <Cell ss:StyleID="Left_Note_BorderAllContinuous">
+                        <NamedCell ss:Name="Print_Area"/>
+                    </Cell>                    
+                </Row>
+                <Row ss:AutoFitHeight="0" ss:Height="20.0625">
+                    <Cell ss:Index="6" ss:StyleID="AmountLittleHeader">
+                        <Data ss:Type="String">外国人登録証　小為替手数料</Data>
+                        <NamedCell ss:Name="Print_Area"/>
+                    </Cell>
+                    <Cell ss:StyleID="RedRight_Currency_BorderAllContinuous">
+                        <NamedCell ss:Name="Print_Area"/>
+                    </Cell>
+                    <Cell ss:StyleID="Left_Note_BorderAllContinuous">
+                        <NamedCell ss:Name="Print_Area"/>
+                    </Cell>
+                    <Cell ss:Index="10" ss:StyleID="AmountLittleHeader">
+                        <Data ss:Type="String">外国人登録証　小為替手数料</Data>
+                        <NamedCell ss:Name="Print_Area"/>
+                    </Cell>
+                    <Cell ss:StyleID="RedRight_Currency_BorderAllContinuous">
+                        <NamedCell ss:Name="Print_Area"/>
+                    </Cell>
+                    <Cell ss:StyleID="Left_Note_BorderAllContinuous">
+                        <NamedCell ss:Name="Print_Area"/>
+                    </Cell>
+                    
+                    <Cell ss:Index="14" ss:StyleID="AmountLittleHeader">
+                        <Data ss:Type="String">外国人登録証　小為替手数料</Data>
+                        <NamedCell ss:Name="Print_Area"/>
+                    </Cell>
+                    <Cell ss:StyleID="RedRight_Currency_BorderAllContinuous">
+                        <NamedCell ss:Name="Print_Area"/>
+                    </Cell>
+                    <Cell ss:StyleID="Left_Note_BorderAllContinuous">
+                        <NamedCell ss:Name="Print_Area"/>
+                    </Cell>                    
+                </Row> 
+                <Row ss:AutoFitHeight="0" ss:Height="20.0625">
+                    <Cell ss:Index="6" ss:StyleID="AmountLittleHeader">
+                        <Data ss:Type="String">23条照会</Data>
+                        <NamedCell ss:Name="Print_Area"/>
+                    </Cell>
+                    <Cell ss:StyleID="RedRight_Currency_BorderAllContinuous">
+                        <NamedCell ss:Name="Print_Area"/>
+                    </Cell>
+                    <Cell ss:StyleID="Left_Note_BorderAllContinuous">
+                        <NamedCell ss:Name="Print_Area"/>
+                    </Cell>
+                    <Cell ss:Index="10" ss:StyleID="AmountLittleHeader">
+                        <Data ss:Type="String">23条照会</Data>
+                        <NamedCell ss:Name="Print_Area"/>
+                    </Cell>
+                    <Cell ss:StyleID="RedRight_Currency_BorderAllContinuous">
+                        <NamedCell ss:Name="Print_Area"/>
+                    </Cell>
+                    <Cell ss:StyleID="Left_Note_BorderAllContinuous">
+                        <NamedCell ss:Name="Print_Area"/>
+                    </Cell>
+                    
+                    <Cell ss:Index="14" ss:StyleID="AmountLittleHeader">
+                        <Data ss:Type="String">23条照会</Data>
+                        <NamedCell ss:Name="Print_Area"/>
+                    </Cell>
+                    <Cell ss:StyleID="RedRight_Currency_BorderAllContinuous">
+                        <NamedCell ss:Name="Print_Area"/>
+                    </Cell>
+                    <Cell ss:StyleID="Left_Note_BorderAllContinuous">
+                        <NamedCell ss:Name="Print_Area"/>
+                    </Cell>                    
+                </Row>
+                <Row ss:AutoFitHeight="0" ss:Height="20.0625">
+                    <Cell ss:Index="6" ss:StyleID="AmountLittleHeader">
+                        <Data ss:Type="String">郵送代（解除通知）</Data>
+                        <NamedCell ss:Name="Print_Area"/>
+                    </Cell>
+                    <Cell ss:StyleID="RedRight_Currency_BorderAllContinuous">
+                        <NamedCell ss:Name="Print_Area"/>
+                    </Cell>
+                    <Cell ss:StyleID="Left_Note_BorderAllContinuous">
+                        <NamedCell ss:Name="Print_Area"/>
+                    </Cell>
+                    <Cell ss:Index="10" ss:StyleID="AmountLittleHeader">
+                        <Data ss:Type="String">郵送代（解除通知）</Data>
+                        <NamedCell ss:Name="Print_Area"/>
+                    </Cell>
+                    <Cell ss:StyleID="RedRight_Currency_BorderAllContinuous">
+                        <NamedCell ss:Name="Print_Area"/>
+                    </Cell>
+                    <Cell ss:StyleID="Left_Note_BorderAllContinuous">
+                        <NamedCell ss:Name="Print_Area"/>
+                    </Cell>
+                    
+                    <Cell ss:Index="14" ss:StyleID="AmountLittleHeader">
+                        <Data ss:Type="String">郵送代（解除通知）</Data>
+                        <NamedCell ss:Name="Print_Area"/>
+                    </Cell>
+                    <Cell ss:StyleID="RedRight_Currency_BorderAllContinuous">
+                        <NamedCell ss:Name="Print_Area"/>
+                    </Cell>
+                    <Cell ss:StyleID="Left_Note_BorderAllContinuous">
+                        <NamedCell ss:Name="Print_Area"/>
+                    </Cell>                    
+                </Row>
+                <Row ss:AutoFitHeight="0" ss:Height="20.0625">
+                    <Cell ss:Index="6" ss:StyleID="AmountLittleHeader">
+                        <Data ss:Type="String">郵送代　その他</Data>
+                        <NamedCell ss:Name="Print_Area"/>
+                    </Cell>
+                    <Cell ss:StyleID="RedRight_Currency_BorderAllContinuous">
+                        <NamedCell ss:Name="Print_Area"/>
+                    </Cell>
+                    <Cell ss:StyleID="Left_Note_BorderAllContinuous">
+                        <NamedCell ss:Name="Print_Area"/>
+                    </Cell>
+                    <Cell ss:Index="10" ss:StyleID="AmountLittleHeader">
+                        <Data ss:Type="String">郵送代　その他</Data>
+                        <NamedCell ss:Name="Print_Area"/>
+                    </Cell>
+                    <Cell ss:StyleID="RedRight_Currency_BorderAllContinuous">
+                        <NamedCell ss:Name="Print_Area"/>
+                    </Cell>
+                    <Cell ss:StyleID="Left_Note_BorderAllContinuous">
+                        <NamedCell ss:Name="Print_Area"/>
+                    </Cell>
+                    
+                    <Cell ss:Index="14" ss:StyleID="AmountLittleHeader">
+                        <Data ss:Type="String">郵送代　その他</Data>
+                        <NamedCell ss:Name="Print_Area"/>
+                    </Cell>
+                    <Cell ss:StyleID="RedRight_Currency_BorderAllContinuous">
+                        <NamedCell ss:Name="Print_Area"/>
+                    </Cell>
+                    <Cell ss:StyleID="Left_Note_BorderAllContinuous">
+                        <NamedCell ss:Name="Print_Area"/>
+                    </Cell>                    
+                </Row>
+                <Row ss:AutoFitHeight="0" ss:Height="20.0625">
+                    <Cell ss:Index="6" ss:StyleID="PostalChargesSum">
+                        <Data ss:Type="String">郵送代　合計</Data>
+                        <NamedCell ss:Name="Print_Area"/>
+                    </Cell>
+                    <Cell ss:StyleID="PostalChargesSum_Num" ss:Formula="=SUM(R[-2]C:R[-1]C)">
+                        <Data ss:Type="Number"></Data>
+                        <NamedCell ss:Name="Print_Area"/>
+                    </Cell>
+                    <Cell ss:StyleID="PostalChargesSum_Note">
+                        <Data ss:Type="String"></Data>
+                        <NamedCell ss:Name="Print_Area"/>
+                    </Cell>
+                    <Cell ss:Index="10" ss:StyleID="PostalChargesSum">
+                        <Data ss:Type="String">郵送代　合計</Data>
+                        <NamedCell ss:Name="Print_Area"/>
+                    </Cell>
+                    <Cell ss:StyleID="PostalChargesSum_Num" ss:Formula="=SUM(R[-2]C:R[-1]C)">
+                        <Data ss:Type="Number"></Data>
+                        <NamedCell ss:Name="Print_Area"/>
+                    </Cell>
+                    <Cell ss:StyleID="PostalChargesSum_Note">
+                        <Data ss:Type="String"></Data>
+                        <NamedCell ss:Name="Print_Area"/>
+                    </Cell>
+                    
+                    <Cell ss:Index="14" ss:StyleID="PostalChargesSum">
+                        <Data ss:Type="String">郵送代　合計</Data>
+                        <NamedCell ss:Name="Print_Area"/>
+                    </Cell>
+                    <Cell ss:StyleID="PostalChargesSum_Num" ss:Formula="=SUM(R[-2]C:R[-1]C)">
+                        <Data ss:Type="Number"></Data>
+                        <NamedCell ss:Name="Print_Area"/>
+                    </Cell>
+                    <Cell ss:StyleID="PostalChargesSum_Note">
+                        <NamedCell ss:Name="Print_Area"/>
+                    </Cell>                    
+                </Row>
+                <Row ss:AutoFitHeight="0" ss:Height="20.0625">
+                    <Cell ss:Index="6" ss:StyleID="AmountLittleHeader">
+                        <Data ss:Type="String">交通費</Data>
+                        <NamedCell ss:Name="Print_Area"/>
+                    </Cell>
+                    <Cell ss:StyleID="RedRight_Currency_BorderAllContinuous">
+                        <NamedCell ss:Name="Print_Area"/>
+                    </Cell>
+                    <Cell ss:StyleID="Left_Note_BorderAllContinuous">
+                        <NamedCell ss:Name="Print_Area"/>
+                    </Cell>
+                    <Cell ss:Index="10" ss:StyleID="AmountLittleHeader">
+                        <Data ss:Type="String">交通費</Data>
+                        <NamedCell ss:Name="Print_Area"/>
+                    </Cell>
+                    <Cell ss:StyleID="RedRight_Currency_BorderAllContinuous">
+                        <NamedCell ss:Name="Print_Area"/>
+                    </Cell>
+                    <Cell ss:StyleID="Left_Note_BorderAllContinuous">
+                        <NamedCell ss:Name="Print_Area"/>
+                    </Cell>
+                    
+                    <Cell ss:Index="14" ss:StyleID="AmountLittleHeader">
+                        <Data ss:Type="String">交通費</Data>
+                        <NamedCell ss:Name="Print_Area"/>
+                    </Cell>
+                    <Cell ss:StyleID="RedRight_Currency_BorderAllContinuous">
+                        <NamedCell ss:Name="Print_Area"/>
+                    </Cell>
+                    <Cell ss:StyleID="Left_Note_BorderAllContinuous">
+                        <NamedCell ss:Name="Print_Area"/>
+                    </Cell>                    
+                </Row>
+                <Row ss:AutoFitHeight="0" ss:Height="20.0625">
+                    <Cell ss:Index="6" ss:StyleID="AmountLittleHeader">
+                        <Data ss:Type="String">その他</Data>
+                        <NamedCell ss:Name="Print_Area"/>
+                    </Cell>
+                    <Cell ss:StyleID="RedRight_Currency_BorderAllContinuous">
+                        <NamedCell ss:Name="Print_Area"/>
+                    </Cell>
+                    <Cell ss:StyleID="Left_Note_BorderAllContinuous">
+                        <NamedCell ss:Name="Print_Area"/>
+                    </Cell>
+                    <Cell ss:Index="10" ss:StyleID="AmountLittleHeader">
+                        <Data ss:Type="String">その他</Data>
+                        <NamedCell ss:Name="Print_Area"/>
+                    </Cell>
+                    <Cell ss:StyleID="RedRight_Currency_BorderAllContinuous">
+                        <NamedCell ss:Name="Print_Area"/>
+                    </Cell>
+                    <Cell ss:StyleID="Left_Note_BorderAllContinuous">
+                        <NamedCell ss:Name="Print_Area"/>
+                    </Cell>
+                    
+                    <Cell ss:Index="14" ss:StyleID="AmountLittleHeader">
+                        <Data ss:Type="String">その他</Data>
+                        <NamedCell ss:Name="Print_Area"/>
+                    </Cell>
+                    <Cell ss:StyleID="RedRight_Currency_BorderAllContinuous">
+                        <NamedCell ss:Name="Print_Area"/>
+                    </Cell>
+                    <Cell ss:StyleID="Left_Note_BorderAllContinuous">
+                        <NamedCell ss:Name="Print_Area"/>
+                    </Cell>                    
+                </Row>
+                 
+                <Row ss:AutoFitHeight="0" ss:Height="20.0625">
+                    <Cell ss:Index="6" ss:StyleID="Sum_InteriorColorHeader">
+                        <Data ss:Type="String">実費合計</Data>
+                        <NamedCell ss:Name="Print_Area"/>
+                    </Cell>
+                    <Cell ss:StyleID="Sum_InteriorColorCost" ss:Formula="=SUM(R[-20]C:R[-4]C)+R[-2]C+R[-1]C">
+                        <Data ss:Type="Number"></Data>
+                        <NamedCell ss:Name="Print_Area"/>
+                    </Cell>
+                    <Cell ss:StyleID="Sum_InteriorColorCost_Note">
+                        <Data ss:Type="String"></Data>
+                        <NamedCell ss:Name="Print_Area"/>
+                    </Cell>
+                    <Cell ss:Index="10" ss:StyleID="Sum_InteriorColorHeader">
+                        <Data ss:Type="String">実費合計</Data>
+                        <NamedCell ss:Name="Print_Area"/>
+                    </Cell>
+                    <Cell ss:StyleID="Sum_InteriorColorCost" ss:Formula="=SUM(R[-20]C:R[-4]C)+R[-2]C+R[-1]C">
+                        <Data ss:Type="Number"></Data>
+                        <NamedCell ss:Name="Print_Area"/>
+                    </Cell>
+                    <Cell ss:StyleID="Sum_InteriorColorCost_Note">
+                        <Data ss:Type="String"></Data>
+                        <NamedCell ss:Name="Print_Area"/>
+                    </Cell>
+                    
+                    <Cell ss:Index="14" ss:StyleID="Sum_InteriorColorHeader">
+                        <Data ss:Type="String">実費合計</Data>
+                        <NamedCell ss:Name="Print_Area"/>
+                    </Cell>
+                    <Cell ss:StyleID="Sum_InteriorColorCost" ss:Formula="=SUM(R[-20]C:R[-4]C)+R[-2]C+R[-1]C">
+                        <Data ss:Type="Number"></Data>
+                        <NamedCell ss:Name="Print_Area"/>
+                    </Cell>
+                    <Cell ss:StyleID="Sum_InteriorColorCost_Note">
+                        <Data ss:Type="String"></Data>
+                        <NamedCell ss:Name="Print_Area"/>
+                    </Cell>                    
+                </Row> 
+                <Row ss:AutoFitHeight="0" ss:Height="20.0625"/>   
+                 <Row ss:AutoFitHeight="0" ss:Height="20.0625">     
+                    <Cell ss:Index="11"  ss:StyleID="AmountHeaderActCost">
+                        <Data ss:Type="String">金額</Data>
+                        <NamedCell ss:Name="Print_Area"/>
+                    </Cell>
+                    <Cell ss:Index="12"  ss:StyleID="AmountHeaderActCost">
+                        <Data ss:Type="String">備考</Data>
+                        <NamedCell ss:Name="Print_Area"/>
+                    </Cell> 
+                    <Cell ss:Index="15"  ss:StyleID="AmountHeaderActCost">
+                        <Data ss:Type="String">金額</Data>
+                        <NamedCell ss:Name="Print_Area"/>
+                    </Cell>
+                    <Cell ss:Index="16"  ss:StyleID="AmountHeaderActCost">
+                        <Data ss:Type="String">備考</Data>
+                        <NamedCell ss:Name="Print_Area"/>
+                    </Cell>                                                          
+                </Row>
+                <Row ss:AutoFitHeight="0" ss:Height="20.0625">
+                    <Cell ss:Index="10" ss:StyleID="Sum_InteriorColorHeader">
+                        <Data ss:Type="String">裁判所執行費用</Data>
+                        <NamedCell ss:Name="Print_Area"/>
+                    </Cell>
+                    <Cell ss:StyleID="Sum_InteriorColorCost">
+                        <NamedCell ss:Name="Print_Area"/>
+                    </Cell>
+                    <Cell ss:StyleID="Sum_InteriorColorCost">
+                        <NamedCell ss:Name="Print_Area"/>
+                    </Cell>
+                    
+                    <Cell ss:Index="14" ss:StyleID="Sum_InteriorColorHeader">
+                        <Data ss:Type="String">仮処分保証金・供託金</Data>
+                        <NamedCell ss:Name="Print_Area"/>
+                    </Cell>
+                    <Cell ss:StyleID="Sum_InteriorColorCost">
+                        <NamedCell ss:Name="Print_Area"/>
+                    </Cell>
+                    <Cell ss:StyleID="Sum_InteriorColorCost">
+                        <NamedCell ss:Name="Print_Area"/>
+                    </Cell>                    
+                </Row>
+                <Row ss:AutoFitHeight="0" ss:Height="20.0625">                  
+                </Row>
+                 <Row ss:AutoFitHeight="0" ss:Height="20.0625">     
+                    <Cell ss:Index="11"  ss:StyleID="AmountHeaderActCost">
+                        <Data ss:Type="String">金額</Data>
+                        <NamedCell ss:Name="Print_Area"/>
+                    </Cell>
+                    <Cell ss:Index="12"  ss:StyleID="AmountHeaderActCost">
+                        <Data ss:Type="String">備考</Data>
+                        <NamedCell ss:Name="Print_Area"/>
+                    </Cell> 
+                    <Cell ss:Index="15"  ss:StyleID="AmountHeaderActCost">
+                        <Data ss:Type="String">金額</Data>
+                        <NamedCell ss:Name="Print_Area"/>
+                    </Cell>
+                    <Cell ss:Index="16"  ss:StyleID="AmountHeaderActCost">
+                        <Data ss:Type="String">備考</Data>
+                        <NamedCell ss:Name="Print_Area"/>
+                    </Cell>                                                          
+                </Row>
+                <Row ss:AutoFitHeight="0" ss:Height="20.0625">
+                    <Cell ss:Index="10" ss:StyleID="AmountLittleHeader">
+                        <Data ss:Type="String">（催告）鍵　解錠・交換</Data>
+                        <NamedCell ss:Name="Print_Area"/>
+                    </Cell>
+                    <Cell ss:StyleID="RedRight_Currency_BorderAllContinuous">
+                        <NamedCell ss:Name="Print_Area"/>
+                    </Cell>
+                    <Cell ss:StyleID="Left_Note_BorderAllContinuous">
+                        <NamedCell ss:Name="Print_Area"/>
+                    </Cell>
+                    
+                    <Cell ss:Index="14" ss:StyleID="Sum_InteriorColorHeader">
+                        <Data ss:Type="String">仮処分　裁判所執行費用</Data>
+                        <NamedCell ss:Name="Print_Area"/>
+                    </Cell>
+                    <Cell ss:StyleID="Sum_InteriorColorCost">
+                        <NamedCell ss:Name="Print_Area"/>
+                    </Cell>
+                    <Cell ss:StyleID="Sum_InteriorColorCost">
+                        <NamedCell ss:Name="Print_Area"/>
+                    </Cell>                    
+                </Row>
+                <Row ss:AutoFitHeight="0" ss:Height="20.0625">
+                    <Cell ss:Index="10" ss:StyleID="AmountLittleHeader">
+                        <Data ss:Type="String">（催告）処分費用</Data>
+                        <NamedCell ss:Name="Print_Area"/>
+                    </Cell>
+                    <Cell ss:StyleID="RedRight_Currency_BorderAllContinuous">
+                        <NamedCell ss:Name="Print_Area"/>
+                    </Cell>
+                    <Cell ss:StyleID="Left_Note_BorderAllContinuous">
+                        <NamedCell ss:Name="Print_Area"/>
+                    </Cell>                    
+                </Row>
+                <Row ss:AutoFitHeight="0" ss:Height="20.0625">
+                    <Cell ss:Index="10" ss:StyleID="AmountLittleHeader">
+                        <Data ss:Type="String">（催告）立会費用</Data>
+                        <NamedCell ss:Name="Print_Area"/>
+                    </Cell>
+                    <Cell ss:StyleID="RedRight_Currency_BorderAllContinuous">
+                        <NamedCell ss:Name="Print_Area"/>
+                    </Cell>
+                    <Cell ss:StyleID="Left_Note_BorderAllContinuous">
+                        <NamedCell ss:Name="Print_Area"/>
+                    </Cell>
+                    <Cell ss:Index="15"  ss:StyleID="AmountHeaderActCost">
+                        <Data ss:Type="String">金額</Data>
+                        <NamedCell ss:Name="Print_Area"/>
+                    </Cell>
+                    <Cell ss:Index="16"  ss:StyleID="AmountHeaderActCost">
+                        <Data ss:Type="String">備考</Data>
+                        <NamedCell ss:Name="Print_Area"/>
+                    </Cell>                                       
+                </Row>
+                <Row ss:AutoFitHeight="0" ss:Height="20.0625">
+                    <Cell ss:Index="10" ss:StyleID="AmountLittleHeader">
+                        <Data ss:Type="String">（催告）その他</Data>
+                        <NamedCell ss:Name="Print_Area"/>
+                    </Cell>
+                    <Cell ss:StyleID="RedRight_Currency_BorderAllContinuous">
+                        <NamedCell ss:Name="Print_Area"/>
+                    </Cell>
+                    <Cell ss:StyleID="Left_Note_BorderAllContinuous">
+                        <NamedCell ss:Name="Print_Area"/>
+                    </Cell>
+                    
+                    <Cell ss:Index="14" ss:StyleID="AmountLittleHeader">
+                        <Data ss:Type="String">（仮処分）鍵　解錠</Data>
+                        <NamedCell ss:Name="Print_Area"/>
+                    </Cell>
+                    <Cell ss:StyleID="RedRight_Currency_BorderAllContinuous">
+                        <NamedCell ss:Name="Print_Area"/>
+                    </Cell>
+                    <Cell ss:StyleID="Left_Note_BorderAllContinuous">
+                        <NamedCell ss:Name="Print_Area"/>
+                    </Cell>                    
+                </Row>
+                <Row ss:AutoFitHeight="0" ss:Height="20.0625">
+                    <Cell ss:Index="10" ss:StyleID="Sum_InteriorColorHeader">
+                        <Data ss:Type="String">催告　合計</Data>
+                        <NamedCell ss:Name="Print_Area"/>
+                    </Cell>
+                    <Cell ss:StyleID="Sum_InteriorColorCost" ss:Formula="=SUM(R[-4]C:R[-1]C)">
+                        <Data ss:Type="Number"></Data>
+                        <NamedCell ss:Name="Print_Area"/>
+                    </Cell>
+                    <Cell ss:StyleID="Sum_InteriorColorCost">
+                        <Data ss:Type="String"></Data>
+                        <NamedCell ss:Name="Print_Area"/>
+                    </Cell>
+                    
+                    <Cell ss:Index="14" ss:StyleID="AmountLittleHeader">
+                        <Data ss:Type="String">（仮処分）立会費用</Data>
+                        <NamedCell ss:Name="Print_Area"/>
+                    </Cell>
+                    <Cell ss:StyleID="RedRight_Currency_BorderAllContinuous">
+                        <NamedCell ss:Name="Print_Area"/>
+                    </Cell>
+                    <Cell ss:StyleID="Left_Note_BorderAllContinuous">
+                        <NamedCell ss:Name="Print_Area"/>
+                    </Cell>                    
+                </Row>
+                <Row ss:AutoFitHeight="0" ss:Height="20.0625">
+                    <Cell ss:Index="10" ss:StyleID="AmountLittleHeader">
+                        <Data ss:Type="String">（断行・売却等）鍵　解錠・交換</Data>
+                        <NamedCell ss:Name="Print_Area"/>
+                    </Cell>
+                    <Cell ss:StyleID="RedRight_Currency_BorderAllContinuous">
+                        <NamedCell ss:Name="Print_Area"/>
+                    </Cell>
+                    <Cell ss:StyleID="Left_Note_BorderAllContinuous">
+                        <NamedCell ss:Name="Print_Area"/>
+                    </Cell>
+                    
+                    <Cell ss:Index="14" ss:StyleID="AmountLittleHeader">
+                        <Data ss:Type="String">（仮処分）その他</Data>
+                        <NamedCell ss:Name="Print_Area"/>
+                    </Cell>
+                    <Cell ss:StyleID="RedRight_Currency_BorderAllContinuous">
+                        <NamedCell ss:Name="Print_Area"/>
+                    </Cell>
+                    <Cell ss:StyleID="Left_Note_BorderAllContinuous">
+                        <NamedCell ss:Name="Print_Area"/>
+                    </Cell>                    
+                </Row>
+                <Row ss:AutoFitHeight="0" ss:Height="20.0625">
+                    <Cell ss:Index="10" ss:StyleID="AmountLittleHeader">
+                        <Data ss:Type="String">（断行・売却等）保管・処分費用</Data>
+                        <NamedCell ss:Name="Print_Area"/>
+                    </Cell>
+                    <Cell ss:StyleID="RedRight_Currency_BorderAllContinuous">
+                        <NamedCell ss:Name="Print_Area"/>
+                    </Cell>
+                    <Cell ss:StyleID="Left_Note_BorderAllContinuous">
+                        <NamedCell ss:Name="Print_Area"/>
+                    </Cell>
+                    
+                    <Cell ss:Index="14" ss:StyleID="Sum_InteriorColorHeader">
+                        <Data ss:Type="String">仮処分　合計</Data>
+                        <NamedCell ss:Name="Print_Area"/>
+                    </Cell>
+                    <Cell ss:StyleID="Sum_InteriorColorCost" ss:Formula="=SUM(R[-3]C:R[-1]C)">
+                        <Data ss:Type="Number"></Data>
+                        <NamedCell ss:Name="Print_Area"/>
+                    </Cell>
+                    <Cell ss:StyleID="Sum_InteriorColorCost">
+                        <Data ss:Type="String"></Data>
+                        <NamedCell ss:Name="Print_Area"/>
+                    </Cell>              
+                </Row>
+                <Row ss:AutoFitHeight="0" ss:Height="20.0625">
+                    <Cell ss:Index="10" ss:StyleID="AmountLittleHeader">
+                        <Data ss:Type="String">（断行・売却等）立会費用</Data>
+                        <NamedCell ss:Name="Print_Area"/>
+                    </Cell>
+                    <Cell ss:StyleID="RedRight_Currency_BorderAllContinuous">
+                        <NamedCell ss:Name="Print_Area"/>
+                    </Cell>
+                    <Cell ss:StyleID="Left_Note_BorderAllContinuous">
+                        <NamedCell ss:Name="Print_Area"/>
+                    </Cell>          
+                </Row>
+                <Row ss:AutoFitHeight="0" ss:Height="20.0625">
+                    <Cell ss:Index="10" ss:StyleID="AmountLittleHeader">
+                        <Data ss:Type="String">（断行・売却等）その他</Data>
+                        <NamedCell ss:Name="Print_Area"/>
+                    </Cell>
+                    <Cell ss:StyleID="RedRight_Currency_BorderAllContinuous">
+                        <NamedCell ss:Name="Print_Area"/>
+                    </Cell>
+                    <Cell ss:StyleID="Left_Note_BorderAllContinuous">
+                        <NamedCell ss:Name="Print_Area"/>
+                    </Cell>          
+                </Row>
+                <Row ss:AutoFitHeight="0" ss:Height="20.0625">
+                    <Cell ss:Index="10" ss:StyleID="Sum_InteriorColorHeader">
+                        <Data ss:Type="String">断行　合計</Data>
+                        <NamedCell ss:Name="Print_Area"/>
+                    </Cell>
+                    <Cell ss:StyleID="Sum_InteriorColorCost" ss:Formula="=SUM(R[-4]C:R[-1]C)">
+                        <Data ss:Type="Number"></Data>
+                        <NamedCell ss:Name="Print_Area"/>
+                    </Cell>
+                    <Cell ss:StyleID="Sum_InteriorColorCost">
+                        <Data ss:Type="String"></Data>
+                        <NamedCell ss:Name="Print_Area"/>
+                    </Cell>                 
+                </Row>                                                                                                                                                                                                                                                                                                                                                                            
+            </Table>
+            <!--<WorksheetOptions xmlns="urn:schemas-microsoft-com:office:excel">
+                <PageSetup/>
+                <Print>
+                    <ValidPrinterInfo/>
+                    <PaperSizeIndex>9</PaperSizeIndex>
+                    <Scale>35</Scale>
+                    <HorizontalResolution>600</HorizontalResolution>
+                    <VerticalResolution>600</VerticalResolution>
+                </Print>
+                <ShowPageBreakZoom/>
+                <Zoom>70</Zoom>
+                <PageBreakZoom>100</PageBreakZoom>
+                <Selected/>
+                <ProtectObjects>False</ProtectObjects>
+                <ProtectScenarios>False</ProtectScenarios>
+            </WorksheetOptions>-->
+              <WorksheetOptions xmlns="urn:schemas-microsoft-com:office:excel">
+             <PageSetup>
+                <Layout x:Orientation="Landscape"/>
+                <Header x:Margin="0" x:Data="&R&P/&N&ページ"/>
+                <Footer x:Margin="0.51181102362204722"/>
+                <PageMargins x:Bottom="0" x:Left="0.19685039370078741" x:Right="0" x:Top="0.19685039370078741"/>
+             </PageSetup>
+             <FitToPage/>
+             <Print>
+             <ValidPrinterInfo/>
+             <PaperSizeIndex>9</PaperSizeIndex>
+             <Scale>65</Scale>
+             <HorizontalResolution>600</HorizontalResolution>
+             <VerticalResolution>600</VerticalResolution>
+            </Print>
+            <ShowPageBreakZoom/>
+            <Zoom>70</Zoom>
+            <PageBreakZoom>100</PageBreakZoom>
+            <ProtectObjects>False</ProtectObjects>
+            <ProtectScenarios>False</ProtectScenarios>
+          </WorksheetOptions>
+        </Worksheet>
+    </Workbook>
+</apex:page>

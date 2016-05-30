@@ -1,0 +1,69 @@
+<apex:page controller="EmpRegistController" tabstyle="EmpInfo__c" >
+    <apex:form >
+        <apex:pageBlock title="詳細画面 by mac" >
+        <apex:pageMessages />
+        <apex:outputLink value="/{!$Label.DailyWorkReport}">customlabellink</apex:outputLink>
+          <apex:pageBlockSection columns="2">  
+                    
+            <apex:pageBlockSection title="ID">
+                <apex:pageBlockSectionItem rendered="{!empinfo.id != null}">
+                    <apex:outputField value="{!empinfo.EmpID__c}"/>
+                </apex:pageBlockSectionItem>
+             </apex:pageBlockSection>
+                
+              <apex:pageBlockSection >
+                    <apex:pageBlockSectionItem rendered="{!empinfo.id != null}">
+                    </apex:pageBlockSectionItem>
+               </apex:pageBlockSection>     
+               
+               <apex:pageBlockSection title="姓">
+                <apex:pageBlockSectionItem >
+                    <apex:outputField value="{!empinfo.LastName__c}"/>
+                </apex:pageBlockSectionItem>
+              </apex:pageBlockSection>
+              
+              <apex:pageBlockSection title="名"> 
+                <apex:pageBlockSectionItem >
+                    <apex:outputField value="{!empinfo.FirstName__c}"/>
+                </apex:pageBlockSectionItem>
+                </apex:pageBlockSection> 
+                
+                <apex:pageBlockSection title="略称">
+                <apex:pageBlockSectionItem >
+                    <apex:outputField value="{!empinfo.Abbreviation__c}"/>
+                </apex:pageBlockSectionItem>
+                </apex:pageBlockSection>
+                
+                <apex:pageBlockSection title="役職">
+                <apex:pageBlockSectionItem >
+                    <apex:outputField value="{!empinfo.Post__c}"/>
+                </apex:pageBlockSectionItem>
+                </apex:pageBlockSection>
+                
+                <apex:pageBlockSection title="性別">
+                <apex:pageBlockSectionItem >
+                    <apex:outputField value="{!empinfo.Sex__c}"/>
+                </apex:pageBlockSectionItem>
+                </apex:pageBlockSection>
+                
+                <apex:pageBlockSection title="入社した年">
+                <apex:pageBlockSectionItem >
+                    <apex:outputField value="{!empinfo.RegistedYear__c}"/>
+                </apex:pageBlockSectionItem>
+                </apex:pageBlockSection>
+                
+                <apex:pageBlockSection title="有効フラグ">
+                <apex:pageBlockSectionItem rendered="{!empinfo.id != null}">
+                    <apex:outputField value="{!empinfo.Effective__c}"/>
+                </apex:pageBlockSectionItem>
+                </apex:pageBlockSection>
+
+            </apex:pageBlockSection>
+            <apex:pageBlockButtons location="bottom">
+                <apex:commandButton value="編集" action="{!moveEdit}"/>
+                <apex:commandButton value="戻る" action="{!back}"/>
+                <apex:commandButton value="一覧へ" action="{!ichiran}"/>
+            </apex:pageBlockButtons>
+        </apex:pageBlock>
+    </apex:form>
+</apex:page>

@@ -1,0 +1,41 @@
+<apex:component controller="DynamicObjectHandler">
+    <apex:attribute name="rec" type="sObject" required="true"
+        description="The object to be displayed." assignTo="{!obj}"/>
+
+    <apex:form >
+    <apex:pageBlock title="{!objectType}">
+        <apex:pageBlockSection title="Fields" columns="1">
+            <apex:dataTable value="{!accessibleFields}" var="f">
+                <apex:column >
+                    <apex:facet name="header">Label</apex:facet>
+                    <apex:outputText value="{!$ObjectType[objectType].fields[f].Label}"/>
+                </apex:column>
+                <apex:column >
+                    <apex:facet name="header">API Name</apex:facet>
+                    <apex:outputText value="{!$ObjectType[objectType].fields[f].Name}"/>
+                </apex:column>
+                <apex:column >
+                    <apex:facet name="header">Type</apex:facet>
+                    <apex:outputText value="{!$ObjectType[objectType].fields[f].Type}"/>
+                </apex:column>
+                <apex:column >
+                    <apex:facet name="header">Value</apex:facet>
+                    <apex:outputText value="{!obj[f]}"/>
+                </apex:column>
+            </apex:dataTable>
+        </apex:pageBlockSection>
+        
+        <apex:pageBlockSection columns="4">
+            <apex:commandButton value="View"
+                action="{!URLFOR($Action[objectType].View, obj.Id)}"/>
+            <apex:commandButton value="Edit"
+                action="{!URLFOR($Action[objectType].Edit, obj.Id)}"/>
+            <apex:commandButton value="Clone"
+                action="{!URLFOR($Action[objectType].Clone, obj.Id)}"/>
+            <apex:commandButton value="Delete"
+                action="{!URLFOR($Action[objectType].Delete, obj.Id)}"/>
+        </apex:pageBlockSection>
+    </apex:pageBlock>
+    </apex:form>
+    
+</apex:component>

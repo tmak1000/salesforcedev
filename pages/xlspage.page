@@ -1,0 +1,5 @@
+<apex:page contenttype="application/vnd.ms-excel;charset=Windows-31J#test2.xls" controller="Excel2Controller">
+  <apex:pageBlock title="取引先責任者一覧">
+        <img alt="Red square" src="https://c.ap0.content.force.com/servlet/servlet.FileDownload?file=01510000002vAfM" />
+  </apex:pageBlock>
+</apex:page>

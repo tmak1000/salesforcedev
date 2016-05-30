@@ -1,0 +1,7 @@
+<apex:page showHeader="false" sidebar="false" controller="OAuthInitiateController">
+  <apex:form >
+    <apex:pageBlock title="Salesforce TO Box OAuth">
+      <apex:commandButton action="{!initiate}" value="OAuth認証フロー開始" />  
+    </apex:pageBlock>
+  </apex:form>
+</apex:page>

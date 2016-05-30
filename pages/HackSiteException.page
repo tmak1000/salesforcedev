@@ -1,0 +1,10 @@
+<apex:page showHeader="false" sidebar="false" applyHtmlTag="false" applyBodyTag="false" standardStylesheets="false" docType="html-5.0" id="page">
+    <apex:composition template="HackSiteTemplate">
+        <apex:define name="title">
+            <apex:outputText value="{!$Label.HackSiteExceptionMessage}" />
+        </apex:define>
+        <apex:define name="content">
+            <c:HackSiteMessage message="{!$Label.HackSiteExceptionMessage}" />
+        </apex:define>
+    </apex:composition>
+</apex:page>

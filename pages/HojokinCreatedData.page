@@ -1,0 +1,42 @@
+<apex:page controller="HojokinCreateDataController">
+  <apex:form >
+      <apex:pageBlock title="LoginInfo">
+          <apex:pageBlockSection >
+                  <apex:inputField value="{!lif.LoginNumber__c}"/>
+                  <apex:inputField value="{!lif.LoginName__c}"/> 
+                  <apex:inputField value="{!lif.MailAddress__c}"/>
+                  <apex:inputField value="{!lif.LoginID__c}"/>  
+                  <apex:inputField value="{!lif.LoginPhone__c}"/> 
+                  <apex:inputField value="{!lif.Bikou__c}"/> 
+                  <apex:inputField value="{!lif.FacilityID__c}"/> 
+          </apex:pageBlockSection>         
+          <apex:pageBlockButtons location="bottom" >
+              <apex:commandButton value="データ作成" action="{!createLoginInfo}"/>
+          </apex:pageBlockButtons>
+      </apex:pageBlock>
+  </apex:form>
+  
+  <apex:form >
+      <apex:pageblock title="FacilityInfo">
+         <apex:pageBlockSection >
+            <apex:inputField value="{!fi.FacilityID__c}"/> 
+            <apex:inputField value="{!fi.EventDate__c}"/> 
+            <apex:inputField value="{!fi.FacilityName__c}"/> 
+            <apex:inputField value="{!fi.FacilityAddress__c}"/> 
+            <apex:inputField value="{!fi.EventTime__c}"/> 
+            <apex:inputField value="{!fi.URL__c}"/> 
+            <apex:inputField value="{!fi.Capacity__c}"/> 
+            </apex:pageBlockSection>
+            
+            <apex:pageBlockButtons >
+               <apex:commandButton value="data" action="{!createFacilityInfo}"/>
+            </apex:pageBlockButtons>
+      </apex:pageblock>
+  </apex:form>
+  
+/*  <apex:pageBlock >
+      <apex:pageBlockSection title="logininfos">
+          
+      </apex:pageBlockSection>
+  </apex:pageBlock> */
+</apex:page>

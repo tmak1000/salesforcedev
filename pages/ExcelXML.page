@@ -1,0 +1,54 @@
+<apex:page contenttype="application/vnd.ms-excel;charset=utf-8#test2.xlsx" controller="Excel2Controller" standardStylesheets="false" sidebar="false"
+  showHeader="false" showChat="false">
+  <Styles xmlns:ss="urn:schemas-microsoft-com:office:spreadsheet">
+ 　　<Style ss:ID="s1">
+ 　　　<Alignment/>
+ 　　　<Borders/>
+ 　　　<Font ss:Bold="1"/>
+       <Interior/>
+       <NumberFormat/>
+       <Protection/>
+    　</Style>
+ </Styles>
+    <table>
+        <tr>
+            <td>
+                <apex:image url="http://icons.iconarchive.com/icons/benjigarner/softdimension/256/Excel-icon.png"/>
+            </td>
+            <td>
+                <img src="http://images.google.com/intl/en_ALL/images/logos/images_logo_lg.gif"/>
+            </td>
+            <td>
+                <img src="https://c.ap0.content.force.com/servlet/servlet.ImageServer?id=01510000002vAfM&oid=00D10000000bnF2" width="50" height="40"/>
+            </td>
+            <td>
+                 <img src="data:image/png,%89PNG%0D%0A%1A%0A%00%00%00%0DIHDR%00%00%00%10%00%00%00%10%08%02%00%00%00%90%91h6%00%00%00%19IDAT(%91c%BCd%AB%C2%40%0A%60%22I%F5%A8%86Q%0DCJ%03%00%DE%B5%01S%07%88%8FG%00%00%00%00IEND%AEB%60%82" alt="Red square"/>
+            </td>
+        </tr>
+    </table>
+    <br/>
+    <br/>
+    <br/>
+    <br/>
+    <br/>
+    <br/>
+    <br/>
+    <br/>
+    <br/>
+    <br/>
+    <br/>
+    <br/>
+    <br/>
+    <br/>
+    <br/>
+    <br/>
+    <table style="border-width: medium; border-style: solid; border-color: #0000ff">
+        <th>HEADER!</th>
+        <tr>
+            <td>TD!</td>
+        </tr>
+    </table>
+  <div id="s1">
+    <apex:include pageName="exportAll"/>
+  </div>
+</apex:page>

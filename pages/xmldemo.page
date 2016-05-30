@@ -1,0 +1,3 @@
+<apex:page cache="false" controller="XmlWriterDemoyo" contenttype="text/xml;charset=UTF-8#test.xls" showHeader="false" >
+    <apex:outputText escape="true" value="{!xml}" />
+</apex:page>

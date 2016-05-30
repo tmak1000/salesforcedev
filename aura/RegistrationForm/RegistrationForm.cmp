@@ -1,0 +1,12 @@
+<aura:component >
+    <ui:inputText label="First Name"/>
+    <ui:inputText label="Last Name"/>
+    <ui:inputPhone label="Phone"/>
+    <ui:inputSelect label="Salutation">
+        <ui:inputSelectOption value="Dr." label="Dr."></ui:inputSelectOption>
+        <ui:inputSelectOption value="Mr." label="Mr."></ui:inputSelectOption>
+        <ui:inputSelectOption value="Mrs." label="Mr."></ui:inputSelectOption>
+        <ui:inputSelectOption value="Ms." label="Mr."></ui:inputSelectOption>
+    </ui:inputSelect>
+   <ui:button label="Submit"></ui:button>
+</aura:component>

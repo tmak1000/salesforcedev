@@ -1,0 +1,49 @@
+<apex:page controller="HojokinController"
+               cache="false"
+               showHeader="true"
+               sidebar="false"
+               title="創業者補助金"
+               standardStylesheets="true"
+               id="page">
+ <script>
+    function check() {
+        if (window.confirm('予約情報を登録します。登録後は変更することが出来ません。')) {
+            return true;
+        }
+        return false;
+    }
+</script>
+  <h1>補助金予約</h1>
+  <apex:form >
+      <apex:pageBlock >
+      　　　<apex:pageBlockSection title="採択者名">
+            <apex:outputField value="{!li.LoginName__c}"/> 
+          </apex:pageBlockSection>
+          
+          <apex:pageBlockSection title="採択者番号">
+         <apex:outputText value="{!classification}-{!wantedtime}-{!inputnumber}" />   
+         </apex:pageBlockSection>       
+       <apex:pageBlockSection title="予約日選択">
+          
+            <apex:selectRadio value="{!li.FacilityID__c}">
+                <apex:selectOptions value="{!Reserves}"/>                
+            </apex:selectRadio>
+            
+          </apex:pageBlockSection>
+          
+          <apex:pageBlockSection title="電話番号">
+              <apex:inputField value="{!li.LoginPhone__c}"/>
+          </apex:pageBlockSection>
+          
+          <apex:pageBlockSection title="備考">
+              <apex:inputField value="{!li.Bikou__c}"/>
+          </apex:pageBlockSection>
+          
+           <apex:pageBlockButtons location="bottom">
+               <apex:commandButton value="検索" action="{!resist}" onclick="if(!check()){return false}"/>
+            </apex:pageBlockButtons>
+
+      </apex:pageBlock>
+  </apex:form>
+
+</apex:page>

@@ -1,0 +1,19 @@
+<apex:page controller="HojokinController"
+               cache="false"
+               showHeader="true"
+               sidebar="false"
+               title="予約完了済"
+               standardStylesheets="true"
+               id="page">
+  <h1>創業補助金予約画面</h1>
+<apex:form >
+  <apex:pageBlock >
+      <apex:pageBlockSection title="予約は完了しております。">
+          <p color="red">該当の採択番号の申請者は予約が完了しております。<br/>ご利用ありがとうございました。</p>
+      </apex:pageBlockSection>
+          <apex:pageBlockButtons location="bottom" >
+              <apex:commandButton action="{!back}" value="戻る"/>
+          </apex:pageBlockButtons>
+      </apex:pageBlock>
+ </apex:form>
+</apex:page>

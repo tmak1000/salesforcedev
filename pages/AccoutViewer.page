@@ -1,0 +1,37 @@
+<apex:page standardController="Account" showHeader="true"
+           tabStyle="account">
+    
+    <style>
+    	.activeTab2{background-color: #236FBD;color:white;
+        	background-image:none}
+        .inactiveTab {background-color:lightgrey;color:black;
+        	background-image:none}
+    </style>
+    
+    <apex:tabPanel switchType="client" selectedTab="tabdetails"
+                   id="AccountTabPanel" tabClass="activeTab2" inactiveTabClass="inactiveTab">
+        
+	<apex:tab label="詳細" name="AccDetails" id="tabdetails">
+        <apex:detail relatedList="false" title="true"/>
+    </apex:tab>
+        
+    <apex:tab label="契約" name="Contacts" id="tabContact">
+        <apex:relatedList subject="{!account}" list="contacts"/>
+    </apex:tab>
+        
+　  <apex:tab label="商談" name="Opportunities" id="tabOpp">
+        <apex:relatedList subject="{!account}" list="opportunities"/>
+    </apex:tab>     
+
+    <apex:tab label="活動参照" name="OpenActivities" id="tabOpenAct">
+    	<apex:relatedList subject="{!account}"  list="OpenActivities"/>    
+    </apex:tab>
+        
+    <apex:tab label="メモと付随情報" name="NotesAndAttachments" id="tabNoteAtt">
+    	<apex:relatedList subject="{!account}" list="CombinedAttachments"/>    
+    </apex:tab>
+        
+    </apex:tabPanel>
+    
+    
+</apex:page>
