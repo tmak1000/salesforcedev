@@ -11,6 +11,6 @@
     console.log(myClosure());
     console.log(myClosure());
     console.log(myClosure());
-    
+    // git added
     </script>
 </apex:page>
